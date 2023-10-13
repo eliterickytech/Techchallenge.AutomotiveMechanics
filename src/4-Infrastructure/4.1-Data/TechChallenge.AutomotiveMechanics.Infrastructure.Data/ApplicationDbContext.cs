@@ -21,6 +21,7 @@ namespace TechChallenge.AutomotiveMechanics.Infrastructure.Data
         public DbSet<Model> Models { get; set; }
 
         public DbSet<Service> Services { get; set; }
+        public DbSet<User> Users { get; set; }
 
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)

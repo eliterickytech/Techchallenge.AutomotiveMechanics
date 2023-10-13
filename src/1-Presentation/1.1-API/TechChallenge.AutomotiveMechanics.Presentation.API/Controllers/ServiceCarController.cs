@@ -1,9 +1,11 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using TechChallenge.AutomotiveMechanics.Services.Business.Input;
 using TechChallenge.AutomotiveMechanics.Services.Business.Interfaces.Services;
 
 namespace TechChallenge.AutomotiveMechanics.Presentation.API.Controllers
 {
+    [Authorize]
     [ApiVersion("1.0")]
     [Route("api/v1/[controller]")]
     [ApiController]
@@ -30,6 +32,16 @@ namespace TechChallenge.AutomotiveMechanics.Presentation.API.Controllers
         //    return OKOrBadRequest(result);
         //}
 
+        /// <summary>
+        /// Adicionar novo veículo a um serviço
+        /// </summary>
+        /// <param name="input"></param>
+        /// <returns></returns>
+        /// <remarks>
+        /// Dados:
+        /// 
+        /// Id do veículo, Id do serviço
+        /// </remarks>
         [HttpPost]
         public async Task<IActionResult> Post(ServiceCarInsertInput input)
         {

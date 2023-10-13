@@ -29,6 +29,9 @@ namespace TechChallenge.AutomotiveMechanics.Services.Business.Profile
             CreateMap<ServiceInsertInput, Service>().ReverseMap();
             CreateMap<ServiceUpdateInput, Service>().ReverseMap();
 
+            CreateMap<User, UserResult>().ReverseMap();
+            CreateMap<UserRegisterInput, User>().ReverseMap();
+
         }
     }
 }

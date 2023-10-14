@@ -19,14 +19,16 @@ namespace TechChallenge.AutomotiveMechanics.Crosscutting.Ioc
                                     .AddScoped<IServiceRepository, ServiceRepository>()
                                     .AddScoped<IModelRepository, ModelRepository>()
                                     .AddScoped<IServiceCarRepository, ServiceCarRepository>()
-                                    .AddScoped<IManufacturerRepository, ManufacturerRepository>();
+                                    .AddScoped<IManufacturerRepository, ManufacturerRepository>()
+                                    .AddScoped<IUserRepository, UserRepository>();
 
             services
                                     .AddScoped<ICarService, CarService>()
                                     .AddScoped<IServiceService, ServiceService>()
                                     .AddScoped<IModelService, ModelService>()
                                     .AddScoped<IServiceCarService, ServiceCarService>()
-                                    .AddScoped<IManufacturerService, ManufacturerService>();
+                                    .AddScoped<IManufacturerService, ManufacturerService>()
+                                    .AddScoped<IUserService, UserService>();
             return services;
         }
     }

@@ -39,7 +39,7 @@ namespace TechChallenge.AutomotiveMechanics.Services.Business.Services
             return _mapper.Map<ModelResult>(result);
         }
 
-        public async Task<ModelResult> AddAsync(ModelUpdateInput input)
+        public async Task<ModelResult> AddAsync(ModelInsertInput input)
         {
             var map = _mapper.Map<Model>(input);
 

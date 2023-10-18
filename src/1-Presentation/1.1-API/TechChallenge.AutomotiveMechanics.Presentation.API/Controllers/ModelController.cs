@@ -56,7 +56,7 @@ namespace TechChallenge.AutomotiveMechanics.Presentation.API.Controllers
         /// Nome do modelo
         /// </remarks>
         [HttpPost]
-        public async Task<IActionResult> Post(ModelUpdateInput input)
+        public async Task<IActionResult> Post(ModelInsertInput input)
         {
             var result = await _modelService.AddAsync(input);
 

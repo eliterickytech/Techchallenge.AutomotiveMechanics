@@ -10,7 +10,7 @@ namespace TechChallenge.AutomotiveMechanics.Services.Business.Interfaces.Service
 {
     public interface IModelService
     {
-        Task<ModelResult> AddAsync(ModelUpdateInput input);
+        Task<ModelResult> AddAsync(ModelInsertInput input);
         Task<bool> DeleteAsync(int id);
         Task<ModelResult> FindByIdAsync(int id);
         Task<IList<ModelResult>> ListAsync();

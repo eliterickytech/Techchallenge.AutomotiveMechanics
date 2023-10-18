@@ -7,9 +7,11 @@ using System.Text;
 using System.Threading.Tasks;
 using TechChallenge.AutomotiveMechanics.Domain.Entities;
 using TechChallenge.AutomotiveMechanics.Domain.Interfaces.Repositories;
+using TechChallenge.AutomotiveMechanics.Services.Business.Contract;
 using TechChallenge.AutomotiveMechanics.Services.Business.Input;
 using TechChallenge.AutomotiveMechanics.Services.Business.Interfaces.Services;
 using TechChallenge.AutomotiveMechanics.Services.Business.Result;
+using TechChallenge.AutomotiveMechanics.Services.Business.Shared;
 
 namespace TechChallenge.AutomotiveMechanics.Services.Business.Services
 {
@@ -17,11 +19,13 @@ namespace TechChallenge.AutomotiveMechanics.Services.Business.Services
     {
         private readonly ICarRepository _carRepository;
         private readonly IMapper _mapper;
+        private readonly IBaseNotification _baseNotification;
 
-        public CarService(ICarRepository carRepository, IMapper mapper)
+        public CarService(ICarRepository carRepository, IMapper mapper, IBaseNotification baseNotification)
         {
             _carRepository = carRepository;
             _mapper = mapper;
+            _baseNotification = baseNotification;
         }
 
         public async Task<IList<CarResult>> ListAsync()
@@ -40,6 +44,14 @@ namespace TechChallenge.AutomotiveMechanics.Services.Business.Services
 
         public async Task<CarResult> AddAsync(CarInsertInput input)
         {
+            var contract = new CarContract(input);
+
+            if (!contract.IsValid)
+            {
+                _baseNotification.AddNotifications(contract.Notifications);
+                return default;
+            }
+
             var map = _mapper.Map<Car>(input);
 
             var result = new CarResult();

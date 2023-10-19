@@ -29,7 +29,12 @@ namespace TechChallenge.AutomotiveMechanics.Infrastructure.Data.Repositories
                 .ToLower()
                 .Equals(email.ToLower()));
 
-            if(VerifyPasswordHash(password, user.PasswordHash, user.PasswordSalt))
+            if (user == null)
+            {
+                return null;
+            }
+
+            if (VerifyPasswordHash(password, user.PasswordHash, user.PasswordSalt))
             {
                 return GenerateToken(user);
             }

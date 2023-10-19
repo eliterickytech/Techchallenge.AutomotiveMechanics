@@ -124,7 +124,7 @@ namespace TechChallenge.AutomotiveMechanics.WebAPI.Tests.Controllers
         }
 
         [Fact]
-        public async Task NotFound_NotFound()
+        public async Task Delete_NotFound()
         {
             _modelService.DeleteAsync(Arg.Any<int>()).ReturnsNull();
 

@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using TechChallenge.AutomotiveMechanics.Domain.Entities;
 using TechChallenge.AutomotiveMechanics.Domain.Interfaces.Repositories;
+using TechChallenge.AutomotiveMechanics.Services.Business.Contract;
 using TechChallenge.AutomotiveMechanics.Services.Business.Input;
 using TechChallenge.AutomotiveMechanics.Services.Business.Interfaces.Services;
 using TechChallenge.AutomotiveMechanics.Services.Business.Result;
@@ -11,10 +12,13 @@ namespace TechChallenge.AutomotiveMechanics.Services.Business.Services
     {
         private readonly IServiceRepository _serviceRepository;
         private IMapper _mapper;
-        public ServiceService(IMapper mapper, IServiceRepository serviceRepository)
+        private readonly IBaseNotification _baseNotification;
+        public ServiceService(IMapper mapper, IServiceRepository serviceRepository,
+            IBaseNotification baseNotification)
         {
             _mapper = mapper;
             _serviceRepository = serviceRepository;
+            _baseNotification = baseNotification;
         }
 
         public async Task<IList<ServiceResult>> ListAsync()
@@ -33,6 +37,14 @@ namespace TechChallenge.AutomotiveMechanics.Services.Business.Services
 
         public async Task<ServiceResult> AddAsync(ServiceInsertInput input)
         {
+            var contract = new ServiceContract(input);
+
+            if (!contract.IsValid)
+            {
+                _baseNotification.AddNotifications(contract.Notifications);
+                return default;
+            }
+
             var map = _mapper.Map<Service>(input);
 
             var result = new ServiceResult();

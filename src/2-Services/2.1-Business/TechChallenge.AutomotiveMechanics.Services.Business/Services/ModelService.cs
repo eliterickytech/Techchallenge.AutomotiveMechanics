@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using System.Xml.XPath;
 using TechChallenge.AutomotiveMechanics.Domain.Entities;
 using TechChallenge.AutomotiveMechanics.Domain.Interfaces.Repositories;
+using TechChallenge.AutomotiveMechanics.Services.Business.Contract;
 using TechChallenge.AutomotiveMechanics.Services.Business.Input;
 using TechChallenge.AutomotiveMechanics.Services.Business.Interfaces.Services;
 using TechChallenge.AutomotiveMechanics.Services.Business.Result;
@@ -18,11 +19,14 @@ namespace TechChallenge.AutomotiveMechanics.Services.Business.Services
     {
         private readonly IModelRepository _modelRepository;
         private readonly IMapper _mapper;
+        private readonly IBaseNotification _baseNotification;
 
-        public ModelService(IModelRepository modelRepository, IMapper mapper)
+        public ModelService(IModelRepository modelRepository, IMapper mapper,
+            IBaseNotification baseNotification)
         {
             _modelRepository = modelRepository;
             _mapper = mapper;
+            _baseNotification = baseNotification;
         }
 
         public async Task<IList<ModelResult>> ListAsync()
@@ -41,6 +45,14 @@ namespace TechChallenge.AutomotiveMechanics.Services.Business.Services
 
         public async Task<ModelResult> AddAsync(ModelInsertInput input)
         {
+            var contract = new ModelContract(input);
+
+            if (!contract.IsValid)
+            {
+                _baseNotification.AddNotifications(contract.Notifications);
+                return default;
+            }
+
             var map = _mapper.Map<Model>(input);
 
             var result = new ModelResult();

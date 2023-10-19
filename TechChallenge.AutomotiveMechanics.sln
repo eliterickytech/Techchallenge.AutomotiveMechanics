@@ -37,7 +37,9 @@ Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-co
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TechChallenge.AutomotiveMechanics.Infrastructure.Data", "src\4-Infrastructure\4.1-Data\TechChallenge.AutomotiveMechanics.Infrastructure.Data\TechChallenge.AutomotiveMechanics.Infrastructure.Data.csproj", "{B80D1429-E2E4-493A-A90E-8E6D823B7651}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TechChallenge.AutomotiveMechanics.WebAPI.Tests", "src\6-Tests\6.1-Test\TechChallenge.AutomotiveMechanics.WebAPI.Tests\TechChallenge.AutomotiveMechanics.WebAPI.Tests.csproj", "{2E2E74F8-D179-490F-98AE-2E0296E4CCDF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TechChallenge.AutomotiveMechanics.WebAPI.Tests", "src\6-Tests\6.1-Test\TechChallenge.AutomotiveMechanics.WebAPI.Tests\TechChallenge.AutomotiveMechanics.WebAPI.Tests.csproj", "{2E2E74F8-D179-490F-98AE-2E0296E4CCDF}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TechChallenge.AutomotiveMechanics.Tests.FakeData", "src\6-Tests\6.1-Test\TechChallenge.AutomotiveMechanics.Tests.FakeData\TechChallenge.AutomotiveMechanics.Tests.FakeData.csproj", "{1447746A-7623-4B39-96B9-74149B238037}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -73,6 +75,10 @@ Global
 		{2E2E74F8-D179-490F-98AE-2E0296E4CCDF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2E2E74F8-D179-490F-98AE-2E0296E4CCDF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2E2E74F8-D179-490F-98AE-2E0296E4CCDF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1447746A-7623-4B39-96B9-74149B238037}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1447746A-7623-4B39-96B9-74149B238037}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1447746A-7623-4B39-96B9-74149B238037}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1447746A-7623-4B39-96B9-74149B238037}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -94,6 +100,7 @@ Global
 		{DDDA3305-3988-4A43-9060-2938FF632377} = {780FD3C1-FAB5-4D63-B46F-AF58185FC7CC}
 		{B80D1429-E2E4-493A-A90E-8E6D823B7651} = {D61B7FFF-5F81-45BD-8149-C78DAA11660D}
 		{2E2E74F8-D179-490F-98AE-2E0296E4CCDF} = {489FD3C5-CD6E-48E2-86D4-5EDF3C6FDB13}
+		{1447746A-7623-4B39-96B9-74149B238037} = {489FD3C5-CD6E-48E2-86D4-5EDF3C6FDB13}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {DAF2A517-18E0-4ED7-9150-EF8972AF213F}

@@ -7,6 +7,7 @@ using TechChallenge.AutomotiveMechanics.Presentation.API.Controllers;
 using TechChallenge.AutomotiveMechanics.Services.Business.Input;
 using TechChallenge.AutomotiveMechanics.Services.Business.Interfaces.Services;
 using TechChallenge.AutomotiveMechanics.Services.Business.Result;
+using TechChallenge.AutomotiveMechanics.Tests.FakeData.CarData;
 
 namespace TechChallenge.AutomotiveMechanics.WebAPI.Tests.Controllers
 {
@@ -15,20 +16,25 @@ namespace TechChallenge.AutomotiveMechanics.WebAPI.Tests.Controllers
         private readonly ICarService _carService;
         private readonly CarController controller;
         private readonly CarResult carResult;
+        private readonly List<CarResult> carResultList;
+        private readonly IBaseNotification baseNotification;
 
-        public CarsControllerTest(ICarService carService, CarController controller,
-            CarResult carResult)
+        public CarsControllerTest()
         {
-            _carService = carService;
-            this.controller = controller;
-            this.carResult = carResult;
-            //this.carResult = faker;
+            _carService = Substitute.For<ICarService>();
+            baseNotification = Substitute.For<IBaseNotification>();
+            this.controller = new CarController(baseNotification, _carService);
+
+            this.carResult = new CarResultFaker().Generate();
+            this.carResultList = new CarResultFaker().Generate(10);
         }
 
         [Fact]
         public async Task Get_Ok()
         {
             var controle = new List<CarResult>();
+            carResultList.ForEach(p => controle.Add(p.TypedClone()));
+            _carService.ListAsync().Returns(carResultList);
 
             var resultado = (ObjectResult)await controller.Get();
 

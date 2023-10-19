@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace TechChallenge.AutomotiveMechanics.Services.Business.Result
 {
-    public class CarResult
+    public class CarResult : ICloneable
     {
         public int Id { get; set; }
 
@@ -17,5 +17,16 @@ namespace TechChallenge.AutomotiveMechanics.Services.Business.Result
         public DateTime CreatedDate { get; set; }   
 
         public DateTime? LastModifiedDate { get; set; }
+
+        public object Clone()
+        {
+            var car = (CarResult)MemberwiseClone();
+            return car;
+        }
+
+        public CarResult TypedClone()
+        {
+            return(CarResult)Clone();
+        }
     }
 }

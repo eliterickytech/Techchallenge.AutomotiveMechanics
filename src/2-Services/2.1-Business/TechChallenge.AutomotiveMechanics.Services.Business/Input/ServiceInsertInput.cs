@@ -11,5 +11,7 @@ namespace TechChallenge.AutomotiveMechanics.Services.Business.Input
     {
         public string Name { get; set; }
 
+        public int CarId { get; set; }
+
     }
 }

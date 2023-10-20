@@ -11,7 +11,6 @@ namespace TechChallenge.AutomotiveMechanics.Services.Business.Interfaces.Service
     public interface IServiceService
     {
         Task<ServiceResult> AddAsync(ServiceInsertInput input);
-        Task<bool> AddServiceCarAsync(ServiceCarInsertInput input);
         Task<bool> DeleteAsync(int id);
         Task<ServiceResult> FindByIdAsync(int id);
         Task<IList<ServiceResult>> ListAsync();

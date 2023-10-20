@@ -33,13 +33,17 @@ namespace TechChallenge.AutomotiveMechanics.WebAPI.Tests.Controllers
         public async Task Get_Ok()
         {
             var controle = new List<CarResult>();
+
             carResultList.ForEach(p => controle.Add(p.TypedClone()));
+
             _carService.ListAsync().Returns(carResultList);
 
             var resultado = (ObjectResult)await controller.Get();
 
             await _carService.Received().ListAsync();
+
             resultado.StatusCode.Should().Be(StatusCodes.Status200OK);
+
             resultado.Value.Should().BeEquivalentTo(controle);
         }
 

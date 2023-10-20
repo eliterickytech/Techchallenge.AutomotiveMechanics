@@ -206,59 +206,6 @@ namespace TechChallenge.AutomotiveMechanics.Infrastructure.Data.SeedData
                 }
             );
             #endregion
-
-            modelBuilder.Entity<Service>().HasData(
-                new Service
-                {
-                    Id = 1,
-                    Name = "Troca de Óleo"
-                },
-                new Service
-                {
-                    Id = 2,
-                    Name = "Troca de Pneu"
-                },
-                new Service
-                {
-                    Id = 3,
-                    Name = "Troca de Filtro"
-                },
-                new Service
-                {
-                    Id = 4,
-                    Name = "Troca de Pastilha de Freio"
-                },
-                new Service
-                {
-                    Id = 5,
-                    Name = "Troca de Correia Dentada"
-                },
-                new Service
-                {
-                    Id = 6,
-                    Name = "Troca de Amortecedor"
-                },
-                new Service
-                {
-                    Id = 7,
-                    Name = "Troca de Embreagem"
-                },
-                new Service
-                {
-                    Id = 8,
-                    Name = "Troca de Bateria"
-                },
-                new Service
-                {
-                    Id = 9,
-                    Name = "Troca de Vela"
-                },
-                new Service
-                {
-                    Id = 10,
-                    Name = "Troca de Cabo de Vela"
-                }
-            );
         }
     }
 }

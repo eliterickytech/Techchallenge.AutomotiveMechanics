@@ -22,21 +22,6 @@ namespace TechChallenge.AutomotiveMechanics.Infrastructure.Data.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
-            modelBuilder.Entity("CarService", b =>
-                {
-                    b.Property<int>("CarsId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("ServicesId")
-                        .HasColumnType("int");
-
-                    b.HasKey("CarsId", "ServicesId");
-
-                    b.HasIndex("ServicesId");
-
-                    b.ToTable("CarService");
-                });
-
             modelBuilder.Entity("TechChallenge.AutomotiveMechanics.Domain.Entities.Car", b =>
                 {
                     b.Property<int>("Id")
@@ -392,6 +377,9 @@ namespace TechChallenge.AutomotiveMechanics.Infrastructure.Data.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
+                    b.Property<int?>("CarId")
+                        .HasColumnType("int");
+
                     b.Property<DateTime>("CreatedDate")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime")
@@ -411,6 +399,8 @@ namespace TechChallenge.AutomotiveMechanics.Infrastructure.Data.Migrations
                         .HasColumnType("nvarchar(100)");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("CarId");
 
                     b.ToTable("Service", (string)null);
 
@@ -529,21 +519,6 @@ namespace TechChallenge.AutomotiveMechanics.Infrastructure.Data.Migrations
                     b.ToTable("User", (string)null);
                 });
 
-            modelBuilder.Entity("CarService", b =>
-                {
-                    b.HasOne("TechChallenge.AutomotiveMechanics.Domain.Entities.Car", null)
-                        .WithMany()
-                        .HasForeignKey("CarsId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("TechChallenge.AutomotiveMechanics.Domain.Entities.Service", null)
-                        .WithMany()
-                        .HasForeignKey("ServicesId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
             modelBuilder.Entity("TechChallenge.AutomotiveMechanics.Domain.Entities.Car", b =>
                 {
                     b.HasOne("TechChallenge.AutomotiveMechanics.Domain.Entities.Model", "Model")
@@ -566,6 +541,20 @@ namespace TechChallenge.AutomotiveMechanics.Infrastructure.Data.Migrations
                         .HasConstraintName("FK_Model_Manufacturer");
 
                     b.Navigation("Manufacturer");
+                });
+
+            modelBuilder.Entity("TechChallenge.AutomotiveMechanics.Domain.Entities.Service", b =>
+                {
+                    b.HasOne("TechChallenge.AutomotiveMechanics.Domain.Entities.Car", "Car")
+                        .WithMany("Services")
+                        .HasForeignKey("CarId");
+
+                    b.Navigation("Car");
+                });
+
+            modelBuilder.Entity("TechChallenge.AutomotiveMechanics.Domain.Entities.Car", b =>
+                {
+                    b.Navigation("Services");
                 });
 
             modelBuilder.Entity("TechChallenge.AutomotiveMechanics.Domain.Entities.Manufacturer", b =>

@@ -47,6 +47,7 @@ namespace TechChallenge.AutomotiveMechanics.Services.Business.Services
 
             var map = _mapper.Map<Service>(input);
 
+
             var result = new ServiceResult();
 
             var inserted = await _serviceRepository.AddAsync(map);
@@ -89,22 +90,6 @@ namespace TechChallenge.AutomotiveMechanics.Services.Business.Services
             founded.Enabled = false;
 
             return await _serviceRepository.UpdateAsync(founded) > 0;
-        }
-
-        public async Task<bool> AddServiceCarAsync(ServiceCarInsertInput input)
-        {
-
-            var founded = await _serviceRepository.FindByIdAsync(input.ServiceId);
-
-            founded.Cars.Add(new Car
-            {
-                Id = input.CarId
-            });
-
-            var result = await _serviceRepository.AddServiceCarAsync(founded);
-
-
-            return result != null;
         }
     }
 }

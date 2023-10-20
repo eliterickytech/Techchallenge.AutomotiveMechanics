@@ -6,21 +6,22 @@ using System.Threading.Tasks;
 using TechChallenge.AutomotiveMechanics.Services.Business.Input;
 using TechChallenge.AutomotiveMechanics.Services.Business.Shared;
 
-namespace TechChallenge.AutomotiveMechanics.Services.Business.Contract
+namespace TechChallenge.AutomotiveMechanics.Services.Business.Contract.Service
 {
-    public class ManufacturerContract : BaseContract<ManufacturerInsertInput>
+    public class AddServiceContract : BaseContract<ServiceInsertInput>
     {
-        public ManufacturerContract(ManufacturerInsertInput input)
+        public AddServiceContract(ServiceInsertInput input)
         {
             Validate(input);
         }
-        protected override void Validate(ManufacturerInsertInput input)
+
+        protected override void Validate(ServiceInsertInput input)
         {
             AddNotifications(new Flunt.Br.Contract()
                 .Requires()
-                .IsNotNull(input, "Manufacturer", "Parameters is null")
+                .IsNotNull(input, "Service", "Parameters is null")
                 .IsNotNullOrWhiteSpace(input.Name, "Name", "The Name field cannot be empty")
-                .IsGreaterThan(input.Name, 2, "Name", "The Name field must be greater than 2"));
+                .IsGreaterThan(input.Name, 4, "Name", "The service name field must be greater than 4"));
         }
     }
 }

@@ -8,7 +8,8 @@ using System.Threading.Tasks;
 using System.Xml.XPath;
 using TechChallenge.AutomotiveMechanics.Domain.Entities;
 using TechChallenge.AutomotiveMechanics.Domain.Interfaces.Repositories;
-using TechChallenge.AutomotiveMechanics.Services.Business.Contract;
+using TechChallenge.AutomotiveMechanics.Services.Business.Contract.Car;
+using TechChallenge.AutomotiveMechanics.Services.Business.Contract.Model;
 using TechChallenge.AutomotiveMechanics.Services.Business.Input;
 using TechChallenge.AutomotiveMechanics.Services.Business.Interfaces.Services;
 using TechChallenge.AutomotiveMechanics.Services.Business.Result;
@@ -45,7 +46,7 @@ namespace TechChallenge.AutomotiveMechanics.Services.Business.Services
 
         public async Task<ModelResult> AddAsync(ModelInsertInput input)
         {
-            var contract = new ModelContract(input);
+            var contract = new AddModelContract(input);
 
             if (!contract.IsValid)
             {
@@ -69,6 +70,14 @@ namespace TechChallenge.AutomotiveMechanics.Services.Business.Services
 
         public async Task<ModelResult> UpdateAsync(ModelUpdateInput input)
         {
+            var contract = new UpdateModelContract(input);
+
+            if (!contract.IsValid)
+            {
+                _baseNotification.AddNotifications(contract.Notifications);
+                return default;
+            }
+
             var map = _mapper.Map<Model>(input);
 
             var founded = await _modelRepository.GetByIdAsync(map.Id);
@@ -91,6 +100,15 @@ namespace TechChallenge.AutomotiveMechanics.Services.Business.Services
 
         public async Task<bool> DeleteAsync(int id)
         {
+            var input = new DeleteInput { Id = id };
+            var contract = new DeleteModelContract(input);
+
+            if (!contract.IsValid)
+            {
+                _baseNotification.AddNotifications(contract.Notifications);
+                return default;
+            }
+
             var founded = await _modelRepository.GetByIdAsync(id);
 
             founded.LastModifiedDate = DateTime.Now;

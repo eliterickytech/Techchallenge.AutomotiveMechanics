@@ -1,7 +1,8 @@
 ﻿using AutoMapper;
 using TechChallenge.AutomotiveMechanics.Domain.Entities;
 using TechChallenge.AutomotiveMechanics.Domain.Interfaces.Repositories;
-using TechChallenge.AutomotiveMechanics.Services.Business.Contract;
+using TechChallenge.AutomotiveMechanics.Services.Business.Contract.Car;
+using TechChallenge.AutomotiveMechanics.Services.Business.Contract.Manufacturer;
 using TechChallenge.AutomotiveMechanics.Services.Business.Input;
 using TechChallenge.AutomotiveMechanics.Services.Business.Interfaces.Services;
 using TechChallenge.AutomotiveMechanics.Services.Business.Result;
@@ -39,7 +40,7 @@ namespace TechChallenge.AutomotiveMechanics.Services.Business.Services
 
         public async Task<ManufacturerResult> AddAsync(ManufacturerInsertInput input)
         {
-            var contract = new ManufacturerContract(input);
+            var contract = new AddManufacturerContract(input);
 
             if(!contract.IsValid)
             {
@@ -63,6 +64,14 @@ namespace TechChallenge.AutomotiveMechanics.Services.Business.Services
 
         public async Task<ManufacturerResult> UpdateAsync(ManufacturerUpdateInput input)
         {
+            var contract = new UpdateManufacturerContract(input);
+
+            if (!contract.IsValid)
+            {
+                _baseNotification.AddNotifications(contract.Notifications);
+                return default;
+            }
+
             var map = _mapper.Map<Model>(input);
 
             var founded = await _manufacturerRepository.GetByIdAsync(map.Id);
@@ -85,6 +94,15 @@ namespace TechChallenge.AutomotiveMechanics.Services.Business.Services
 
         public async Task<bool> DeleteAsync(int id)
         {
+            var input = new DeleteInput { Id = id };
+            var contract = new DeleteManufacturerContract(input);
+
+            if (!contract.IsValid)
+            {
+                _baseNotification.AddNotifications(contract.Notifications);
+                return default;
+            }
+
             var founded = await _manufacturerRepository.GetByIdAsync(id);
 
             founded.LastModifiedDate = DateTime.Now;

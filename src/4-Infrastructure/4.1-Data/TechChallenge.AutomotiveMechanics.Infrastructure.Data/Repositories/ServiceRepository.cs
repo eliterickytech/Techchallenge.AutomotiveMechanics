@@ -18,7 +18,8 @@ namespace TechChallenge.AutomotiveMechanics.Infrastructure.Data.Repositories
         }
         public async Task<IList<Service>> ListAsync()
         {
-            Avar result = await _context.Services
+            var result = await _context.Services
+                .Include(x => x.Car)
                 .ToListAsync();
 
             return result;
@@ -27,6 +28,7 @@ namespace TechChallenge.AutomotiveMechanics.Infrastructure.Data.Repositories
         public async Task<Service> FindByIdAsync(int id)
         {
             var result = await _context.Services
+                .Include(x => x.Car)
                 .Where(x => x.Id == id)
                 .Where(x => x.Enabled == true)
                 .FirstOrDefaultAsync();

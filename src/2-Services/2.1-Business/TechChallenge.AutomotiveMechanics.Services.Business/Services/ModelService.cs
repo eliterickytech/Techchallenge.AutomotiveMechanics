@@ -19,13 +19,15 @@ namespace TechChallenge.AutomotiveMechanics.Services.Business.Services
     public class ModelService : IModelService
     {
         private readonly IModelRepository _modelRepository;
+        private readonly IManufacturerRepository _manufacturerRepository;
         private readonly IMapper _mapper;
         private readonly IBaseNotification _baseNotification;
 
-        public ModelService(IModelRepository modelRepository, IMapper mapper,
+        public ModelService(IModelRepository modelRepository, IManufacturerRepository manufacturerRepository, IMapper mapper,
             IBaseNotification baseNotification)
         {
             _modelRepository = modelRepository;
+            _manufacturerRepository = manufacturerRepository;
             _mapper = mapper;
             _baseNotification = baseNotification;
         }
@@ -52,6 +54,13 @@ namespace TechChallenge.AutomotiveMechanics.Services.Business.Services
             {
                 _baseNotification.AddNotifications(contract.Notifications);
                 return default;
+            }
+
+            /* Se informar um id que não existe, tá dando um 500, tratar isso com uma mensagem */
+            var manufacturerId = _manufacturerRepository.FindByIdAsync(input.ManufacturerId);
+            if (manufacturerId  == null)
+            {
+                return null;
             }
 
             var map = _mapper.Map<Model>(input);

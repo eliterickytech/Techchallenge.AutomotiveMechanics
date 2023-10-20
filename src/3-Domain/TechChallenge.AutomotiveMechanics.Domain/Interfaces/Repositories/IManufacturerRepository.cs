@@ -10,5 +10,6 @@ namespace TechChallenge.AutomotiveMechanics.Domain.Interfaces.Repositories
     public interface IManufacturerRepository : IBaseRepository<Manufacturer>
     {
         Task<IList<Manufacturer>> ListAsync();
+        Task<Manufacturer> FindByIdAsync(int id);
     }
 }

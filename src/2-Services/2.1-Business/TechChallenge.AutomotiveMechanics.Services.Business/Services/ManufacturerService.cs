@@ -33,7 +33,7 @@ namespace TechChallenge.AutomotiveMechanics.Services.Business.Services
 
         public async Task<ManufacturerResult> FindByIdAsync(int id)
         {
-            var result = await _manufacturerRepository.GetByIdAsync(id);
+            var result = await _manufacturerRepository.FindByIdAsync(id);
 
             return _mapper.Map<ManufacturerResult>(result);
         }
@@ -72,7 +72,7 @@ namespace TechChallenge.AutomotiveMechanics.Services.Business.Services
                 return default;
             }
 
-            var map = _mapper.Map<Model>(input);
+            var map = _mapper.Map<Manufacturer>(input);
 
             var founded = await _manufacturerRepository.GetByIdAsync(map.Id);
 

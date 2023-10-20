@@ -80,6 +80,7 @@ namespace TechChallenge.AutomotiveMechanics.Services.Business.Services
 
             var founded = await _carRepository.GetByIdAsync(map.Id);
 
+            founded.YearManufactured = input.YearManufactured;
             founded.LastModifiedDate = DateTime.Now;
             founded.Enabled = true;
 

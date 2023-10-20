@@ -32,7 +32,7 @@ namespace TechChallenge.AutomotiveMechanics.Services.Business.Services
             var result = new UserResult();
             if (token == null)
             {
-                result.Message = "Usuário ou senha invalídos.";
+                result.Message = "Usuário ou senha inválidos.";
                 return result;
             }
             result.Token = token;

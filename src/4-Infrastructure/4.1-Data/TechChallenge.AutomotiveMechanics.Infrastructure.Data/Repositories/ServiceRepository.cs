@@ -18,9 +18,7 @@ namespace TechChallenge.AutomotiveMechanics.Infrastructure.Data.Repositories
         }
         public async Task<IList<Service>> ListAsync()
         {
-            var result = await _context.Services
-                .Where(x => x.Enabled == true)
-
+            Avar result = await _context.Services
                 .ToListAsync();
 
             return result;
@@ -42,14 +40,6 @@ namespace TechChallenge.AutomotiveMechanics.Infrastructure.Data.Repositories
             {
                 try
                 {
-                    var cars = service.Cars;
-
-                    var foundedCar = await _context.Car.FindAsync(cars.FirstOrDefault().Id);
-
-                    service.Cars = new List<Car>();
-
-                    service.Cars.Add(foundedCar);
-
                     _context.Services.Add(service);
 
                     await _context.SaveChangesAsync();

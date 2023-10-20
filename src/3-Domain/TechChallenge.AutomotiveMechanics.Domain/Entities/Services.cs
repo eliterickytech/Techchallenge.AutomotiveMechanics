@@ -8,12 +8,10 @@ namespace TechChallenge.AutomotiveMechanics.Domain.Entities
 {
     public class Service : Entity
     {
-        public Service()
-        {
-            Cars = new HashSet<Car>();
-        }
         public string Name { get; set; }
 
-        public ICollection<Car> Cars { get; set; }
+        public int CarId { get; set; }
+
+        public Car Car { get; set; }
     }
 }

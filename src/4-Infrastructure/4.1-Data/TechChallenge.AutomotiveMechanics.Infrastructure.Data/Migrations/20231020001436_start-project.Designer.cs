@@ -12,8 +12,8 @@ using TechChallenge.AutomotiveMechanics.Infrastructure.Data;
 namespace TechChallenge.AutomotiveMechanics.Infrastructure.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20231009051827_Add-Project")]
-    partial class AddProject
+    [Migration("20231020001436_start-project")]
+    partial class startproject
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -24,21 +24,6 @@ namespace TechChallenge.AutomotiveMechanics.Infrastructure.Data.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
-
-            modelBuilder.Entity("CarService", b =>
-                {
-                    b.Property<int>("CarsId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("ServicesId")
-                        .HasColumnType("int");
-
-                    b.HasKey("CarsId", "ServicesId");
-
-                    b.HasIndex("ServicesId");
-
-                    b.ToTable("CarService");
-                });
 
             modelBuilder.Entity("TechChallenge.AutomotiveMechanics.Domain.Entities.Car", b =>
                 {
@@ -395,6 +380,9 @@ namespace TechChallenge.AutomotiveMechanics.Infrastructure.Data.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
+                    b.Property<int?>("CarId")
+                        .HasColumnType("int");
+
                     b.Property<DateTime>("CreatedDate")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime")
@@ -414,6 +402,8 @@ namespace TechChallenge.AutomotiveMechanics.Infrastructure.Data.Migrations
                         .HasColumnType("nvarchar(100)");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("CarId");
 
                     b.ToTable("Service", (string)null);
 
@@ -490,19 +480,46 @@ namespace TechChallenge.AutomotiveMechanics.Infrastructure.Data.Migrations
                         });
                 });
 
-            modelBuilder.Entity("CarService", b =>
+            modelBuilder.Entity("TechChallenge.AutomotiveMechanics.Domain.Entities.User", b =>
                 {
-                    b.HasOne("TechChallenge.AutomotiveMechanics.Domain.Entities.Car", null)
-                        .WithMany()
-                        .HasForeignKey("CarsId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
 
-                    b.HasOne("TechChallenge.AutomotiveMechanics.Domain.Entities.Service", null)
-                        .WithMany()
-                        .HasForeignKey("ServicesId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<DateTime>("CreatedDate")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("datetime")
+                        .HasDefaultValueSql("(getdate())");
+
+                    b.Property<string>("Email")
+                        .IsRequired()
+                        .HasMaxLength(80)
+                        .HasColumnType("nvarchar(80)");
+
+                    b.Property<bool>("Enabled")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bit")
+                        .HasDefaultValueSql("(1)");
+
+                    b.Property<DateTime?>("LastModifiedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(60)
+                        .HasColumnType("nvarchar(60)");
+
+                    b.Property<byte[]>("PasswordHash")
+                        .HasColumnType("varbinary(max)");
+
+                    b.Property<byte[]>("PasswordSalt")
+                        .HasColumnType("varbinary(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("User", (string)null);
                 });
 
             modelBuilder.Entity("TechChallenge.AutomotiveMechanics.Domain.Entities.Car", b =>
@@ -527,6 +544,20 @@ namespace TechChallenge.AutomotiveMechanics.Infrastructure.Data.Migrations
                         .HasConstraintName("FK_Model_Manufacturer");
 
                     b.Navigation("Manufacturer");
+                });
+
+            modelBuilder.Entity("TechChallenge.AutomotiveMechanics.Domain.Entities.Service", b =>
+                {
+                    b.HasOne("TechChallenge.AutomotiveMechanics.Domain.Entities.Car", "Car")
+                        .WithMany("Services")
+                        .HasForeignKey("CarId");
+
+                    b.Navigation("Car");
+                });
+
+            modelBuilder.Entity("TechChallenge.AutomotiveMechanics.Domain.Entities.Car", b =>
+                {
+                    b.Navigation("Services");
                 });
 
             modelBuilder.Entity("TechChallenge.AutomotiveMechanics.Domain.Entities.Manufacturer", b =>

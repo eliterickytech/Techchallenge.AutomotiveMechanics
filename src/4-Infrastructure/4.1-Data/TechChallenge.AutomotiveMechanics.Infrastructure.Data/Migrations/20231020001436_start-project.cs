@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace TechChallenge.AutomotiveMechanics.Infrastructure.Data.Migrations
 {
     /// <inheritdoc />
-    public partial class AddProject : Migration
+    public partial class startproject : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -30,19 +30,22 @@ namespace TechChallenge.AutomotiveMechanics.Infrastructure.Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Service",
+                name: "User",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
+                    Name = table.Column<string>(type: "nvarchar(60)", maxLength: 60, nullable: false),
+                    Email = table.Column<string>(type: "nvarchar(80)", maxLength: 80, nullable: false),
+                    PasswordHash = table.Column<byte[]>(type: "varbinary(max)", nullable: true),
+                    PasswordSalt = table.Column<byte[]>(type: "varbinary(max)", nullable: true),
                     CreatedDate = table.Column<DateTime>(type: "datetime", nullable: false, defaultValueSql: "(getdate())"),
                     Enabled = table.Column<bool>(type: "bit", nullable: false, defaultValueSql: "(1)"),
                     LastModifiedDate = table.Column<DateTime>(type: "datetime2", nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Service", x => x.Id);
+                    table.PrimaryKey("PK_User", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -93,27 +96,25 @@ namespace TechChallenge.AutomotiveMechanics.Infrastructure.Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "CarService",
+                name: "Service",
                 columns: table => new
                 {
-                    CarsId = table.Column<int>(type: "int", nullable: false),
-                    ServicesId = table.Column<int>(type: "int", nullable: false)
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Name = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
+                    CarId = table.Column<int>(type: "int", nullable: true),
+                    CreatedDate = table.Column<DateTime>(type: "datetime", nullable: false, defaultValueSql: "(getdate())"),
+                    Enabled = table.Column<bool>(type: "bit", nullable: false, defaultValueSql: "(1)"),
+                    LastModifiedDate = table.Column<DateTime>(type: "datetime2", nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_CarService", x => new { x.CarsId, x.ServicesId });
+                    table.PrimaryKey("PK_Service", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_CarService_Car_CarsId",
-                        column: x => x.CarsId,
+                        name: "FK_Service_Car_CarId",
+                        column: x => x.CarId,
                         principalTable: "Car",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_CarService_Service_ServicesId",
-                        column: x => x.ServicesId,
-                        principalTable: "Service",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "Id");
                 });
 
             migrationBuilder.InsertData(
@@ -128,19 +129,19 @@ namespace TechChallenge.AutomotiveMechanics.Infrastructure.Data.Migrations
 
             migrationBuilder.InsertData(
                 table: "Service",
-                columns: new[] { "Id", "LastModifiedDate", "Name" },
+                columns: new[] { "Id", "CarId", "LastModifiedDate", "Name" },
                 values: new object[,]
                 {
-                    { 1, null, "Troca de Óleo" },
-                    { 2, null, "Troca de Pneu" },
-                    { 3, null, "Troca de Filtro" },
-                    { 4, null, "Troca de Pastilha de Freio" },
-                    { 5, null, "Troca de Correia Dentada" },
-                    { 6, null, "Troca de Amortecedor" },
-                    { 7, null, "Troca de Embreagem" },
-                    { 8, null, "Troca de Bateria" },
-                    { 9, null, "Troca de Vela" },
-                    { 10, null, "Troca de Cabo de Vela" }
+                    { 1, null, null, "Troca de Óleo" },
+                    { 2, null, null, "Troca de Pneu" },
+                    { 3, null, null, "Troca de Filtro" },
+                    { 4, null, null, "Troca de Pastilha de Freio" },
+                    { 5, null, null, "Troca de Correia Dentada" },
+                    { 6, null, null, "Troca de Amortecedor" },
+                    { 7, null, null, "Troca de Embreagem" },
+                    { 8, null, null, "Troca de Bateria" },
+                    { 9, null, null, "Troca de Vela" },
+                    { 10, null, null, "Troca de Cabo de Vela" }
                 });
 
             migrationBuilder.InsertData(
@@ -183,27 +184,27 @@ namespace TechChallenge.AutomotiveMechanics.Infrastructure.Data.Migrations
                 column: "ModelId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_CarService_ServicesId",
-                table: "CarService",
-                column: "ServicesId");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_Model_ManufacturerId",
                 table: "Model",
                 column: "ManufacturerId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Service_CarId",
+                table: "Service",
+                column: "CarId");
         }
 
         /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "CarService");
+                name: "Service");
+
+            migrationBuilder.DropTable(
+                name: "User");
 
             migrationBuilder.DropTable(
                 name: "Car");
-
-            migrationBuilder.DropTable(
-                name: "Service");
 
             migrationBuilder.DropTable(
                 name: "Model");

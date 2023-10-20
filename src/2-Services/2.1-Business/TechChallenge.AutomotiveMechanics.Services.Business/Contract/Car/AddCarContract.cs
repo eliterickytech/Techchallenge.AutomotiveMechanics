@@ -6,11 +6,11 @@ using System.Threading.Tasks;
 using TechChallenge.AutomotiveMechanics.Services.Business.Input;
 using TechChallenge.AutomotiveMechanics.Services.Business.Shared;
 
-namespace TechChallenge.AutomotiveMechanics.Services.Business.Contract
+namespace TechChallenge.AutomotiveMechanics.Services.Business.Contract.Car
 {
-    public class CarContract : BaseContract<CarInsertInput>
+    public class AddCarContract : BaseContract<CarInsertInput>
     {
-        public CarContract(CarInsertInput input)
+        public AddCarContract(CarInsertInput input)
         {
             Validate(input);
         }

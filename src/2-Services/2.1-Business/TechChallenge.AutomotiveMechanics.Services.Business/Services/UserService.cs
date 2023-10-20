@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using TechChallenge.AutomotiveMechanics.Domain.Entities;
-using TechChallenge.AutomotiveMechanics.Services.Business.Contract;
+using TechChallenge.AutomotiveMechanics.Services.Business.Contract.User;
 using TechChallenge.AutomotiveMechanics.Services.Business.Input;
 using TechChallenge.AutomotiveMechanics.Services.Business.Interfaces.Services;
 using TechChallenge.AutomotiveMechanics.Services.Business.Result;
@@ -44,7 +44,7 @@ namespace TechChallenge.AutomotiveMechanics.Services.Business.Services
 
         public async Task<UserResult> Register(UserRegisterInput input)
         {
-            var contract = new UserContract(input);
+            var contract = new AddUserContract(input);
 
             if (!contract.IsValid)
             {

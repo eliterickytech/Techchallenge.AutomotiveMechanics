@@ -6,7 +6,7 @@ using TechChallenge.AutomotiveMechanics.Crosscutting.Ioc;
 var builder = WebApplication.CreateBuilder(args);
 
 builder
-    .Services.AddControllers()
+    .Services.AddControllers() 
     .AddNewtonsoftJson()
     .AddJsonOptions(x => x.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles)
     .AddNewtonsoftJson(options =>
@@ -32,7 +32,7 @@ app.UseSwaggerUI();
 
 app.UseReDoc(c =>
 {
-    c.DocumentTitle = "TechChallenge - Automotive Mechanics - Plataforma de Gest„o para Mec‚nica 100% Digital";
+    c.DocumentTitle = "TechChallenge - Automotive Mechanics - Plataforma de Gest√£o para Mec√¢nica 100% Digital";
     c.SpecUrl = "/swagger/v1/swagger.json";
 });
 

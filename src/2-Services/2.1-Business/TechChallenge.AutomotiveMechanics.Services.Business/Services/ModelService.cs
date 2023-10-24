@@ -56,12 +56,13 @@ namespace TechChallenge.AutomotiveMechanics.Services.Business.Services
                 return default;
             }
 
-            var manufacturer = await _manufacturerRepository.FindByIdAsync(input.ManufacturerId);
+            var manufacturer = await _manufacturerRepository.GetByIdAsync(input.ManufacturerId);
+
             var contractManufacturer = new FindManufacturerModelContract(manufacturer);
 
             if (!contractManufacturer.IsValid)
             {
-                _baseNotification.AddNotifications(contract.Notifications);
+                _baseNotification.AddNotifications(contractManufacturer.Notifications);
                 return default;
             }
 

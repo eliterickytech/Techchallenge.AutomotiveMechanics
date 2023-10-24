@@ -24,11 +24,15 @@ Gerenciar uma oficina mecânica é uma tarefa desafiadora que requer organizaç�
 
 ## Instalação
 Você pode executar o projeto **AutomotiveMechanics** em qualquer sistema operacional. Certifique-se de ter instalado o docker e o Visual Studio em seu ambiente. 
+
 (Obter instalação do Docker) --> https://www.docker.com/products/docker-desktop/
+
 Clone o repositório **AutomotiveMechanics** --> git clone https://github.com/eliterickytech/Techchallenge.AutomotiveMechanics.git
+
 Na solução TechChallenge.AutomotiveMechanics selecione Clean Solution --> Build Solution --> Restore NuGetPackages
 
 Vá para o Package Manager Console na solução Presentation.API.
+
 Execute os seguintes comandos
 
     docker-compose up -d

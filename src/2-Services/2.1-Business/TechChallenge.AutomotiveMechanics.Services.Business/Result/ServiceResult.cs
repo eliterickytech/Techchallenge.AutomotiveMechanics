@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using TechChallenge.AutomotiveMechanics.Domain.Entities;
 
 namespace TechChallenge.AutomotiveMechanics.Services.Business.Result
 {
@@ -18,6 +19,8 @@ namespace TechChallenge.AutomotiveMechanics.Services.Business.Result
         public DateTime? LastModifiedDate { get; set; }
 
         //public ICollection<CarResult> Cars { get; set; } = new HashSet<CarResult>();
-        public CarResult Cars { get; set; } = new CarResult();
+
+        public CarResult Car { get; set; }
+
     }
 }

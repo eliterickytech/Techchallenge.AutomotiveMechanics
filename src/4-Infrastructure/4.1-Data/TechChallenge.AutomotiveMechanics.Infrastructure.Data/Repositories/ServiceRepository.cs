@@ -19,7 +19,7 @@ namespace TechChallenge.AutomotiveMechanics.Infrastructure.Data.Repositories
         public async Task<IList<Service>> ListAsync()
         {
             var result = await _context.Services
-                .Include(x => x.Car)
+                .AsNoTracking() .Include(x => x.Car)
                 .ToListAsync();
 
             return result;

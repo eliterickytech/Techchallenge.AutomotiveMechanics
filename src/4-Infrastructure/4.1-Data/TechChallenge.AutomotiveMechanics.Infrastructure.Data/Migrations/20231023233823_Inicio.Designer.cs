@@ -12,8 +12,8 @@ using TechChallenge.AutomotiveMechanics.Infrastructure.Data;
 namespace TechChallenge.AutomotiveMechanics.Infrastructure.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20231020001436_start-project")]
-    partial class startproject
+    [Migration("20231023233823_Inicio")]
+    partial class Inicio
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -380,7 +380,7 @@ namespace TechChallenge.AutomotiveMechanics.Infrastructure.Data.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<int?>("CarId")
+                    b.Property<int>("CarId")
                         .HasColumnType("int");
 
                     b.Property<DateTime>("CreatedDate")
@@ -406,78 +406,6 @@ namespace TechChallenge.AutomotiveMechanics.Infrastructure.Data.Migrations
                     b.HasIndex("CarId");
 
                     b.ToTable("Service", (string)null);
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Enabled = false,
-                            Name = "Troca de Óleo"
-                        },
-                        new
-                        {
-                            Id = 2,
-                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Enabled = false,
-                            Name = "Troca de Pneu"
-                        },
-                        new
-                        {
-                            Id = 3,
-                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Enabled = false,
-                            Name = "Troca de Filtro"
-                        },
-                        new
-                        {
-                            Id = 4,
-                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Enabled = false,
-                            Name = "Troca de Pastilha de Freio"
-                        },
-                        new
-                        {
-                            Id = 5,
-                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Enabled = false,
-                            Name = "Troca de Correia Dentada"
-                        },
-                        new
-                        {
-                            Id = 6,
-                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Enabled = false,
-                            Name = "Troca de Amortecedor"
-                        },
-                        new
-                        {
-                            Id = 7,
-                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Enabled = false,
-                            Name = "Troca de Embreagem"
-                        },
-                        new
-                        {
-                            Id = 8,
-                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Enabled = false,
-                            Name = "Troca de Bateria"
-                        },
-                        new
-                        {
-                            Id = 9,
-                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Enabled = false,
-                            Name = "Troca de Vela"
-                        },
-                        new
-                        {
-                            Id = 10,
-                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Enabled = false,
-                            Name = "Troca de Cabo de Vela"
-                        });
                 });
 
             modelBuilder.Entity("TechChallenge.AutomotiveMechanics.Domain.Entities.User", b =>
@@ -550,7 +478,9 @@ namespace TechChallenge.AutomotiveMechanics.Infrastructure.Data.Migrations
                 {
                     b.HasOne("TechChallenge.AutomotiveMechanics.Domain.Entities.Car", "Car")
                         .WithMany("Services")
-                        .HasForeignKey("CarId");
+                        .HasForeignKey("CarId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("Car");
                 });

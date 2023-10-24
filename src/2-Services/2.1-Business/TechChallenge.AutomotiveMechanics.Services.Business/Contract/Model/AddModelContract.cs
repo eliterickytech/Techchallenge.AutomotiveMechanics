@@ -22,6 +22,7 @@ namespace TechChallenge.AutomotiveMechanics.Services.Business.Contract.Model
                 .IsNotNullOrWhiteSpace(input.Name, "Name", "The Name field cannot be empty")
                 .IsGreaterThan(input.Name, 3, "Name", "The Name field must be greater than 3")
                 .IsGreaterThan(input.ManufacturerId, 0, "Manufacturer", "The manufacturer field must be greater than 0"));
+
         }
     }
 }

@@ -33,7 +33,6 @@ namespace TechChallenge.AutomotiveMechanics.Services.Business.Services
         {
             var result = await _serviceRepository.FindByIdAsync(id);
 
-            /* No retorno, retorna o CarId mas também era pra retornar os dados desse carro e está vindo vazio o []*/
             return _mapper.Map<ServiceResult>(result);
         }
 

@@ -56,11 +56,13 @@ namespace TechChallenge.AutomotiveMechanics.Services.Business.Services
                 return default;
             }
 
-            /* Se informar um id que não existe, tá dando um 500, tratar isso com uma mensagem */
-            var manufacturerId = _manufacturerRepository.FindByIdAsync(input.ManufacturerId);
-            if (manufacturerId  == null)
+            var manufacturer = await _manufacturerRepository.FindByIdAsync(input.ManufacturerId);
+            var contractManufacturer = new FindManufacturerModelContract(manufacturer);
+
+            if (!contractManufacturer.IsValid)
             {
-                return null;
+                _baseNotification.AddNotifications(contract.Notifications);
+                return default;
             }
 
             var map = _mapper.Map<Model>(input);

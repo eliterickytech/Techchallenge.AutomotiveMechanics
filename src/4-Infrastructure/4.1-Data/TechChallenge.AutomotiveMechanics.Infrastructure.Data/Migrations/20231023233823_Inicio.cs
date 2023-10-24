@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace TechChallenge.AutomotiveMechanics.Infrastructure.Data.Migrations
 {
     /// <inheritdoc />
-    public partial class startproject : Migration
+    public partial class Inicio : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -102,7 +102,7 @@ namespace TechChallenge.AutomotiveMechanics.Infrastructure.Data.Migrations
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Name = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
-                    CarId = table.Column<int>(type: "int", nullable: true),
+                    CarId = table.Column<int>(type: "int", nullable: false),
                     CreatedDate = table.Column<DateTime>(type: "datetime", nullable: false, defaultValueSql: "(getdate())"),
                     Enabled = table.Column<bool>(type: "bit", nullable: false, defaultValueSql: "(1)"),
                     LastModifiedDate = table.Column<DateTime>(type: "datetime2", nullable: true)
@@ -114,7 +114,8 @@ namespace TechChallenge.AutomotiveMechanics.Infrastructure.Data.Migrations
                         name: "FK_Service_Car_CarId",
                         column: x => x.CarId,
                         principalTable: "Car",
-                        principalColumn: "Id");
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.InsertData(
@@ -125,23 +126,6 @@ namespace TechChallenge.AutomotiveMechanics.Infrastructure.Data.Migrations
                     { 1, null, "BMW" },
                     { 2, null, "VW" },
                     { 3, null, "Hyundai" }
-                });
-
-            migrationBuilder.InsertData(
-                table: "Service",
-                columns: new[] { "Id", "CarId", "LastModifiedDate", "Name" },
-                values: new object[,]
-                {
-                    { 1, null, null, "Troca de Óleo" },
-                    { 2, null, null, "Troca de Pneu" },
-                    { 3, null, null, "Troca de Filtro" },
-                    { 4, null, null, "Troca de Pastilha de Freio" },
-                    { 5, null, null, "Troca de Correia Dentada" },
-                    { 6, null, null, "Troca de Amortecedor" },
-                    { 7, null, null, "Troca de Embreagem" },
-                    { 8, null, null, "Troca de Bateria" },
-                    { 9, null, null, "Troca de Vela" },
-                    { 10, null, null, "Troca de Cabo de Vela" }
                 });
 
             migrationBuilder.InsertData(

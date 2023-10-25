@@ -6,7 +6,7 @@ using TechChallenge.AutomotiveMechanics.Services.Business.Interfaces.Services;
 
 namespace TechChallenge.AutomotiveMechanics.Presentation.API.Controllers
 {
-    //[Authorize]
+    [Authorize]
     [ApiVersion("1.0")]
     [Route("api/v1/[controller]")]
     [ApiController]

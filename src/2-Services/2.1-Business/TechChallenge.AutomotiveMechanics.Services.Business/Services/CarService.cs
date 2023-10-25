@@ -18,14 +18,17 @@ namespace TechChallenge.AutomotiveMechanics.Services.Business.Services
     public class CarService : ICarService
     {
         private readonly ICarRepository _carRepository;
+        private readonly IModelRepository _modelRepository;
         private readonly IMapper _mapper;
         private readonly IBaseNotification _baseNotification;
 
-        public CarService(ICarRepository carRepository, IMapper mapper, IBaseNotification baseNotification)
+        public CarService(ICarRepository carRepository, IMapper mapper,
+            IBaseNotification baseNotification, IModelRepository modelRepository)
         {
             _carRepository = carRepository;
             _mapper = mapper;
             _baseNotification = baseNotification;
+            _modelRepository = modelRepository;
         }
 
         public async Task<IList<CarResult>> ListAsync()
@@ -49,6 +52,16 @@ namespace TechChallenge.AutomotiveMechanics.Services.Business.Services
             if (!contract.IsValid)
             {
                 _baseNotification.AddNotifications(contract.Notifications);
+                return default;
+            }
+
+            var model = await _modelRepository.FindByIdAsync(input.ModelId);
+
+            var contractModel = new FindCarModelContract(model);
+
+            if (!contractModel.IsValid)
+            {
+                _baseNotification.AddNotifications(contractModel.Notifications);
                 return default;
             }
 
@@ -76,9 +89,27 @@ namespace TechChallenge.AutomotiveMechanics.Services.Business.Services
                 return default;
             }
 
+            var model = await _modelRepository.FindByIdAsync(input.ModelId);
+
+            var contractModel = new FindCarModelContract(model);
+
+            if (!contractModel.IsValid)
+            {
+                _baseNotification.AddNotifications(contractModel.Notifications);
+                return default;
+            }
+
             var map = _mapper.Map<Car>(input);
 
             var founded = await _carRepository.GetByIdAsync(map.Id);
+
+            var contractCar = new FindCarContract(founded);
+
+            if (!contractCar.IsValid)
+            {
+                _baseNotification.AddNotifications(contractCar.Notifications);
+                return default;
+            }
 
             founded.YearManufactured = input.YearManufactured;
             founded.LastModifiedDate = DateTime.Now;
@@ -108,6 +139,14 @@ namespace TechChallenge.AutomotiveMechanics.Services.Business.Services
             }
 
             var founded = await _carRepository.GetByIdAsync(id);
+
+            var contractCar = new FindCarContract(founded);
+
+            if (!contractCar.IsValid)
+            {
+                _baseNotification.AddNotifications(contractCar.Notifications);
+                return default;
+            }
 
             founded.LastModifiedDate = DateTime.Now;
             founded.Enabled = false;

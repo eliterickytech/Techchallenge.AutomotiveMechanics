@@ -76,6 +76,14 @@ namespace TechChallenge.AutomotiveMechanics.Services.Business.Services
 
             var founded = await _manufacturerRepository.GetByIdAsync(map.Id);
 
+            var contractManufacturer = new FindManufacturerContract(founded);
+
+            if (!contractManufacturer.IsValid)
+            {
+                _baseNotification.AddNotifications(contractManufacturer.Notifications);
+                return default;
+            }
+
             founded.LastModifiedDate = DateTime.Now;
             founded.Name = map.Name;
             founded.Enabled = true;
@@ -104,6 +112,14 @@ namespace TechChallenge.AutomotiveMechanics.Services.Business.Services
             }
 
             var founded = await _manufacturerRepository.GetByIdAsync(id);
+
+            var contractManufacturer = new FindManufacturerContract(founded);
+
+            if (!contractManufacturer.IsValid)
+            {
+                _baseNotification.AddNotifications(contractManufacturer.Notifications);
+                return default;
+            }
 
             founded.LastModifiedDate = DateTime.Now;
             founded.Enabled = false;

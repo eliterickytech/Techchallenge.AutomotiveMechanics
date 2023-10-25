@@ -20,6 +20,7 @@ namespace TechChallenge.AutomotiveMechanics.Infrastructure.Data.Repositories
         {
             var result = await _context.Services
                 .AsNoTracking() .Include(x => x.Car)
+                .Where(x => x.Enabled == true)
                 .ToListAsync();
 
             return result;

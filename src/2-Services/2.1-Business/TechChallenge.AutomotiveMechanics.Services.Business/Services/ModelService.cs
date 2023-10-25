@@ -23,7 +23,8 @@ namespace TechChallenge.AutomotiveMechanics.Services.Business.Services
         private readonly IMapper _mapper;
         private readonly IBaseNotification _baseNotification;
 
-        public ModelService(IModelRepository modelRepository, IManufacturerRepository manufacturerRepository, IMapper mapper,
+        public ModelService(IModelRepository modelRepository, IManufacturerRepository manufacturerRepository,
+            IMapper mapper,
             IBaseNotification baseNotification)
         {
             _modelRepository = modelRepository;
@@ -90,9 +91,27 @@ namespace TechChallenge.AutomotiveMechanics.Services.Business.Services
                 return default;
             }
 
+            var manufacturer = await _manufacturerRepository.GetByIdAsync(input.ManufacturerId);
+
+            var contractManufacturer = new FindManufacturerModelContract(manufacturer);
+
+            if (!contractManufacturer.IsValid)
+            {
+                _baseNotification.AddNotifications(contractManufacturer.Notifications);
+                return default;
+            }
+
             var map = _mapper.Map<Model>(input);
 
             var founded = await _modelRepository.GetByIdAsync(map.Id);
+
+            var contractModel = new FindModelContract(founded);
+
+            if (!contractModel.IsValid)
+            {
+                _baseNotification.AddNotifications(contractModel.Notifications);
+                return default;
+            }
 
             founded.LastModifiedDate = DateTime.Now;
             founded.Name = map.Name;
@@ -122,6 +141,14 @@ namespace TechChallenge.AutomotiveMechanics.Services.Business.Services
             }
 
             var founded = await _modelRepository.GetByIdAsync(id);
+
+            var contractModel = new FindModelContract(founded);
+
+            if (!contractModel.IsValid)
+            {
+                _baseNotification.AddNotifications(contractModel.Notifications);
+                return default;
+            }
 
             founded.LastModifiedDate = DateTime.Now;
             founded.Enabled = false;

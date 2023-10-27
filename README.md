@@ -20,7 +20,8 @@ Gerenciar uma oficina mecânica é uma tarefa desafiadora que requer organizaç�
  - Hosting
 	 - Docker Compose
 
-	
+
+Acesso a Documentação/Levantamento de requisitos em-> https://1drv.ms/p/s!AsMmi27yHbR4h9QpVBUetNwSHhjm4w?e=ob7epU	
 
 ## Instalação
 Você pode executar o projeto **AutomotiveMechanics** em qualquer sistema operacional. Certifique-se de ter instalado o docker e o Visual Studio em seu ambiente. 

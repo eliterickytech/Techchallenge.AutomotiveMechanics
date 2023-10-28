@@ -11,6 +11,7 @@ Gerenciar uma oficina mecânica é uma tarefa desafiadora que requer organizaç�
 	 - ASP.NET WebApi
 	 - ASP.NET Identity Core
 	 - Entity Framework 7
+     	 - JWT with rotactive public / private key 	
 	 
  - Component/Service
 	 - Swagger UI
@@ -38,3 +39,7 @@ Execute os seguintes comandos
     docker-compose up -d
     update-database
 
+# Links de documentação da API
+(dominio do projeto)/api-docs
+
+(dominio do projeto)/swagger

@@ -21,6 +21,13 @@ Gerenciar uma oficina mecânica é uma tarefa desafiadora que requer organizaç�
  - Hosting
 	 - Docker Compose
 
+# Participantes do projeto
+	- João Paulo Marques 	  RM 351763
+	- Isabella Kratchei       RM 351575
+	- Isaias Silva            RM 352364
+	- Ricardo Perdigão        RM 351514
+	- Michel Balarin Claro    RM 351165
+ 
 # Documentação
 
 Acesso a documentação de requisitos online
@@ -46,11 +53,18 @@ https://localhost:7116/swagger/index.html
 ## Instalação
 Você pode executar o projeto **AutomotiveMechanics** em qualquer sistema operacional. Certifique-se de ter instalado o docker e o Visual Studio em seu ambiente. 
 
-(Obter instalação do Docker) --> https://www.docker.com/products/docker-desktop/
+(Obter instalação do Docker)
 
-Clone o repositório **AutomotiveMechanics** --> git clone https://github.com/eliterickytech/Techchallenge.AutomotiveMechanics.git
+https://www.docker.com/products/docker-desktop/
 
-Na solução TechChallenge.AutomotiveMechanics selecione Clean Solution --> Build Solution --> Restore NuGetPackages
+Clone o repositório **AutomotiveMechanics**
+
+	git clone https://github.com/eliterickytech/Techchallenge.AutomotiveMechanics.git
+
+Na solução TechChallenge.AutomotiveMechanics selecione:
+- Clean Solution
+- Build Solution
+- Restore NuGetPackages
 
 Vá para o Package Manager Console na solução Presentation.API.
 

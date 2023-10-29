@@ -35,6 +35,11 @@ Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-co
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TechChallenge.AutomotiveMechanics.Infrastructure.Data", "src\4-Infrastructure\4.1-Data\TechChallenge.AutomotiveMechanics.Infrastructure.Data\TechChallenge.AutomotiveMechanics.Infrastructure.Data.csproj", "{B80D1429-E2E4-493A-A90E-8E6D823B7651}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "doc", "doc", "{5DE0C73D-AEC9-41E4-87BB-C3C6F659A63C}"
+	ProjectSection(SolutionItems) = preProject
+		..\..\..\Users\ricky\OneDrive\Área de Trabalho\AutomotiveMechanics-RQN.pdf = ..\..\..\Users\ricky\OneDrive\Área de Trabalho\AutomotiveMechanics-RQN.pdf
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU

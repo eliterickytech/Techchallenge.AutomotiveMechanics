@@ -21,8 +21,27 @@ Gerenciar uma oficina mecânica é uma tarefa desafiadora que requer organizaç�
  - Hosting
 	 - Docker Compose
 
+# Documentação
 
-Acesso a Documentação/Levantamento de requisitos em-> https://1drv.ms/p/s!AsMmi27yHbR4h9QpVBUetNwSHhjm4w?e=ob7epU	
+Acesso a documentação de requisitos online
+	
+ 	https://1drv.ms/p/s!AsMmi27yHbR4h9QpVBUetNwSHhjm4w?e=ob7epU	
+  
+Acesso a documentação de requisitos offline
+
+	documentation/AutomotiveMechanics.pdf
+
+ ## Documentação da Api online
+ 
+https://automotivemechanics.azurewebsites.net/api-docs
+
+https://automotivemechanics.azurewebsites.net/swagger
+
+## Documentação da Api offline
+
+https://localhost:7116/api-docs
+
+https://localhost:7116/swagger/index.html
 
 ## Instalação
 Você pode executar o projeto **AutomotiveMechanics** em qualquer sistema operacional. Certifique-se de ter instalado o docker e o Visual Studio em seu ambiente. 
@@ -38,9 +57,8 @@ Vá para o Package Manager Console na solução Presentation.API.
 Execute os seguintes comandos
 
     docker-compose up -d
-    update-database
 
-# Links de documentação da API
-(dominio do projeto)/api-docs
-
-(dominio do projeto)/swagger
+Criar tabelas e dados iniciais
+     
+     update-database
+    

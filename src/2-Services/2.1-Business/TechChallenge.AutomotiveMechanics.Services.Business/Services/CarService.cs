@@ -40,7 +40,7 @@ namespace TechChallenge.AutomotiveMechanics.Services.Business.Services
 
         public async Task<CarResult> FindByIdAsync(int id)
         {
-            var result = await _carRepository.GetByIdAsync(id);
+            var result = await _carRepository.FindByIdAsync(id);
 
             return _mapper.Map<CarResult>(result);
         }

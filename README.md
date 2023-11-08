@@ -11,7 +11,7 @@ Gerenciar uma oficina mecânica é uma tarefa desafiadora que requer organizaç�
 	 - ASP.NET WebApi
 	 - ASP.NET Identity Core
 	 - Entity Framework 7
-	 - JWT Beare Authentication      
+	 - JWT Bearer Authentication      
 	 
  - Component/Service
 	 - Swagger UI

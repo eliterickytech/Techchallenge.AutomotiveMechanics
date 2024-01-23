@@ -68,6 +68,8 @@ namespace TechChallenge.AutomotiveMechanics.Crosscutting.Ioc
 
             AutoMapperConfig.ConfigureMappings(services);
 
+            services.AddHttpClient();
+
             var key = Encoding.ASCII.GetBytes(config.GetValue<string>("SecretJWT"));
 
             services

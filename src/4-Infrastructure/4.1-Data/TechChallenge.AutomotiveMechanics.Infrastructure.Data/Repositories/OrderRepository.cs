@@ -13,5 +13,11 @@ namespace TechChallenge.AutomotiveMechanics.Infrastructure.Data.Repositories
         public OrderRepository(ApplicationDbContext context) : base(context)
         {
         }
+
+        public async Task SaveOrderAsync(Order order)
+        {
+            _context.Orders.Add(order);
+            await _context.SaveChangesAsync();
+        }
     }
 }

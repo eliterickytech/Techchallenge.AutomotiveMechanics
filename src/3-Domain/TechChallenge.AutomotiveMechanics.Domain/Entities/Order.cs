@@ -11,5 +11,12 @@ namespace TechChallenge.AutomotiveMechanics.Domain.Entities
         public string VehicleName { get; set; }
         public decimal ServicePrice { get; set; }
         public string Email { get; set; }
+
+        public Order(string vehicleName, decimal servicePrice, string email)
+        {
+            VehicleName = vehicleName;
+            ServicePrice = servicePrice;
+            Email = email;
+        }
     }
 }

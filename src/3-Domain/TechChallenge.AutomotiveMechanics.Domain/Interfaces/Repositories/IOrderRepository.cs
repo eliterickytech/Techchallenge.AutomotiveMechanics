@@ -9,5 +9,6 @@ namespace TechChallenge.AutomotiveMechanics.Domain.Interfaces.Repositories
 {
     public interface IOrderRepository : IBaseRepository<Order>
     {
+        Task SaveOrderAsync(Order order);
     }
 }

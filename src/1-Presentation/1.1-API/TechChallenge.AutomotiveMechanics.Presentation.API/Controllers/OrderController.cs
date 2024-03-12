@@ -1,13 +1,15 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
+using RabbitMQ.Client;
 using System.Text;
-using TechChallenge.AutomotiveMechanics.Services.Business.Input;
+using System.Text.Json;
 using TechChallenge.AutomotiveMechanics.Services.Business.Interfaces.Services;
+using TechChallenge.AutomotiveMechanics.Domain.Entities;
 
 namespace TechChallenge.AutomotiveMechanics.Presentation.API.Controllers
 {
-    [Authorize]
+    //[Authorize]
     [ApiVersion("1.0")]
     [ApiController]
     [Route("api/v1/[controller]")]
@@ -21,29 +23,39 @@ namespace TechChallenge.AutomotiveMechanics.Presentation.API.Controllers
             _httpClientFactory = httpClientFactory;
         }
 
-        /// <summary>
-        /// Simula aprovação de pedido
-        /// </summary>
-        /// <param name="order"></param>
-        /// <returns></returns>
-        /// <remarks>
-        /// Dados:
-        /// 
-        /// Id do serviço, nome do veículo, valor do serviço, email e status do pagamento.
-        /// </remarks>
+        
         [HttpPost]
-        public async Task<IActionResult> PlaceOrder(OrderInsertInput order)
+        public IActionResult Post()
         {
-            var azFunctionUrl = "https://az-orderapproval.azurewebsites.net/api/HttpStart_OrderApproval?";
-
-            using(var httpClient = _httpClientFactory.CreateClient())
+            var factory = new ConnectionFactory()
             {
-                var content = new StringContent(JsonConvert.SerializeObject(order), Encoding.UTF8, "application/json");
+                HostName = "localhost",
+                UserName = "guest",
+                Password = "guest"
+            };
+            using var connection = factory.CreateConnection();
+            using (var channel = connection.CreateModel())
+            {
+                channel.QueueDeclare(
+                    queue: "fila",
+                    durable: false,
+                    exclusive: false,
+                    autoDelete: false,
+                    arguments: null);
 
-                var response = await httpClient.PostAsync(azFunctionUrl, content);
+                var message = System.Text.Json.JsonSerializer.Serialize(
+                    new Order("Porsche 911", 2500, "cliente@email.com"));
 
-                return CreatedOrBadRequest(response);
+
+                var body = Encoding.UTF8.GetBytes(message);
+                channel.BasicPublish(
+                    exchange: "",
+                    routingKey: "fila",
+                    basicProperties: null,
+                    body: body);
             }
+
+            return Ok();
         }
     }
 }

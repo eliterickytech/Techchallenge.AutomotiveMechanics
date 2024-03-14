@@ -1,3 +1,4 @@
+using MassTransit;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
 using System.Text.Json.Serialization;
@@ -20,6 +21,17 @@ builder.Services.AddSwaggerGen();
 
 builder.Services.AddApplicationConfiguration(builder.Configuration);
 builder.Services.AddInfrastructureConfiguration(builder.Configuration);
+
+builder.Services.AddMassTransit(bus =>
+{
+    bus.UsingRabbitMq((ctx, busConfigurator) =>
+    {
+        var connectionString = builder.Configuration.GetConnectionString("RabbitMq") ?? "amqp://user:password@localhost:5672";
+        busConfigurator.Host(connectionString);
+    });
+});
+
+builder.Services.AddMassTransitHostedService();
 
 var app = builder.Build();
 

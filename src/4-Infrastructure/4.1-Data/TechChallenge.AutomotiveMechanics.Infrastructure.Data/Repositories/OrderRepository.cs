@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -12,6 +13,14 @@ namespace TechChallenge.AutomotiveMechanics.Infrastructure.Data.Repositories
     {
         public OrderRepository(ApplicationDbContext context) : base(context)
         {
+        }
+
+        public async Task<IList<Order>> ListAsync()
+        {
+            var result = await _context.Orders
+                .ToListAsync();
+
+            return result;
         }
 
         public async Task SaveOrderAsync(Order order)

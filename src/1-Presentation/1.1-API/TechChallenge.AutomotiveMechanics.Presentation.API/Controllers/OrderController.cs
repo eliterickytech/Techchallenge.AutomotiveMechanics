@@ -8,6 +8,7 @@ using TechChallenge.AutomotiveMechanics.Services.Business.Interfaces.Services;
 using TechChallenge.AutomotiveMechanics.Domain.Entities;
 using MassTransit;
 using TechChallenge.AutomotiveMechanics.Services.Business.Input;
+using TechChallenge.AutomotiveMechanics.Services.Business.Services;
 
 namespace TechChallenge.AutomotiveMechanics.Presentation.API.Controllers
 {
@@ -22,6 +23,13 @@ namespace TechChallenge.AutomotiveMechanics.Presentation.API.Controllers
             : base(baseNotification)
         {
             _orderService = orderService;
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> Get()
+        {
+            var result = await _orderService.ListAsync();
+            return OKOrBadRequest(result);
         }
 
         [HttpPost]

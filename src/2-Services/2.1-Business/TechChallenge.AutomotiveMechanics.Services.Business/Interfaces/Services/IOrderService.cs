@@ -12,6 +12,7 @@ namespace TechChallenge.AutomotiveMechanics.Services.Business.Interfaces.Service
     public interface IOrderService
     {
         Task<OrderResult> AddAsync(Order input);
+        Task<IList<OrderResult>> ListAsync();
         Task NotifyOrderAsync(OrderInsertInput input);
     }
 }

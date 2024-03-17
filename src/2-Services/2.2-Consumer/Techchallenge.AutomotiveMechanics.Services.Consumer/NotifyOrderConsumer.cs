@@ -9,12 +9,14 @@ namespace Techchallenge.AutomotiveMechanics.Services.Consumer
     public class NotifyOrderConsumer : IConsumer<OrderEvents>
     {
         private readonly IOrderService _orderService;
+        private readonly IEmailService _emailService;
         private readonly IMapper _mapper;
 
-        public NotifyOrderConsumer(IOrderService orderService, IMapper mapper)
+        public NotifyOrderConsumer(IOrderService orderService, IMapper mapper, IEmailService emailService)
         {
             _orderService = orderService;
             _mapper = mapper;
+            _emailService = emailService;
         }
 
         public async Task Consume(ConsumeContext<OrderEvents> context)
@@ -24,6 +26,9 @@ namespace Techchallenge.AutomotiveMechanics.Services.Consumer
             var map = _mapper.Map<Order>(message);
 
             await _orderService.AddAsync(map);
+
+            _emailService.SendEmail(new TechChallenge.AutomotiveMechanics.Services.Business.Input.EmailTemplate() 
+            { Subject = "New Order", Body = "A new order has been sent", SendTo = message.Email});
         }
     }
 }

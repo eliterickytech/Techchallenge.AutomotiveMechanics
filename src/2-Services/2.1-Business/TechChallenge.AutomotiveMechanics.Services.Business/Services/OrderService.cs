@@ -47,5 +47,12 @@ namespace TechChallenge.AutomotiveMechanics.Services.Business.Services
 
             return result;
         }
+
+        public async Task<IList<OrderResult>> ListAsync()
+        {
+            var result = await _orderRepository.ListAsync();
+
+            return _mapper.Map<IList<OrderResult>>(result);
+        }
     }
 }

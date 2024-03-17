@@ -13,23 +13,23 @@ namespace TechChallenge.AutomotiveMechanics.Crosscutting.Ioc
         public static IServiceCollection AddApplicationConfiguration(this IServiceCollection services, IConfiguration config)
         {
             services
-                                    .AddScoped<IBaseNotification, BaseNotification>()
+                .AddScoped<IBaseNotification, BaseNotification>()
 
-                                    .AddScoped<ICarRepository, CarRepository>()
-                                    .AddScoped<IServiceRepository, ServiceRepository>()
-                                    .AddScoped<IModelRepository, ModelRepository>()
-                                    .AddScoped<IManufacturerRepository, ManufacturerRepository>()
-                                    .AddScoped<IUserRepository, UserRepository>()
-                                    .AddScoped<IOrderRepository, OrderRepository>();
+                .AddScoped<ICarRepository, CarRepository>()
+                .AddScoped<IServiceRepository, ServiceRepository>()
+                .AddScoped<IModelRepository, ModelRepository>()
+                .AddScoped<IManufacturerRepository, ManufacturerRepository>()
+                .AddScoped<IUserRepository, UserRepository>()
+                .AddScoped<IOrderRepository, OrderRepository>();
 
             services
-                                    .AddScoped<ICarService, CarService>()
-                                    .AddScoped<IServiceService, ServiceService>()
-                                    .AddScoped<IModelService, ModelService>()
-                                    .AddScoped<IManufacturerService, ManufacturerService>()
-                                    .AddScoped<IUserService, UserService>()
-                                    .AddScoped<IOrderService, OrderService>()
-                                    .AddScoped<IEmailService, EmailService>();
+                .AddScoped<ICarService, CarService>()
+                .AddScoped<IServiceService, ServiceService>()
+                .AddScoped<IModelService, ModelService>()
+                .AddScoped<IManufacturerService, ManufacturerService>()
+                .AddScoped<IUserService, UserService>()
+                .AddScoped<IOrderService, OrderService>()
+                .AddScoped<IEmailService, EmailService>();
             return services;
         }
     }

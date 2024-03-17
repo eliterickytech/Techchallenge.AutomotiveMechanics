@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Techchallenge.AutomotiveMechanics.Crosscutting.Shared.Events;
+using TechChallenge.AutomotiveMechanics.Crosscutting.Shared.Events;
 using TechChallenge.AutomotiveMechanics.Domain.Entities;
 using TechChallenge.AutomotiveMechanics.Services.Business.Input;
 using TechChallenge.AutomotiveMechanics.Services.Business.Result;

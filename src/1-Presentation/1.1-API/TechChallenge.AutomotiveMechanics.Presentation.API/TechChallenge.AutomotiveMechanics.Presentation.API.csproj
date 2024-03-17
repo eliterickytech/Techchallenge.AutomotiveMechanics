@@ -27,7 +27,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\..\2-Services\2.1-Business\TechChallenge.AutomotiveMechanics.Services.Business\TechChallenge.AutomotiveMechanics.Services.Business.csproj" />
-    <ProjectReference Include="..\..\..\2-Services\2.2-Consumer\Techchallenge.AutomotiveMechanics.Services.Consumer\Techchallenge.AutomotiveMechanics.Services.Consumer.csproj" />
     <ProjectReference Include="..\..\..\5-Crosscutting\5.1-IOC\TechChallenge.AutomotiveMechanics.Crosscutting.Ioc\TechChallenge.AutomotiveMechanics.Crosscutting.Ioc.csproj" />
   </ItemGroup>
 

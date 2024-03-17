@@ -42,11 +42,11 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "documentation", "documentat
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "5.2-Shared", "5.2-Shared", "{042EB6E7-C0F8-4541-8AED-CAC3A1B669D5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Techchallenge.AutomotiveMechanics.Crosscutting.Shared", "src\5-Crosscutting\5.2-Shared\Techchallenge.AutomotiveMechanics.Crosscutting.Shared\Techchallenge.AutomotiveMechanics.Crosscutting.Shared.csproj", "{3EF99208-9B85-4F57-ADD1-ED167B0DA2F1}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TechChallenge.AutomotiveMechanics.Crosscutting.Shared", "src\5-Crosscutting\5.2-Shared\Techchallenge.AutomotiveMechanics.Crosscutting.Shared\TechChallenge.AutomotiveMechanics.Crosscutting.Shared.csproj", "{3EF99208-9B85-4F57-ADD1-ED167B0DA2F1}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "2.2-Consumer", "2.2-Consumer", "{4AD0AD13-F50C-48C5-83AC-7E7A9BB921CA}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "1.2-Worker", "1.2-Worker", "{16FAA828-8002-40DC-9A6B-DD78BF2B3487}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Techchallenge.AutomotiveMechanics.Services.Consumer", "src\2-Services\2.2-Consumer\Techchallenge.AutomotiveMechanics.Services.Consumer\Techchallenge.AutomotiveMechanics.Services.Consumer.csproj", "{6485FB30-B70B-46CB-81FB-15A88CE544F4}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TechChallenge.AutomotiveMechanics.Presentation.Worker", "src\1-Presentation\1.2-Worker\Techchallenge.AutomotiveMechanics.Presentation.Worker\TechChallenge.AutomotiveMechanics.Presentation.Worker.csproj", "{69782DC8-74D3-4517-9178-B3F9FE9D101C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -82,10 +82,10 @@ Global
 		{3EF99208-9B85-4F57-ADD1-ED167B0DA2F1}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3EF99208-9B85-4F57-ADD1-ED167B0DA2F1}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3EF99208-9B85-4F57-ADD1-ED167B0DA2F1}.Release|Any CPU.Build.0 = Release|Any CPU
-		{6485FB30-B70B-46CB-81FB-15A88CE544F4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{6485FB30-B70B-46CB-81FB-15A88CE544F4}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{6485FB30-B70B-46CB-81FB-15A88CE544F4}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{6485FB30-B70B-46CB-81FB-15A88CE544F4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{69782DC8-74D3-4517-9178-B3F9FE9D101C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{69782DC8-74D3-4517-9178-B3F9FE9D101C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{69782DC8-74D3-4517-9178-B3F9FE9D101C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{69782DC8-74D3-4517-9178-B3F9FE9D101C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -107,8 +107,8 @@ Global
 		{B80D1429-E2E4-493A-A90E-8E6D823B7651} = {D61B7FFF-5F81-45BD-8149-C78DAA11660D}
 		{042EB6E7-C0F8-4541-8AED-CAC3A1B669D5} = {EA3709E6-9D3B-46F7-ACDF-7F4D30FAB4A6}
 		{3EF99208-9B85-4F57-ADD1-ED167B0DA2F1} = {042EB6E7-C0F8-4541-8AED-CAC3A1B669D5}
-		{4AD0AD13-F50C-48C5-83AC-7E7A9BB921CA} = {A875E6F4-92AE-40F3-9582-4DC402080BDB}
-		{6485FB30-B70B-46CB-81FB-15A88CE544F4} = {4AD0AD13-F50C-48C5-83AC-7E7A9BB921CA}
+		{16FAA828-8002-40DC-9A6B-DD78BF2B3487} = {87201A79-C686-452D-A05C-4B64F31E675C}
+		{69782DC8-74D3-4517-9178-B3F9FE9D101C} = {16FAA828-8002-40DC-9A6B-DD78BF2B3487}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {DAF2A517-18E0-4ED7-9150-EF8972AF213F}

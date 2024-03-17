@@ -1,6 +1,6 @@
 ﻿{
   "profiles": {
-    "Techchallenge.AutomotiveMechanics.Worker": {
+    "Techchallenge.AutomotiveMechanics.Presentation.Worker": {
       "commandName": "Project",
       "dotnetRunMessages": true,
       "environmentVariables": {

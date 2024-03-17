@@ -22,7 +22,7 @@ namespace TechChallenge.AutomotiveMechanics.Services.Business.Services
             _config = config;
         }
 
-        public void SendEmail(EmailTemplate request)
+        public async Task SendEmailAsync(EmailTemplate request)
         {
             var email = new MimeMessage();
             email.From.Add(MailboxAddress.Parse(_config.GetSection("EmailUsername").Value));
@@ -31,10 +31,11 @@ namespace TechChallenge.AutomotiveMechanics.Services.Business.Services
             email.Body = new TextPart(TextFormat.Html) { Text = request.Body };
 
             using var smtp = new SmtpClient();
-            smtp.Connect(_config.GetSection("EmailHost").Value, 587, SecureSocketOptions.StartTls);
-            smtp.Authenticate(_config.GetSection("EmailUsername").Value, _config.GetSection("EmailPassword").Value);
-            smtp.Send(email);
-            smtp.Disconnect(true);
+            await Task.WhenAll(
+                smtp.ConnectAsync(_config.GetSection("EmailHost").Value, 587, SecureSocketOptions.StartTls),
+                smtp.AuthenticateAsync(_config.GetSection("EmailUsername").Value, _config.GetSection("EmailPassword").Value),
+                smtp.SendAsync(email),
+                smtp.DisconnectAsync(true));
         }
     }
 }

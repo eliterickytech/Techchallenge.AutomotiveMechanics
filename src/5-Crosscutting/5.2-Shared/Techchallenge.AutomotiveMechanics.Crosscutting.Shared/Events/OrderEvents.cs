@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Techchallenge.AutomotiveMechanics.Crosscutting.Shared.Events
+namespace TechChallenge.AutomotiveMechanics.Crosscutting.Shared.Events
 {
     public class OrderEvents
     {

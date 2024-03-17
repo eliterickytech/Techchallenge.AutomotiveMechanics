@@ -4,7 +4,7 @@
     <TargetFramework>net7.0</TargetFramework>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
-    <UserSecretsId>dotnet-Techchallenge.AutomotiveMechanics.Worker-8010cd59-d931-4010-a8a7-7da2e53fab87</UserSecretsId>
+    <UserSecretsId>dotnet-Techchallenge.AutomotiveMechanics.Presentation.Worker-51f3e53b-49d5-4d93-b508-ad57719325b0</UserSecretsId>
   </PropertyGroup>
 
   <ItemGroup>
@@ -15,6 +15,8 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\..\2-Services\2.1-Business\TechChallenge.AutomotiveMechanics.Services.Business\TechChallenge.AutomotiveMechanics.Services.Business.csproj" />
-    <ProjectReference Include="..\..\..\5-Crosscutting\5.2-Shared\Techchallenge.AutomotiveMechanics.Crosscutting.Shared\Techchallenge.AutomotiveMechanics.Crosscutting.Shared.csproj" />
+    <ProjectReference Include="..\..\..\4-Infrastructure\4.1-Data\TechChallenge.AutomotiveMechanics.Infrastructure.Data\TechChallenge.AutomotiveMechanics.Infrastructure.Data.csproj" />
+    <ProjectReference Include="..\..\..\5-Crosscutting\5.1-IOC\TechChallenge.AutomotiveMechanics.Crosscutting.Ioc\TechChallenge.AutomotiveMechanics.Crosscutting.Ioc.csproj" />
+    <ProjectReference Include="..\..\..\5-Crosscutting\5.2-Shared\Techchallenge.AutomotiveMechanics.Crosscutting.Shared\TechChallenge.AutomotiveMechanics.Crosscutting.Shared.csproj" />
   </ItemGroup>
 </Project>

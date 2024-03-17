@@ -24,15 +24,25 @@ namespace TechChallenge.AutomotiveMechanics.Presentation.API.Controllers
         {
             _orderService = orderService;
         }
+        /// <summary>
+        /// Listar Orders
+        /// </summary>
+        /// <returns></returns>
 
         [HttpGet]
         public async Task<IActionResult> Get()
         {
             var result = await _orderService.ListAsync();
+
             return OKOrBadRequest(result);
         }
-
+        /// <summary>
+        /// Order Insert
+        /// </summary>
+        /// <param name="input"></param>
+        /// <returns></returns>
         [HttpPost]
+
         public async Task<IActionResult> Post([FromBody] OrderInsertInput input)
         {
             await _orderService.NotifyOrderAsync(input);

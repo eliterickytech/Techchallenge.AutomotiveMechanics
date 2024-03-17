@@ -9,6 +9,6 @@ namespace TechChallenge.AutomotiveMechanics.Services.Business.Interfaces.Service
 {
     public interface IEmailService
     {
-        void SendEmail(EmailTemplate request);
+        Task SendEmailAsync(EmailTemplate request);
     }
 }

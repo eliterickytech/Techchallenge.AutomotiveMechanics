@@ -4,8 +4,7 @@ using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
 using System.Net;
 using System.Text.Json.Serialization;
-using Techchallenge.AutomotiveMechanics.Crosscutting.Shared.Events;
-using Techchallenge.AutomotiveMechanics.Services.Consumer;
+using TechChallenge.AutomotiveMechanics.Crosscutting.Shared.Events;
 using TechChallenge.AutomotiveMechanics.Crosscutting.Ioc;
 using TechChallenge.AutomotiveMechanics.Domain.Entities;
 
@@ -26,8 +25,6 @@ builder.Services.AddSwaggerGen();
 
 builder.Services.AddMassTransit(x =>
 {
-    x.AddConsumer<NotifyOrderConsumer>();
-
     x.UsingRabbitMq((context, cfg) =>
     {
         cfg.Host("amqp://localhost:5672", h =>

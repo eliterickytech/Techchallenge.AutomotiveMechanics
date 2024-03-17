@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using TechChallenge.AutomotiveMechanics.Domain.Entities;
 using TechChallenge.AutomotiveMechanics.Services.Business.Input;
 using TechChallenge.AutomotiveMechanics.Services.Business.Result;
 
@@ -10,6 +11,7 @@ namespace TechChallenge.AutomotiveMechanics.Services.Business.Interfaces.Service
 {
     public interface IOrderService
     {
-        Task<OrderResult> AddAsync(OrderInsertInput input);
+        Task<OrderResult> AddAsync(Order input);
+        Task NotifyOrderAsync(OrderInsertInput input);
     }
 }

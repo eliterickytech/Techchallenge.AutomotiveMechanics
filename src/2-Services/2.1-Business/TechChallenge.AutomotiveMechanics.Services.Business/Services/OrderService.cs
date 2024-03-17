@@ -1,9 +1,11 @@
 ﻿using AutoMapper;
+using MassTransit;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Techchallenge.AutomotiveMechanics.Crosscutting.Shared.Events;
 using TechChallenge.AutomotiveMechanics.Domain.Entities;
 using TechChallenge.AutomotiveMechanics.Domain.Interfaces.Repositories;
 using TechChallenge.AutomotiveMechanics.Services.Business.Input;
@@ -16,25 +18,31 @@ namespace TechChallenge.AutomotiveMechanics.Services.Business.Services
     {
         private readonly IOrderRepository _orderRepository;
         private readonly IMapper _mapper;
+        private readonly IPublishEndpoint _publishEndpoint;
 
-        public OrderService(IOrderRepository orderRepository, IMapper mapper)
+        public OrderService(IOrderRepository orderRepository, IMapper mapper, IPublishEndpoint publishEndpoint)
         {
             _orderRepository = orderRepository;
             _mapper = mapper;
+            _publishEndpoint = publishEndpoint;
         }
 
-        public async Task<OrderResult> AddAsync(OrderInsertInput input)
+        public async Task NotifyOrderAsync(OrderInsertInput input)
         {
+            var map = _mapper.Map<OrderEvents>(input);
 
-            var map = _mapper.Map<Order>(input);
+            await _publishEndpoint.Publish<OrderEvents>(map);
+        }
 
-            var result = new OrderResult();
+        public async Task<OrderResult> AddAsync(Order order)
+        {
+            OrderResult result = null;
 
-            var inserted = await _orderRepository.AddAsync(map);
+            var inserted = await _orderRepository.AddAsync(order);
 
             if (inserted > 0)
             {
-                result = _mapper.Map<OrderResult>(map);
+                result = _mapper.Map<OrderResult>(order);
             }
 
             return result;

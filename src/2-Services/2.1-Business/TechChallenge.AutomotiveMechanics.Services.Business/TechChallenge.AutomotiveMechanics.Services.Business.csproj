@@ -19,6 +19,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\..\3-Domain\TechChallenge.AutomotiveMechanics.Domain\TechChallenge.AutomotiveMechanics.Domain.csproj" />
+    <ProjectReference Include="..\..\..\5-Crosscutting\5.2-Shared\Techchallenge.AutomotiveMechanics.Crosscutting.Shared\Techchallenge.AutomotiveMechanics.Crosscutting.Shared.csproj" />
   </ItemGroup>
 
 </Project>

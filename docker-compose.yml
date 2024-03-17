@@ -6,6 +6,11 @@ services:
     build:
       context: .
       dockerfile: src/1-Presentation/1.1-API/TechChallenge.AutomotiveMechanics.Presentation.API/Dockerfile
+  rabbitmq:
+    image: masstransit/rabbitmq
+    ports:
+      - 5672:5672
+      - 15672:15672
   sqlserver:
     image: mcr.microsoft.com/mssql/server:2019-latest
     environment:

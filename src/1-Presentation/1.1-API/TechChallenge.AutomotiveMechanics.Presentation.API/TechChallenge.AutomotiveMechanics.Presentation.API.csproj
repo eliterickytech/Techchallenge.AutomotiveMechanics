@@ -12,6 +12,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="MassTransit" Version="8.1.3" />
     <PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="7.0.11" />
     <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="7.0.11" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="7.0.11">
@@ -26,6 +27,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\..\2-Services\2.1-Business\TechChallenge.AutomotiveMechanics.Services.Business\TechChallenge.AutomotiveMechanics.Services.Business.csproj" />
+    <ProjectReference Include="..\..\..\2-Services\2.2-Consumer\Techchallenge.AutomotiveMechanics.Services.Consumer\Techchallenge.AutomotiveMechanics.Services.Consumer.csproj" />
     <ProjectReference Include="..\..\..\5-Crosscutting\5.1-IOC\TechChallenge.AutomotiveMechanics.Crosscutting.Ioc\TechChallenge.AutomotiveMechanics.Crosscutting.Ioc.csproj" />
   </ItemGroup>
 

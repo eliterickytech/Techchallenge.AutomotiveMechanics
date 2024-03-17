@@ -13,7 +13,7 @@ namespace TechChallenge.AutomotiveMechanics.Infrastructure.Data.Configurations
     {
         public void Configure(EntityTypeBuilder<Order> builder)
         {
-            builder.ToTable("User");
+            builder.ToTable("Order");
             builder.Property(e => e.Id).UseIdentityColumn().IsRequired();
             builder.Property(e => e.VehicleName)
                 .IsRequired()

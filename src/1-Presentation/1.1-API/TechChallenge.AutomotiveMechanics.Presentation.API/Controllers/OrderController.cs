@@ -6,6 +6,8 @@ using System.Text;
 using System.Text.Json;
 using TechChallenge.AutomotiveMechanics.Services.Business.Interfaces.Services;
 using TechChallenge.AutomotiveMechanics.Domain.Entities;
+using MassTransit;
+using TechChallenge.AutomotiveMechanics.Services.Business.Input;
 
 namespace TechChallenge.AutomotiveMechanics.Presentation.API.Controllers
 {
@@ -15,47 +17,19 @@ namespace TechChallenge.AutomotiveMechanics.Presentation.API.Controllers
     [Route("api/v1/[controller]")]
     public class OrderController : BaseController
     {
-        private readonly IHttpClientFactory _httpClientFactory;
-        public OrderController(IBaseNotification baseNotification,
-            IHttpClientFactory httpClientFactory)
+        private readonly IOrderService _orderService;
+        public OrderController(IBaseNotification baseNotification, IOrderService orderService)
             : base(baseNotification)
         {
-            _httpClientFactory = httpClientFactory;
+            _orderService = orderService;
         }
 
-        
         [HttpPost]
-        public IActionResult Post()
+        public async Task<IActionResult> Post([FromBody] OrderInsertInput input)
         {
-            var factory = new ConnectionFactory()
-            {
-                HostName = "localhost",
-                UserName = "guest",
-                Password = "guest"
-            };
-            using var connection = factory.CreateConnection();
-            using (var channel = connection.CreateModel())
-            {
-                channel.QueueDeclare(
-                    queue: "fila",
-                    durable: false,
-                    exclusive: false,
-                    autoDelete: false,
-                    arguments: null);
+            await _orderService.NotifyOrderAsync(input);
 
-                var message = System.Text.Json.JsonSerializer.Serialize(
-                    new Order("Porsche 911", 2500, "cliente@email.com"));
-
-
-                var body = Encoding.UTF8.GetBytes(message);
-                channel.BasicPublish(
-                    exchange: "",
-                    routingKey: "fila",
-                    basicProperties: null,
-                    body: body);
-            }
-
-            return Ok();
+            return OKOrBadRequest(true);
         }
     }
 }

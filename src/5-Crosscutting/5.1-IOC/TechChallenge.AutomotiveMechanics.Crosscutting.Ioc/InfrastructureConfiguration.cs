@@ -66,6 +66,8 @@ namespace TechChallenge.AutomotiveMechanics.Crosscutting.Ioc
 
             });
 
+
+
             AutoMapperConfig.ConfigureMappings(services);
 
             services.AddHttpClient();

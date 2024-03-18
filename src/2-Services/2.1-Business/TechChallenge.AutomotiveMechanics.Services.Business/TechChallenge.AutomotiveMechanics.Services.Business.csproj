@@ -11,10 +11,15 @@
     <PackageReference Include="Flunt" Version="2.0.5" />
     <PackageReference Include="Flunt.Br" Version="2.0.0" />
     <PackageReference Include="Flunt.Extensions.Br" Version="1.0.1" />
+    <PackageReference Include="MailKit" Version="4.4.0" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.Abstractions" Version="7.0.0" />
+    <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="7.0.1" />
+    <PackageReference Include="RabbitMQ.Client" Version="6.8.1" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\..\..\3-Domain\TechChallenge.AutomotiveMechanics.Domain\TechChallenge.AutomotiveMechanics.Domain.csproj" />
+    <ProjectReference Include="..\..\..\5-Crosscutting\5.2-Shared\Techchallenge.AutomotiveMechanics.Crosscutting.Shared\TechChallenge.AutomotiveMechanics.Crosscutting.Shared.csproj" />
   </ItemGroup>
 
 </Project>

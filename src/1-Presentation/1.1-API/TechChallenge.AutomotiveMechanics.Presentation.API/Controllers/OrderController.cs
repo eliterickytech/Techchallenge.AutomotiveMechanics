@@ -1,49 +1,53 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
+using RabbitMQ.Client;
 using System.Text;
-using TechChallenge.AutomotiveMechanics.Services.Business.Input;
+using System.Text.Json;
 using TechChallenge.AutomotiveMechanics.Services.Business.Interfaces.Services;
+using TechChallenge.AutomotiveMechanics.Domain.Entities;
+using MassTransit;
+using TechChallenge.AutomotiveMechanics.Services.Business.Input;
+using TechChallenge.AutomotiveMechanics.Services.Business.Services;
 
 namespace TechChallenge.AutomotiveMechanics.Presentation.API.Controllers
 {
-    [Authorize]
+    //[Authorize]
     [ApiVersion("1.0")]
     [ApiController]
     [Route("api/v1/[controller]")]
     public class OrderController : BaseController
     {
-        private readonly IHttpClientFactory _httpClientFactory;
-        public OrderController(IBaseNotification baseNotification,
-            IHttpClientFactory httpClientFactory)
+        private readonly IOrderService _orderService;
+        public OrderController(IBaseNotification baseNotification, IOrderService orderService)
             : base(baseNotification)
         {
-            _httpClientFactory = httpClientFactory;
+            _orderService = orderService;
         }
-
         /// <summary>
-        /// Simula aprovação de pedido
+        /// Listar Orders
         /// </summary>
-        /// <param name="order"></param>
         /// <returns></returns>
-        /// <remarks>
-        /// Dados:
-        /// 
-        /// Id do serviço, nome do veículo, valor do serviço, email e status do pagamento.
-        /// </remarks>
-        [HttpPost]
-        public async Task<IActionResult> PlaceOrder(OrderInsertInput order)
+
+        [HttpGet]
+        public async Task<IActionResult> Get()
         {
-            var azFunctionUrl = "https://az-orderapproval.azurewebsites.net/api/HttpStart_OrderApproval?";
+            var result = await _orderService.ListAsync();
 
-            using(var httpClient = _httpClientFactory.CreateClient())
-            {
-                var content = new StringContent(JsonConvert.SerializeObject(order), Encoding.UTF8, "application/json");
+            return OKOrBadRequest(result);
+        }
+        /// <summary>
+        /// Order Insert
+        /// </summary>
+        /// <param name="input"></param>
+        /// <returns></returns>
+        [HttpPost]
 
-                var response = await httpClient.PostAsync(azFunctionUrl, content);
+        public async Task<IActionResult> Post([FromBody] OrderInsertInput input)
+        {
+            await _orderService.NotifyOrderAsync(input);
 
-                return CreatedOrBadRequest(response);
-            }
+            return OKOrBadRequest(true);
         }
     }
 }

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using TechChallenge.AutomotiveMechanics.Crosscutting.Shared.Events;
 using TechChallenge.AutomotiveMechanics.Domain.Entities;
 using TechChallenge.AutomotiveMechanics.Services.Business.Input;
 using TechChallenge.AutomotiveMechanics.Services.Business.Result;
@@ -31,6 +32,13 @@ namespace TechChallenge.AutomotiveMechanics.Services.Business.Profile
 
             CreateMap<User, UserResult>().ReverseMap();
             CreateMap<UserRegisterInput, User>().ReverseMap();
+
+            CreateMap<Order, OrderResult>().ReverseMap();
+            CreateMap<OrderInsertInput, Order>().ReverseMap();
+
+            CreateMap<OrderInsertInput, OrderEvents>().ReverseMap();
+
+            CreateMap<OrderEvents, Order>().ReverseMap();
 
         }
     }

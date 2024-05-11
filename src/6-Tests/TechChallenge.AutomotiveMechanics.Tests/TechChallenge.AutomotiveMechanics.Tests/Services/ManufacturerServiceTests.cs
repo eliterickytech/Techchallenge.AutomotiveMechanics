@@ -13,19 +13,18 @@ using TechChallenge.AutomotiveMechanics.Tests.FakeData;
 
 namespace TechChallenge.AutomotiveMechanics.Tests.Services
 {
-    public class ManufacturerServiceTests
+    public class ManufacturerServiceTests : ConfigBase
     {
         private readonly Mock<IManufacturerRepository> _manufacturerRepositoryMock = new Mock<IManufacturerRepository>();
         private readonly Mock<IBaseNotification> _baseNotificationMock = new Mock<IBaseNotification>();
-        private readonly Mock<IMapper> _mapperMock = new Mock<IMapper>();
         private readonly ManufacturerAddInputFaker _manufacturerAddInputFaker = new ManufacturerAddInputFaker();
         private readonly ManufacturerUpdateInputFaker _manufacturerUpdateInputFaker = new ManufacturerUpdateInputFaker();
 
         [Fact]
-        public async Task AddAsync_ShouldReturnTrue_WhenInputIsValid()
+        public async Task AddAsync_ShouldNotReturnNull_WhenInputIsValid()
         {
 
-            var service = new ManufacturerService(_manufacturerRepositoryMock.Object, _mapperMock.Object,
+            var service = new ManufacturerService(_manufacturerRepositoryMock.Object, _mapper,
                 _baseNotificationMock.Object);
             var input = _manufacturerAddInputFaker.Generate();
 
@@ -36,9 +35,9 @@ namespace TechChallenge.AutomotiveMechanics.Tests.Services
         }
 
         [Fact]
-        public async Task UpdateAsync_ShouldReturnFalse_WhenManufacturerNotFound()
+        public async Task UpdateAsync_ShouldReturnNull_WhenManufacturerNotFound()
         {
-            var service = new ManufacturerService(_manufacturerRepositoryMock.Object, _mapperMock.Object,
+            var service = new ManufacturerService(_manufacturerRepositoryMock.Object, _mapper,
                 _baseNotificationMock.Object);
             var input = _manufacturerUpdateInputFaker.Generate();
 
@@ -46,13 +45,13 @@ namespace TechChallenge.AutomotiveMechanics.Tests.Services
 
             var result = await service.UpdateAsync(input);
 
-            Assert.False(result == null);
+            Assert.True(result == null);
         }
 
         [Fact]
         public async Task RemoveAsync_ShouldReturnFalse_WhenManufacturerNotFound()
         {
-            var service = new ManufacturerService(_manufacturerRepositoryMock.Object, _mapperMock.Object,
+            var service = new ManufacturerService(_manufacturerRepositoryMock.Object, _mapper,
                 _baseNotificationMock.Object);
             int id = 1;
 
@@ -67,7 +66,7 @@ namespace TechChallenge.AutomotiveMechanics.Tests.Services
         public async Task GetByIdAsync_ShouldReturnManufacturer_WhenManufacturerExists()
         {
             // Arrange
-            var service = new ManufacturerService(_manufacturerRepositoryMock.Object, _mapperMock.Object,
+            var service = new ManufacturerService(_manufacturerRepositoryMock.Object, _mapper,
                 _baseNotificationMock.Object);
             int id = 1;
             var expectedManufacturer = new Manufacturer { Id = id };
@@ -78,6 +77,22 @@ namespace TechChallenge.AutomotiveMechanics.Tests.Services
             var result = await service.FindByIdAsync(id);
 
             Assert.Null(result);
+        }
+
+        [Fact]
+        public async Task AddAsyncWithNoName_ShouldReturnNull()
+        {
+
+            var service = new ManufacturerService(_manufacturerRepositoryMock.Object, _mapper,
+                _baseNotificationMock.Object);
+            var input = _manufacturerAddInputFaker.Generate();
+
+            input.Name = null;
+
+            _manufacturerRepositoryMock.Setup(x => x.AddAsync(It.IsAny<Manufacturer>()));
+
+            var result = await service.AddAsync(input);
+            Assert.True(result == null);
         }
     }
 }

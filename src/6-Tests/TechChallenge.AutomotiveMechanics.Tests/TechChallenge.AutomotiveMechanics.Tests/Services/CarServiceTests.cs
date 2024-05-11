@@ -13,12 +13,11 @@ using TechChallenge.AutomotiveMechanics.Tests.FakeData;
 
 namespace TechChallenge.AutomotiveMechanics.Tests.Services
 {
-    public class CarServiceTests
+    public class CarServiceTests : ConfigBase
     {
         private readonly Mock<ICarRepository> _carRepositoryMock = new Mock<ICarRepository>();
         private readonly Mock<IModelRepository> _modelRepositoryMock = new Mock<IModelRepository>();
         private readonly Mock<IBaseNotification> _baseNotificationMock = new Mock<IBaseNotification>();
-        private readonly Mock<IMapper> _mapperMock = new Mock<IMapper>();
         private readonly CarAddInputFaker _carAddInputFaker = new CarAddInputFaker();
         private readonly CarUpdateInputFaker _carUpdateInputFaker = new CarUpdateInputFaker();
 
@@ -26,7 +25,7 @@ namespace TechChallenge.AutomotiveMechanics.Tests.Services
         public async Task AddAsync_ShouldReturnTrue_WhenInputIsValid()
         {
 
-            var service = new CarService(_carRepositoryMock.Object, _mapperMock.Object,
+            var service = new CarService(_carRepositoryMock.Object, _mapper,
                 _baseNotificationMock.Object, _modelRepositoryMock.Object);
             var input = _carAddInputFaker.Generate();
 
@@ -38,9 +37,9 @@ namespace TechChallenge.AutomotiveMechanics.Tests.Services
         }
 
         [Fact]
-        public async Task UpdateAsync_ShouldReturnFalse_WhenCarNotFound()
+        public async Task UpdateAsync_ShouldReturnNull_WhenCarNotFound()
         {
-            var service = new CarService(_carRepositoryMock.Object, _mapperMock.Object,
+            var service = new CarService(_carRepositoryMock.Object, _mapper,
                 _baseNotificationMock.Object, _modelRepositoryMock.Object);
             var input = _carUpdateInputFaker.Generate();
 
@@ -48,13 +47,13 @@ namespace TechChallenge.AutomotiveMechanics.Tests.Services
 
             var result = await service.UpdateAsync(input);
 
-            Assert.False(result == null);
+            Assert.True(result == null);
         }
 
         [Fact]
         public async Task RemoveAsync_ShouldReturnFalse_WhenCarNotFound()
         {
-            var service = new CarService(_carRepositoryMock.Object, _mapperMock.Object,
+            var service = new CarService(_carRepositoryMock.Object, _mapper,
                 _baseNotificationMock.Object, _modelRepositoryMock.Object);
             int id = 1;
 
@@ -69,7 +68,7 @@ namespace TechChallenge.AutomotiveMechanics.Tests.Services
         public async Task GetByIdAsync_ShouldReturnCar_WhenCarExists()
         {
             // Arrange
-            var service = new CarService(_carRepositoryMock.Object, _mapperMock.Object,
+            var service = new CarService(_carRepositoryMock.Object, _mapper,
                 _baseNotificationMock.Object, _modelRepositoryMock.Object);
             int id = 1;
             var expectedCar = new Car { Id = id };
@@ -80,6 +79,55 @@ namespace TechChallenge.AutomotiveMechanics.Tests.Services
             var result = await service.FindByIdAsync(id);
 
             Assert.Null(result);
+        }
+
+        [Fact]
+        public async Task AddAsyncWithNoPlate_ShouldReturnNull()
+        {
+
+            var service = new CarService(_carRepositoryMock.Object, _mapper,
+                _baseNotificationMock.Object, _modelRepositoryMock.Object);
+            var input = _carAddInputFaker.Generate();
+
+            input.Plate = null;
+
+            _carRepositoryMock.Setup(x => x.AddAsync(It.IsAny<Car>()));
+
+            var result = await service.AddAsync(input);
+
+            Assert.True(result == null);
+        }
+
+        [Fact]
+        public async Task AddAsyncWithNoYearManufactured_ShouldReturnNull()
+        {
+
+            var service = new CarService(_carRepositoryMock.Object, _mapper,
+                _baseNotificationMock.Object, _modelRepositoryMock.Object);
+            var input = _carAddInputFaker.Generate();
+
+            input.YearManufactured = 0;
+
+            _carRepositoryMock.Setup(x => x.AddAsync(It.IsAny<Car>()));
+
+            var result = await service.AddAsync(input);
+
+            Assert.True(result == null);
+        }
+
+        [Fact]
+        public async Task AddAsyncWithNoModel_ShouldReturnNull()
+        {
+
+            var service = new CarService(_carRepositoryMock.Object, _mapper,
+                _baseNotificationMock.Object, _modelRepositoryMock.Object);
+            var input = _carAddInputFaker.Generate();
+
+            _carRepositoryMock.Setup(x => x.AddAsync(It.IsAny<Car>()));
+
+            var result = await service.AddAsync(input);
+
+            Assert.True(result == null);
         }
     }
 }

@@ -12,8 +12,8 @@ namespace TechChallenge.AutomotiveMechanics.Tests.FakeData
     {
         public ModelUpdateInputFaker()
         {
-            RuleFor(c => c.Id, f => f.Random.Int(1, 999999));
-            RuleFor(c => c.ManufacturerId, f => f.Random.Int(1, 999999));
+            RuleFor(c => c.Id, f => f.Random.Int(1, 99999999));
+            RuleFor(c => c.ManufacturerId, f => f.Random.Int(1, 3));
             RuleFor(c => c.Name, f => f.Random.Word());
         }
     }

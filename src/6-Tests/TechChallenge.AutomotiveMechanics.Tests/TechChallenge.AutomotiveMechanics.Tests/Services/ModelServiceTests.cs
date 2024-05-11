@@ -14,56 +14,47 @@ using TechChallenge.AutomotiveMechanics.Tests.FakeData;
 
 namespace TechChallenge.AutomotiveMechanics.Tests.Services
 {
-    public class ModelServiceTests
+    public class ModelServiceTests : ConfigBase
     {
         private readonly Mock<IModelRepository> _modelRepositoryMock = new Mock<IModelRepository>();
         private readonly Mock<IManufacturerRepository> _manufacturerRepositoryMock = new Mock<IManufacturerRepository>();
         private readonly Mock<IBaseNotification> _baseNotificationMock = new Mock<IBaseNotification>();
-        private readonly Mock<IMapper> _mapperMock = new Mock<IMapper>();
         private readonly ModelAddInputFaker _modelAddInputFaker = new ModelAddInputFaker();
-        private readonly ModelUpdateInputFaker _modelUpdateInputFaker = new ModelUpdateInputFaker(); 
+        private readonly ModelUpdateInputFaker _modelUpdateInputFaker = new ModelUpdateInputFaker();
 
         [Fact]
         public async Task AddAsync_ShouldReturnTrue_WhenInputIsValid()
         {
-
             var service = new ModelService(_modelRepositoryMock.Object, _manufacturerRepositoryMock.Object,
-                _mapperMock.Object, _baseNotificationMock.Object);
-            //var manufacturerService = new ManufacturerService(_manufacturerRepositoryMock.Object, _mapperMock.Object,
-            //    _baseNotificationMock.Object);
+                _mapper, _baseNotificationMock.Object);
             var input = _modelAddInputFaker.Generate();
 
             _modelRepositoryMock.Setup(x => x.AddAsync(It.IsAny<Model>()));
-            _manufacturerRepositoryMock.Setup(x => x.AddAsync(It.IsAny<Manufacturer>()));
 
-            //var manufacturer = new ManufacturerInsertInput();
-            //manufacturer.Id = input.ManufacturerId;
-            //manufacturer.Name = "Fake";
-            //await manufacturerService.AddAsync(manufacturer);
             var result = await service.AddAsync(input);
 
             Assert.True(result != null);
         }
 
         [Fact]
-        public async Task UpdateAsync_ShouldReturnFalse_WhenModelNotFound()
+        public async Task UpdateAsync_ShouldReturnNull_WhenModelNotFound()
         {
             var service = new ModelService(_modelRepositoryMock.Object, _manufacturerRepositoryMock.Object,
-                _mapperMock.Object, _baseNotificationMock.Object);
+                _mapper, _baseNotificationMock.Object);
             var input = _modelUpdateInputFaker.Generate();
 
             _modelRepositoryMock.Setup(x => x.FindByIdAsync(input.Id)).ReturnsAsync((Model)null);
 
             var result = await service.UpdateAsync(input);
 
-            Assert.False(result == null);
+            Assert.True(result == null);
         }
 
         [Fact]
         public async Task RemoveAsync_ShouldReturnFalse_WhenModelNotFound()
         {
             var service = new ModelService(_modelRepositoryMock.Object, _manufacturerRepositoryMock.Object,
-                _mapperMock.Object, _baseNotificationMock.Object);
+                _mapper, _baseNotificationMock.Object);
             int id = 1;
 
             _modelRepositoryMock.Setup(x => x.GetByIdAsync(id)).ReturnsAsync((Model)null);
@@ -78,7 +69,7 @@ namespace TechChallenge.AutomotiveMechanics.Tests.Services
         {
             // Arrange
             var service = new ModelService(_modelRepositoryMock.Object, _manufacturerRepositoryMock.Object,
-                _mapperMock.Object, _baseNotificationMock.Object);
+                _mapper, _baseNotificationMock.Object);
             int id = 1;
             var expectModel = new Model { Id = id };
 
@@ -88,6 +79,36 @@ namespace TechChallenge.AutomotiveMechanics.Tests.Services
             var result = await service.FindByIdAsync(id);
 
             Assert.Null(result);
+        }
+
+        [Fact]
+        public async Task AddAsyncWithNoManufacturer_ShouldReturnNull()
+        {
+
+            var service = new ModelService(_modelRepositoryMock.Object, _manufacturerRepositoryMock.Object,
+                _mapper, _baseNotificationMock.Object);
+            var input = _modelAddInputFaker.Generate();
+
+            _modelRepositoryMock.Setup(x => x.AddAsync(It.IsAny<Model>()));
+
+            var result = await service.AddAsync(input);
+
+            Assert.True(result == null);
+        }
+
+        [Fact]
+        public async Task AddAsyncWithNoName_ShouldReturnNull()
+        {
+
+            var service = new ModelService(_modelRepositoryMock.Object, _manufacturerRepositoryMock.Object,
+                _mapper, _baseNotificationMock.Object);
+            var input = _modelAddInputFaker.Generate();
+            input.Name = null;
+
+            _modelRepositoryMock.Setup(x => x.AddAsync(It.IsAny<Model>()));
+            var result = await service.AddAsync(input);
+
+            Assert.True(result == null);
         }
     }
 }

@@ -8,12 +8,12 @@ using TechChallenge.AutomotiveMechanics.Services.Business.Input;
 
 namespace TechChallenge.AutomotiveMechanics.Tests.FakeData
 {
-    public class ServiceAddInputFaker : Faker<ServiceInsertInput>
+    public class UserLoginFaker : Faker<UserLoginInput>
     {
-        public ServiceAddInputFaker()
+        public UserLoginFaker()
         {
-            RuleFor(c => c.Name, f => f.Random.Word());
-            RuleFor(c => c.CarId, f => f.Random.Int(1, 5));
+            RuleFor(c => c.Email, f => f.Random.Word());
+            RuleFor(c => c.Password, f => "senhasenha");
         }
     }
 }

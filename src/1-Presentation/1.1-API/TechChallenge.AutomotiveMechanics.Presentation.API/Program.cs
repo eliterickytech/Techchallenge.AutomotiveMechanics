@@ -37,15 +37,12 @@ builder.Services.AddMassTransit(x =>
 builder.Services.AddApplicationConfiguration(builder.Configuration);
 builder.Services.AddInfrastructureConfiguration(builder.Configuration);
 
-
-
-
 var app = builder.Build();
 
-//if (app.Environment.IsDevelopment())
-//{
+if (app.Environment.IsDevelopment())
+{
 
-//}
+}
 app.UseSwagger();
 app.UseSwaggerUI();
 

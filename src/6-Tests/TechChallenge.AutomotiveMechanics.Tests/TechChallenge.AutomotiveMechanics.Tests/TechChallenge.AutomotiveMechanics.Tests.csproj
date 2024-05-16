@@ -24,10 +24,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Repositories\" />
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include="..\..\..\1-Presentation\1.1-API\TechChallenge.AutomotiveMechanics.Presentation.API\TechChallenge.AutomotiveMechanics.Presentation.API.csproj" />
   </ItemGroup>
 

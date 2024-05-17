@@ -28,7 +28,7 @@ namespace TechChallenge.AutomotiveMechanics.Tests.Services
                 _baseNotificationMock.Object);
             var input = _manufacturerAddInputFaker.Generate();
 
-            _manufacturerRepositoryMock.Setup(x => x.AddAsync(It.IsAny<Manufacturer>()));
+            _manufacturerRepositoryMock.Setup(x => x.AddAsync(It.IsAny<Manufacturer>())).ReturnsAsync(1);
 
             var result = await service.AddAsync(input);
             Assert.True(result != null);
@@ -89,7 +89,7 @@ namespace TechChallenge.AutomotiveMechanics.Tests.Services
 
             input.Name = null;
 
-            _manufacturerRepositoryMock.Setup(x => x.AddAsync(It.IsAny<Manufacturer>()));
+            _manufacturerRepositoryMock.Setup(x => x.AddAsync(It.IsAny<Manufacturer>())).ReturnsAsync(0);
 
             var result = await service.AddAsync(input);
             Assert.True(result == null);

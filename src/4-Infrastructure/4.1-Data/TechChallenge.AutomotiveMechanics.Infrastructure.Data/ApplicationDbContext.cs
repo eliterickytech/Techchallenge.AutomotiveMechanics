@@ -15,10 +15,6 @@ namespace TechChallenge.AutomotiveMechanics.Infrastructure.Data
             _configuration = configuration;
         }
 
-        public ApplicationDbContext(DbContextOptions options) : base(options)
-        {
-        }
-
         public DbSet<Car> Car { get; set; }
 
         public DbSet<Manufacturer> Manufacturers { get; set; }

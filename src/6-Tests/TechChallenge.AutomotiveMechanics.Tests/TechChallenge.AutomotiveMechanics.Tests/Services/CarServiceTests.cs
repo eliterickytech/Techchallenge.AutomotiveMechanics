@@ -24,12 +24,12 @@ namespace TechChallenge.AutomotiveMechanics.Tests.Services
         [Fact]
         public async Task AddAsync_ShouldReturnTrue_WhenInputIsValid()
         {
-
             var service = new CarService(_carRepositoryMock.Object, _mapper,
                 _baseNotificationMock.Object, _modelRepositoryMock.Object);
             var input = _carAddInputFaker.Generate();
 
-            _carRepositoryMock.Setup(x => x.AddAsync(It.IsAny<Car>()));
+            _carRepositoryMock.Setup(x => x.AddAsync(It.IsAny<Car>())).ReturnsAsync(1);
+
 
             var result = await service.AddAsync(input);
 
@@ -108,7 +108,7 @@ namespace TechChallenge.AutomotiveMechanics.Tests.Services
 
             input.YearManufactured = 0;
 
-            _carRepositoryMock.Setup(x => x.AddAsync(It.IsAny<Car>()));
+            _carRepositoryMock.Setup(x => x.AddAsync(It.IsAny<Car>())).ReturnsAsync(0);
 
             var result = await service.AddAsync(input);
 
@@ -123,7 +123,7 @@ namespace TechChallenge.AutomotiveMechanics.Tests.Services
                 _baseNotificationMock.Object, _modelRepositoryMock.Object);
             var input = _carAddInputFaker.Generate();
 
-            _carRepositoryMock.Setup(x => x.AddAsync(It.IsAny<Car>()));
+            _carRepositoryMock.Setup(x => x.AddAsync(It.IsAny<Car>())).ReturnsAsync(0);
 
             var result = await service.AddAsync(input);
 

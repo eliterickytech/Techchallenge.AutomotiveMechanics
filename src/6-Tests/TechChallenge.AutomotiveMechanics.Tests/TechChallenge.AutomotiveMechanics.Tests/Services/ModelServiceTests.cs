@@ -29,7 +29,7 @@ namespace TechChallenge.AutomotiveMechanics.Tests.Services
                 _mapper, _baseNotificationMock.Object);
             var input = _modelAddInputFaker.Generate();
 
-            _modelRepositoryMock.Setup(x => x.AddAsync(It.IsAny<Model>()));
+            _modelRepositoryMock.Setup(x => x.AddAsync(It.IsAny<Model>())).ReturnsAsync(1);
 
             var result = await service.AddAsync(input);
 
@@ -89,7 +89,7 @@ namespace TechChallenge.AutomotiveMechanics.Tests.Services
                 _mapper, _baseNotificationMock.Object);
             var input = _modelAddInputFaker.Generate();
 
-            _modelRepositoryMock.Setup(x => x.AddAsync(It.IsAny<Model>()));
+            _modelRepositoryMock.Setup(x => x.AddAsync(It.IsAny<Model>())).ReturnsAsync(0);
 
             var result = await service.AddAsync(input);
 
@@ -99,13 +99,12 @@ namespace TechChallenge.AutomotiveMechanics.Tests.Services
         [Fact]
         public async Task AddAsyncWithNoName_ShouldReturnNull()
         {
-
             var service = new ModelService(_modelRepositoryMock.Object, _manufacturerRepositoryMock.Object,
                 _mapper, _baseNotificationMock.Object);
             var input = _modelAddInputFaker.Generate();
             input.Name = null;
 
-            _modelRepositoryMock.Setup(x => x.AddAsync(It.IsAny<Model>()));
+            _modelRepositoryMock.Setup(x => x.AddAsync(It.IsAny<Model>())).ReturnsAsync(0);
             var result = await service.AddAsync(input);
 
             Assert.True(result == null);

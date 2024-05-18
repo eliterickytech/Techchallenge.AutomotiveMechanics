@@ -4,49 +4,71 @@ using TechChallenge.AutomotiveMechanics.Domain.Entities;
 using TechChallenge.AutomotiveMechanics.Infrastructure.Data.Repositories;
 using TechChallenge.AutomotiveMechanics.Infrastructure.Data;
 using TechChallenge.AutomotiveMechanics.Tests.FakeData;
+using Microsoft.EntityFrameworkCore.Diagnostics;
 
 namespace TechChallenge.AutomotiveMechanics.Tests.Repositories
 {
     public class ManufacturerRepositoryTests
     {
-        private readonly Mock<DbSet<Manufacturer>> _mockSet;
-        private readonly Mock<ApplicationDbContext> _mockContext;
-        private readonly ManufacturerRepository _repository;
+        private readonly DbContextOptions<ApplicationDbContext> _options;
 
         public ManufacturerRepositoryTests()
         {
-            _mockSet = new Mock<DbSet<Manufacturer>>();
-            _mockContext = new Mock<ApplicationDbContext>();
-            _mockContext.Setup(m => m.Manufacturers).Returns(_mockSet.Object);
-            _repository = new ManufacturerRepository(_mockContext.Object);
+            // Configure as opções do contexto usando um banco de dados em memória
+            _options = new DbContextOptionsBuilder<ApplicationDbContext>()
+                .UseInMemoryDatabase(databaseName: Guid.NewGuid().ToString())
+                .ConfigureWarnings(x => x.Ignore(InMemoryEventId.TransactionIgnoredWarning))
+                .Options;
         }
 
         [Fact]
-        public async Task ListAsync_ReturnsAllManufacturers()
+        public async Task ListAsync_ReturnsListOfManufacturers()
         {
-            var data = ManufacturerFakeData.GetManufacturers().AsQueryable();
+            // Arrange
+            using (var context = new ApplicationDbContext(_options))
+            {
+                // Adicionar alguns fabricantes de teste ao contexto em memória
+                var manufacturers = new List<Manufacturer>
+            {
+                new Manufacturer { Id = 1, Name = "Manufacturer 1", Models = new List<Model>() },
+                new Manufacturer { Id = 2, Name = "Manufacturer 2", Models = new List<Model>() }
+            };
+                context.Manufacturers.AddRange(manufacturers);
+                await context.SaveChangesAsync();
+            }
 
-            _mockSet.As<IQueryable<Manufacturer>>().Setup(m => m.Provider).Returns(data.Provider);
-            _mockSet.As<IQueryable<Manufacturer>>().Setup(m => m.Expression).Returns(data.Expression);
-            _mockSet.As<IQueryable<Manufacturer>>().Setup(m => m.ElementType).Returns(data.ElementType);
-            _mockSet.As<IQueryable<Manufacturer>>().Setup(m => m.GetEnumerator()).Returns(data.GetEnumerator());
+            // Act
+            using (var context = new ApplicationDbContext(_options))
+            {
+                var repository = new ManufacturerRepository(context);
+                var result = await repository.ListAsync();
 
-            var result = await _repository.ListAsync();
-
-            Assert.NotNull(result);
-            Assert.Equal(5, result.Count); // Verifica se todos os fabricantes são retornados
+                // Assert
+                Assert.Equal(2, result.Count);
+            }
         }
 
         [Fact]
-        public async Task FindByIdAsync_ReturnsManufacturer_WhenExists()
+        public async Task FindByIdAsync_ReturnsManufacturer_WhenManufacturerExists()
         {
-            var manufacturers = ManufacturerFakeData.GetManufacturers();
-            var manufacturer = manufacturers.First();
-            _mockSet.Setup(m => m.FindAsync(manufacturer.Id)).ReturnsAsync(manufacturer);
+            // Arrange
+            using (var context = new ApplicationDbContext(_options))
+            {
+                // Adicionar um fabricante de teste ao contexto em memória
+                context.Manufacturers.Add(new Manufacturer { Id = 1, Name = "Test Manufacturer", Models = new List<Model>() });
+                await context.SaveChangesAsync();
+            }
 
-            var result = await _repository.FindByIdAsync(manufacturer.Id);
+            // Act
+            using (var context = new ApplicationDbContext(_options))
+            {
+                var repository = new ManufacturerRepository(context);
+                var result = await repository.FindByIdAsync(1);
 
-            Assert.Equal(manufacturer, result);
+                // Assert
+                Assert.NotNull(result);
+                Assert.Equal(1, result.Id);
+            }
         }
     }
 }

@@ -15,23 +15,22 @@ namespace TechChallenge.AutomotiveMechanics.Infrastructure.Data
             _configuration = configuration;
         }
 
+        public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options) { }
+
         public DbSet<Car> Car { get; set; }
-
         public DbSet<Manufacturer> Manufacturers { get; set; }
-
         public DbSet<Model> Models { get; set; }
-
         public DbSet<Service> Services { get; set; }
-
         public DbSet<User> Users { get; set; }
-
         public DbSet<Order> Orders { get; set; }
-
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlServer(
-                _configuration.GetConnectionString("AutomotiveMechanics"));
+            if (_configuration != null)
+            {
+                optionsBuilder.UseSqlServer(
+                    _configuration.GetConnectionString("AutomotiveMechanics"));
+            }
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -40,4 +39,5 @@ namespace TechChallenge.AutomotiveMechanics.Infrastructure.Data
             modelBuilder.Seed();
         }
     }
+
 }

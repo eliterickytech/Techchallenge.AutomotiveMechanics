@@ -5,49 +5,71 @@ using TechChallenge.AutomotiveMechanics.Infrastructure.Data;
 using Xunit;
 using TechChallenge.AutomotiveMechanics.Domain.Entities;
 using TechChallenge.AutomotiveMechanics.Tests.FakeData;
+using Microsoft.EntityFrameworkCore.Diagnostics;
 
 namespace TechChallenge.AutomotiveMechanics.Tests.Repositories
 {
     public class ModelRepositoryTests
     {
-        private readonly Mock<DbSet<Model>> _mockSet;
-        private readonly Mock<ApplicationDbContext> _mockContext;
-        private readonly ModelRepository _repository;
+        private readonly DbContextOptions<ApplicationDbContext> _options;
 
         public ModelRepositoryTests()
         {
-            _mockSet = new Mock<DbSet<Model>>();
-            _mockContext = new Mock<ApplicationDbContext>();
-            _mockContext.Setup(m => m.Models).Returns(_mockSet.Object);
-            _repository = new ModelRepository(_mockContext.Object);
+            // Configure as opções do contexto usando um banco de dados em memória
+            _options = new DbContextOptionsBuilder<ApplicationDbContext>()
+                .UseInMemoryDatabase(databaseName: Guid.NewGuid().ToString())
+                .ConfigureWarnings(x => x.Ignore(InMemoryEventId.TransactionIgnoredWarning))
+                .Options;
         }
 
         [Fact]
-        public async Task ListAsync_ReturnsAllModels()
+        public async Task ListAsync_ReturnsListOfModels()
         {
-            var data = ModelFakeData.GetModels().AsQueryable();
+            // Arrange
+            using (var context = new ApplicationDbContext(_options))
+            {
+                // Adicionar alguns modelos de teste ao contexto em memória
+                var models = new List<Model>
+            {
+                new Model { Id = 1, Name = "Model 1", ManufacturerId = 1, Cars = new List<Car>() },
+                new Model { Id = 2, Name = "Model 2", ManufacturerId = 2, Cars = new List<Car>() }
+            };
+                context.Models.AddRange(models);
+                await context.SaveChangesAsync();
+            }
 
-            _mockSet.As<IQueryable<Model>>().Setup(m => m.Provider).Returns(data.Provider);
-            _mockSet.As<IQueryable<Model>>().Setup(m => m.Expression).Returns(data.Expression);
-            _mockSet.As<IQueryable<Model>>().Setup(m => m.ElementType).Returns(data.ElementType);
-            _mockSet.As<IQueryable<Model>>().Setup(m => m.GetEnumerator()).Returns((IEnumerator<Model>)data.GetEnumerator());
+            // Act
+            using (var context = new ApplicationDbContext(_options))
+            {
+                var repository = new ModelRepository(context);
+                var result = await repository.ListAsync();
 
-            var result = await _repository.ListAsync();
-
-            Assert.NotNull(result);
-            Assert.Equal(5, result.Count); // Verifica se todos os modelos são retornados
+                // Assert
+                Assert.Equal(2, result.Count);
+            }
         }
 
         [Fact]
-        public async Task FindByIdAsync_ReturnsModel_WhenExists()
+        public async Task FindByIdAsync_ReturnsModel_WhenModelExists()
         {
-            var models = ModelFakeData.GetModels();
-            var model = models.First();
-            _mockSet.Setup(m => m.FindAsync(model.Id)).ReturnsAsync(model);
+            // Arrange
+            using (var context = new ApplicationDbContext(_options))
+            {
+                // Adicionar um modelo de teste ao contexto em memória
+                context.Models.Add(new Model { Id = 1, Name = "Test Model", ManufacturerId = 1, Cars = new List<Car>() });
+                await context.SaveChangesAsync();
+            }
 
-            var result = await _repository.FindByIdAsync(model.Id);
+            // Act
+            using (var context = new ApplicationDbContext(_options))
+            {
+                var repository = new ModelRepository(context);
+                var result = await repository.FindByIdAsync(1);
 
-            Assert.Equal(model, result);
+                // Assert
+                Assert.NotNull(result);
+                Assert.Equal(1, result.Id);
+            }
         }
     }
 }

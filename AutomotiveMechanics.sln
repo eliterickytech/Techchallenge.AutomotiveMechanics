@@ -50,7 +50,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TechChallenge.AutomotiveMec
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "6-Tests", "6-Tests", "{0ECF3952-CB13-4C02-BECA-B305FCB1C2F8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TechChallenge.AutomotiveMechanics.Tests", "src\6-Tests\TechChallenge.AutomotiveMechanics.Tests\TechChallenge.AutomotiveMechanics.Tests\TechChallenge.AutomotiveMechanics.Tests.csproj", "{E9CA1F11-A067-4D63-935E-8D740E96FF2A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TechChallenge.AutomotiveMechanics.Tests", "src\6-Tests\TechChallenge.AutomotiveMechanics.Tests\TechChallenge.AutomotiveMechanics.Tests\TechChallenge.AutomotiveMechanics.Tests.csproj", "{E9CA1F11-A067-4D63-935E-8D740E96FF2A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

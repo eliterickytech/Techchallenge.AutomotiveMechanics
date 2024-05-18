@@ -10,76 +10,90 @@ using TechChallenge.AutomotiveMechanics.Infrastructure.Data.Repositories;
 using TechChallenge.AutomotiveMechanics.Infrastructure.Data;
 using TechChallenge.AutomotiveMechanics.Tests.FakeData;
 using Microsoft.EntityFrameworkCore.Storage;
+using Microsoft.EntityFrameworkCore.Diagnostics;
 
 namespace TechChallenge.AutomotiveMechanics.Tests.Repositories
 {
     public class ServiceRepositoryTests
     {
-        private readonly Mock<DbSet<Service>> _mockSet;
-        private readonly Mock<ApplicationDbContext> _mockContext;
-        private readonly ServiceRepository _repository;
+        private readonly DbContextOptions<ApplicationDbContext> _options;
 
         public ServiceRepositoryTests()
         {
-            _mockSet = new Mock<DbSet<Service>>();
-            _mockContext = new Mock<ApplicationDbContext>();
-            _mockContext.Setup(m => m.Services).Returns(_mockSet.Object);
-            _repository = new ServiceRepository(_mockContext.Object);
+            // Configure as opções do contexto usando um banco de dados em memória
+            _options = new DbContextOptionsBuilder<ApplicationDbContext>()
+                .UseInMemoryDatabase(databaseName: Guid.NewGuid().ToString())
+                .ConfigureWarnings(x => x.Ignore(InMemoryEventId.TransactionIgnoredWarning))
+                .Options;
         }
 
         [Fact]
-        public async Task ListAsync_ReturnsAllEnabledServices()
+        public async Task ListAsync_ReturnsListOfServices()
         {
-            var data = ServiceFakeData.GetServices().AsQueryable();
+            // Arrange
+            using (var context = new ApplicationDbContext(_options))
+            {
+                // Adicionar alguns serviços de teste ao contexto em memória
+                var services = new List<Service>
+            {
+                new Service { Id = 1, Name = "Service 1", CarId = 1 },
+                new Service { Id = 2, Name = "Service 2", CarId = 2 }
+            };
+                context.Services.AddRange(services);
+                await context.SaveChangesAsync();
+            }
 
-            _mockSet.As<IQueryable<Service>>().Setup(m => m.Provider).Returns(data.Provider);
-            _mockSet.As<IQueryable<Service>>().Setup(m => m.Expression).Returns(data.Expression);
-            _mockSet.As<IQueryable<Service>>().Setup(m => m.ElementType).Returns(data.ElementType);
-            _mockSet.As<IQueryable<Service>>().Setup(m => m.GetEnumerator()).Returns(data.GetEnumerator());
+            // Act
+            using (var context = new ApplicationDbContext(_options))
+            {
+                var repository = new ServiceRepository(context);
+                var result = await repository.ListAsync();
 
-            var result = await _repository.ListAsync();
-
-            Assert.NotNull(result);
-            Assert.True(result.All(s => s.Enabled)); // Verifica se todos os serviços estão habilitados
+                // Assert
+                Assert.Equal(2, result.Count);
+            }
         }
 
         [Fact]
-        public async Task FindByIdAsync_ReturnsService_WhenExists()
+        public async Task FindByIdAsync_ReturnsService_WhenServiceExists()
         {
-            var services = ServiceFakeData.GetServices();
-            var service = services.First();
-            _mockSet.Setup(m => m.FindAsync(service.Id)).ReturnsAsync(service);
+            // Arrange
+            using (var context = new ApplicationDbContext(_options))
+            {
+                // Adicionar um serviço de teste ao contexto em memória
+                context.Services.Add(new Service { Id = 1, Name = "Test Service", CarId = 1 });
+                await context.SaveChangesAsync();
+            }
 
-            var result = await _repository.FindByIdAsync(service.Id);
+            // Act
+            using (var context = new ApplicationDbContext(_options))
+            {
+                var repository = new ServiceRepository(context);
+                var result = await repository.FindByIdAsync(1);
 
-            Assert.Equal(service, result);
+                // Assert
+                Assert.NotNull(result);
+                Assert.Equal(1, result.Id);
+            }
         }
 
         [Fact]
-        public async Task AddServiceCarAsync_AddsAndCommitsService()
+        public async Task AddServiceCarAsync_AddsServiceToDatabase()
         {
-            var service = ServiceFakeData.GetServices().First();
+            // Arrange
+            var service = new Service { Id = 1, Name = "Test Service", CarId = 1 };
 
-            // Configurando o comportamento do contexto para transações
-            var transactionMock = new Mock<IDbContextTransaction>();
-            _mockContext.Setup(m => m.Database.BeginTransaction()).Returns(transactionMock.Object);
+            using (var context = new ApplicationDbContext(_options))
+            {
+                // Act
+                var repository = new ServiceRepository(context);
+                var result = await repository.AddServiceCarAsync(service);
 
-            // Simulando a adição do serviço e salvamento das mudanças
-            _mockContext.Setup(m => m.Services.Add(It.IsAny<Service>())).Verifiable();
-            _mockContext.Setup(m => m.SaveChangesAsync(default)).ReturnsAsync(1);
-
-            var result = await _repository.AddServiceCarAsync(service);
-
-            // Verifica se o serviço foi adicionado e se o método SaveChanges foi chamado
-            _mockContext.Verify(m => m.Services.Add(It.IsAny<Service>()), Times.Once());
-            _mockContext.Verify(m => m.SaveChangesAsync(default), Times.Once());
-
-            // Verifica se a transação foi realizada com commit
-            transactionMock.Verify(m => m.CommitAsync(default), Times.Once());
-
-            // Verifica se o serviço retornado é o mesmo que foi adicionado
-            Assert.Equal(service, result);
+                // Assert
+                Assert.NotNull(result);
+                Assert.Equal(1, context.Services.Count());
+                Assert.Contains(service, context.Services);
+            }
         }
-
     }
 }

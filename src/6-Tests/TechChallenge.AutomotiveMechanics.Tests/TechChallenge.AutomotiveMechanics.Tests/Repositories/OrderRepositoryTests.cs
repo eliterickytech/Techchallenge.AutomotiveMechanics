@@ -5,49 +5,66 @@ using TechChallenge.AutomotiveMechanics.Infrastructure.Data.Repositories;
 using TechChallenge.AutomotiveMechanics.Infrastructure.Data;
 using Xunit;
 using TechChallenge.AutomotiveMechanics.Tests.FakeData;
+using Microsoft.EntityFrameworkCore.Diagnostics;
 
 namespace TechChallenge.AutomotiveMechanics.Tests.Repositories
 {
     public class OrderRepositoryTests
     {
-        private readonly Mock<DbSet<Order>> _mockSet;
-        private readonly Mock<ApplicationDbContext> _mockContext;
-        private readonly OrderRepository _repository;
+        private readonly DbContextOptions<ApplicationDbContext> _options;
 
         public OrderRepositoryTests()
         {
-            _mockSet = new Mock<DbSet<Order>>();
-            _mockContext = new Mock<ApplicationDbContext>();
-            _mockContext.Setup(m => m.Orders).Returns(_mockSet.Object);
-            _repository = new OrderRepository(_mockContext.Object);
+            // Configure as opções do contexto usando um banco de dados em memória
+            _options = new DbContextOptionsBuilder<ApplicationDbContext>()
+                .UseInMemoryDatabase(databaseName: Guid.NewGuid().ToString())
+                .ConfigureWarnings(x => x.Ignore(InMemoryEventId.TransactionIgnoredWarning))
+                .Options;
         }
 
         [Fact]
-        public async Task ListAsync_ReturnsAllOrders()
+        public async Task ListAsync_ReturnsListOfOrders()
         {
-            var data = OrderFakeData.GetOrders().AsQueryable();
+            // Arrange
+            using (var context = new ApplicationDbContext(_options))
+            {
+                // Adicionar alguns pedidos de teste ao contexto em memória
+                var orders = new List<Order>
+            {
+                new Order("Vehicle 1", 100, "customer1@example.com"),
+                new Order("Vehicle 2", 200, "customer2@example.com")
+            };
+                context.Orders.AddRange(orders);
+                await context.SaveChangesAsync();
+            }
 
-            _mockSet.As<IQueryable<Order>>().Setup(m => m.Provider).Returns(data.Provider);
-            _mockSet.As<IQueryable<Order>>().Setup(m => m.Expression).Returns(data.Expression);
-            _mockSet.As<IQueryable<Order>>().Setup(m => m.ElementType).Returns(data.ElementType);
-            _mockSet.As<IQueryable<Order>>().Setup(m => m.GetEnumerator()).Returns(data.GetEnumerator());
+            // Act
+            using (var context = new ApplicationDbContext(_options))
+            {
+                var repository = new OrderRepository(context);
+                var result = await repository.ListAsync();
 
-            var result = await _repository.ListAsync();
-
-            Assert.NotNull(result);
-            Assert.Equal(5, result.Count); // Verifica se todos os pedidos são retornados
+                // Assert
+                Assert.Equal(2, result.Count);
+            }
         }
 
         [Fact]
-        public async Task SaveOrderAsync_AddsOrderSuccessfully()
+        public async Task SaveOrderAsync_SavesOrderToDatabase()
         {
-            var order = new Order("Car X", 1200m, "test@example.com");
+            // Arrange
+            var order = new Order("Test Vehicle", 300, "test@example.com");
 
-            _mockContext.Setup(m => m.SaveChangesAsync(default)).ReturnsAsync(1); // Simula a operação de salvamento retornando '1' para sucesso
-            await _repository.SaveOrderAsync(order);
+            using (var context = new ApplicationDbContext(_options))
+            {
+                // Act
+                var repository = new OrderRepository(context);
+                await repository.SaveOrderAsync(order);
 
-            _mockSet.Verify(m => m.Add(It.Is<Order>(o => o == order)), Times.Once());
-            _mockContext.Verify(m => m.SaveChangesAsync(default), Times.Once());
+                // Assert
+                Assert.Equal(1, context.Orders.Count());
+                Assert.Contains(order, context.Orders);
+            }
         }
     }
 }

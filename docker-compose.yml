@@ -8,6 +8,8 @@ services:
       dockerfile: src/1-Presentation/1.1-API/TechChallenge.AutomotiveMechanics.Presentation.API/Dockerfile
     ports:
       - "5200:80"
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Production
   sqlserver:
     image: mcr.microsoft.com/mssql/server:2019-latest
     environment:

@@ -1,14 +1,15 @@
-using MassTransit;
-using MassTransit.Configuration;
+using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
-using System.Net;
 using System.Text.Json.Serialization;
-using TechChallenge.AutomotiveMechanics.Crosscutting.Shared.Events;
 using TechChallenge.AutomotiveMechanics.Crosscutting.Ioc;
-using TechChallenge.AutomotiveMechanics.Domain.Entities;
+using TechChallenge.AutomotiveMechanics.Infrastructure.Data;
 
 var builder = WebApplication.CreateBuilder(args);
+
+builder.Services.AddDbContext<ApplicationDbContext>(options =>
+    options.UseSqlServer(builder.Configuration.GetConnectionString("AutomotiveMechanics")
+    ?? throw new InvalidOperationException("Connection string 'ConnectionString' not found.")));
 
 builder
     .Services.AddControllers() 
@@ -27,15 +28,12 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddApplicationConfiguration(builder.Configuration);
 builder.Services.AddInfrastructureConfiguration(builder.Configuration);
 
-
-
-
 var app = builder.Build();
 
-//if (app.Environment.IsDevelopment())
-//{
+if (app.Environment.IsDevelopment())
+{
 
-//}
+}
 app.UseSwagger();
 app.UseSwaggerUI();
 

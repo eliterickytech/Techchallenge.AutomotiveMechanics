@@ -1,0 +1,26 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net7.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <!--<Nullable>enable</Nullable>-->
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="AutoMapper" Version="12.0.1" />
+    <PackageReference Include="Flunt" Version="2.0.5" />
+    <PackageReference Include="Flunt.Br" Version="2.0.0" />
+    <PackageReference Include="Flunt.Extensions.Br" Version="1.0.1" />
+    <PackageReference Include="MailKit" Version="4.4.0" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.Abstractions" Version="7.0.0" />
+    <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="7.0.1" />
+    <PackageReference Include="RabbitMQ.Client" Version="6.8.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\Crosscutting\Techchallenge.AutomotiveMechanics.Crosscutting.Shared\Techchallenge.AutomotiveMechanics.Crosscutting.Shared.csproj" />
+    <ProjectReference Include="..\..\Domain\TechChallenge.AutomotiveMechanics.Domain\TechChallenge.AutomotiveMechanics.Domain.csproj" />
+    <ProjectReference Include="..\..\Infrastructure\TechChallenge.AutomotiveMechanics.Infrastructure.Data\TechChallenge.AutomotiveMechanics.Infrastructure.Data.csproj" />
+  </ItemGroup>
+
+</Project>

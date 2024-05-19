@@ -5,48 +5,40 @@ VisualStudioVersion = 17.7.34031.279
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{3ED35DDF-35DD-4EB3-BE44-27266E1C391D}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "1-Presentation", "1-Presentation", "{87201A79-C686-452D-A05C-4B64F31E675C}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Presentation", "Presentation", "{87201A79-C686-452D-A05C-4B64F31E675C}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "2-Services", "2-Services", "{A875E6F4-92AE-40F3-9582-4DC402080BDB}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Services", "Services", "{A875E6F4-92AE-40F3-9582-4DC402080BDB}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "3-Domain", "3-Domain", "{47AB9ACE-D3F5-4C4F-B6E2-3128A8DE66DD}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Domain", "Domain", "{47AB9ACE-D3F5-4C4F-B6E2-3128A8DE66DD}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "4-Infrastructure", "4-Infrastructure", "{8099C34D-1BB2-4A17-B34C-D7B113C18D5B}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Infrastructure", "Infrastructure", "{8099C34D-1BB2-4A17-B34C-D7B113C18D5B}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "5-Crosscutting", "5-Crosscutting", "{EA3709E6-9D3B-46F7-ACDF-7F4D30FAB4A6}"
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "4.1-Data", "4.1-Data", "{D61B7FFF-5F81-45BD-8149-C78DAA11660D}"
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "5.1-Ioc", "5.1-Ioc", "{780FD3C1-FAB5-4D63-B46F-AF58185FC7CC}"
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "1.1-API", "1.1-API", "{38E913A9-F559-4FB7-8169-F75B753810D2}"
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "2.1-Business", "2.1-Business", "{418CC6BA-B7CE-4A92-831F-DD70D0753B05}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TechChallenge.AutomotiveMechanics.Presentation.API", "src\1-Presentation\1.1-API\TechChallenge.AutomotiveMechanics.Presentation.API\TechChallenge.AutomotiveMechanics.Presentation.API.csproj", "{B776CE22-3483-44D2-A971-0FC85A38E118}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TechChallenge.AutomotiveMechanics.Services.Business", "src\2-Services\2.1-Business\TechChallenge.AutomotiveMechanics.Services.Business\TechChallenge.AutomotiveMechanics.Services.Business.csproj", "{AFA921CB-8AD6-4C2F-B5A7-23693D52EBCC}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TechChallenge.AutomotiveMechanics.Domain", "src\3-Domain\TechChallenge.AutomotiveMechanics.Domain\TechChallenge.AutomotiveMechanics.Domain.csproj", "{B30F5737-09C1-4D7B-9CA6-E1FF288F730D}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TechChallenge.AutomotiveMechanics.Crosscutting.Ioc", "src\5-Crosscutting\5.1-IOC\TechChallenge.AutomotiveMechanics.Crosscutting.Ioc\TechChallenge.AutomotiveMechanics.Crosscutting.Ioc.csproj", "{DDDA3305-3988-4A43-9060-2938FF632377}"
-EndProject
-Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-compose.dcproj", "{39F0EEA5-9648-44FE-BED8-16CA82885DCC}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TechChallenge.AutomotiveMechanics.Infrastructure.Data", "src\4-Infrastructure\4.1-Data\TechChallenge.AutomotiveMechanics.Infrastructure.Data\TechChallenge.AutomotiveMechanics.Infrastructure.Data.csproj", "{B80D1429-E2E4-493A-A90E-8E6D823B7651}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Crosscutting", "Crosscutting", "{EA3709E6-9D3B-46F7-ACDF-7F4D30FAB4A6}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "documentation", "documentation", "{4BF25D0A-E09D-41CE-923C-2D1342FC456A}"
 	ProjectSection(SolutionItems) = preProject
 		..\..\..\Users\ricky\OneDrive\Área de Trabalho\AutomotiveMechanics.pdf = ..\..\..\Users\ricky\OneDrive\Área de Trabalho\AutomotiveMechanics.pdf
 	EndProjectSection
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "5.2-Shared", "5.2-Shared", "{042EB6E7-C0F8-4541-8AED-CAC3A1B669D5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TechChallenge.AutomotiveMechanics.Crosscutting.Ioc", "src\Crosscutting\TechChallenge.AutomotiveMechanics.Crosscutting.Ioc\TechChallenge.AutomotiveMechanics.Crosscutting.Ioc.csproj", "{2EE27084-7918-4225-A42E-D5C551C8D1A9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TechChallenge.AutomotiveMechanics.Crosscutting.Shared", "src\5-Crosscutting\5.2-Shared\Techchallenge.AutomotiveMechanics.Crosscutting.Shared\TechChallenge.AutomotiveMechanics.Crosscutting.Shared.csproj", "{3EF99208-9B85-4F57-ADD1-ED167B0DA2F1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TechChallenge.AutomotiveMechanics.Domain", "src\Domain\TechChallenge.AutomotiveMechanics.Domain\TechChallenge.AutomotiveMechanics.Domain.csproj", "{5534C210-0A1B-4E50-A0E4-9831A3CBFEE6}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "1.2-Worker", "1.2-Worker", "{16FAA828-8002-40DC-9A6B-DD78BF2B3487}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TechChallenge.AutomotiveMechanics.Infrastructure.Data", "src\Infrastructure\TechChallenge.AutomotiveMechanics.Infrastructure.Data\TechChallenge.AutomotiveMechanics.Infrastructure.Data.csproj", "{7796D1B2-1073-4AFD-BC2D-84787EC0E9CD}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TechChallenge.AutomotiveMechanics.Presentation.Worker", "src\1-Presentation\1.2-Worker\Techchallenge.AutomotiveMechanics.Presentation.Worker\TechChallenge.AutomotiveMechanics.Presentation.Worker.csproj", "{69782DC8-74D3-4517-9178-B3F9FE9D101C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TechChallenge.AutomotiveMechanics.Presentation.API", "src\Presentation\TechChallenge.AutomotiveMechanics.Presentation.API\TechChallenge.AutomotiveMechanics.Presentation.API.csproj", "{6957DD99-C5E3-45AE-B488-9FA6F2C3BA11}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TechChallenge.AutomotiveMechanics.Presentation.Worker", "src\Presentation\Techchallenge.AutomotiveMechanics.Presentation.Worker\TechChallenge.AutomotiveMechanics.Presentation.Worker.csproj", "{1038E8DE-9430-4C2E-83AB-9BDEC25CDC43}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "docker-compose", "docker-compose", "{DC063BB7-6E07-4696-A331-7F86CB640E0D}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TechChallenge.AutomotiveMechanics.Services.Business", "src\Services\TechChallenge.AutomotiveMechanics.Services.Business\TechChallenge.AutomotiveMechanics.Services.Business.csproj", "{AEF3477C-6C79-4EF5-BA5C-EE8179867DCA}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Techchallenge.AutomotiveMechanics.Services.Consumer", "src\Services\Techchallenge.AutomotiveMechanics.Services.Consumer\Techchallenge.AutomotiveMechanics.Services.Consumer.csproj", "{CB19D45F-437D-448C-AFAB-2F6A958B9112}"
+EndProject
+Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-compose\docker-compose.dcproj", "{C8B91C68-A915-49EE-BF04-9DC82AEFE55C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Techchallenge.AutomotiveMechanics.Crosscutting.Shared", "src\Crosscutting\Techchallenge.AutomotiveMechanics.Crosscutting.Shared\Techchallenge.AutomotiveMechanics.Crosscutting.Shared.csproj", "{997D2DF0-FEFC-42F1-9D65-99079326667A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -54,38 +46,42 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{B776CE22-3483-44D2-A971-0FC85A38E118}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{B776CE22-3483-44D2-A971-0FC85A38E118}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{B776CE22-3483-44D2-A971-0FC85A38E118}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{B776CE22-3483-44D2-A971-0FC85A38E118}.Release|Any CPU.Build.0 = Release|Any CPU
-		{AFA921CB-8AD6-4C2F-B5A7-23693D52EBCC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{AFA921CB-8AD6-4C2F-B5A7-23693D52EBCC}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{AFA921CB-8AD6-4C2F-B5A7-23693D52EBCC}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{AFA921CB-8AD6-4C2F-B5A7-23693D52EBCC}.Release|Any CPU.Build.0 = Release|Any CPU
-		{B30F5737-09C1-4D7B-9CA6-E1FF288F730D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{B30F5737-09C1-4D7B-9CA6-E1FF288F730D}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{B30F5737-09C1-4D7B-9CA6-E1FF288F730D}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{B30F5737-09C1-4D7B-9CA6-E1FF288F730D}.Release|Any CPU.Build.0 = Release|Any CPU
-		{DDDA3305-3988-4A43-9060-2938FF632377}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{DDDA3305-3988-4A43-9060-2938FF632377}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{DDDA3305-3988-4A43-9060-2938FF632377}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{DDDA3305-3988-4A43-9060-2938FF632377}.Release|Any CPU.Build.0 = Release|Any CPU
-		{39F0EEA5-9648-44FE-BED8-16CA82885DCC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{39F0EEA5-9648-44FE-BED8-16CA82885DCC}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{39F0EEA5-9648-44FE-BED8-16CA82885DCC}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{39F0EEA5-9648-44FE-BED8-16CA82885DCC}.Release|Any CPU.Build.0 = Release|Any CPU
-		{B80D1429-E2E4-493A-A90E-8E6D823B7651}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{B80D1429-E2E4-493A-A90E-8E6D823B7651}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{B80D1429-E2E4-493A-A90E-8E6D823B7651}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{B80D1429-E2E4-493A-A90E-8E6D823B7651}.Release|Any CPU.Build.0 = Release|Any CPU
-		{3EF99208-9B85-4F57-ADD1-ED167B0DA2F1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{3EF99208-9B85-4F57-ADD1-ED167B0DA2F1}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{3EF99208-9B85-4F57-ADD1-ED167B0DA2F1}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{3EF99208-9B85-4F57-ADD1-ED167B0DA2F1}.Release|Any CPU.Build.0 = Release|Any CPU
-		{69782DC8-74D3-4517-9178-B3F9FE9D101C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{69782DC8-74D3-4517-9178-B3F9FE9D101C}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{69782DC8-74D3-4517-9178-B3F9FE9D101C}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{69782DC8-74D3-4517-9178-B3F9FE9D101C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2EE27084-7918-4225-A42E-D5C551C8D1A9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2EE27084-7918-4225-A42E-D5C551C8D1A9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2EE27084-7918-4225-A42E-D5C551C8D1A9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2EE27084-7918-4225-A42E-D5C551C8D1A9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5534C210-0A1B-4E50-A0E4-9831A3CBFEE6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5534C210-0A1B-4E50-A0E4-9831A3CBFEE6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5534C210-0A1B-4E50-A0E4-9831A3CBFEE6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5534C210-0A1B-4E50-A0E4-9831A3CBFEE6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7796D1B2-1073-4AFD-BC2D-84787EC0E9CD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7796D1B2-1073-4AFD-BC2D-84787EC0E9CD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7796D1B2-1073-4AFD-BC2D-84787EC0E9CD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7796D1B2-1073-4AFD-BC2D-84787EC0E9CD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6957DD99-C5E3-45AE-B488-9FA6F2C3BA11}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6957DD99-C5E3-45AE-B488-9FA6F2C3BA11}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6957DD99-C5E3-45AE-B488-9FA6F2C3BA11}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6957DD99-C5E3-45AE-B488-9FA6F2C3BA11}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1038E8DE-9430-4C2E-83AB-9BDEC25CDC43}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1038E8DE-9430-4C2E-83AB-9BDEC25CDC43}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1038E8DE-9430-4C2E-83AB-9BDEC25CDC43}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1038E8DE-9430-4C2E-83AB-9BDEC25CDC43}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AEF3477C-6C79-4EF5-BA5C-EE8179867DCA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AEF3477C-6C79-4EF5-BA5C-EE8179867DCA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AEF3477C-6C79-4EF5-BA5C-EE8179867DCA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AEF3477C-6C79-4EF5-BA5C-EE8179867DCA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CB19D45F-437D-448C-AFAB-2F6A958B9112}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CB19D45F-437D-448C-AFAB-2F6A958B9112}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CB19D45F-437D-448C-AFAB-2F6A958B9112}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CB19D45F-437D-448C-AFAB-2F6A958B9112}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C8B91C68-A915-49EE-BF04-9DC82AEFE55C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C8B91C68-A915-49EE-BF04-9DC82AEFE55C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C8B91C68-A915-49EE-BF04-9DC82AEFE55C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C8B91C68-A915-49EE-BF04-9DC82AEFE55C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{997D2DF0-FEFC-42F1-9D65-99079326667A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{997D2DF0-FEFC-42F1-9D65-99079326667A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{997D2DF0-FEFC-42F1-9D65-99079326667A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{997D2DF0-FEFC-42F1-9D65-99079326667A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -96,19 +92,15 @@ Global
 		{47AB9ACE-D3F5-4C4F-B6E2-3128A8DE66DD} = {3ED35DDF-35DD-4EB3-BE44-27266E1C391D}
 		{8099C34D-1BB2-4A17-B34C-D7B113C18D5B} = {3ED35DDF-35DD-4EB3-BE44-27266E1C391D}
 		{EA3709E6-9D3B-46F7-ACDF-7F4D30FAB4A6} = {3ED35DDF-35DD-4EB3-BE44-27266E1C391D}
-		{D61B7FFF-5F81-45BD-8149-C78DAA11660D} = {8099C34D-1BB2-4A17-B34C-D7B113C18D5B}
-		{780FD3C1-FAB5-4D63-B46F-AF58185FC7CC} = {EA3709E6-9D3B-46F7-ACDF-7F4D30FAB4A6}
-		{38E913A9-F559-4FB7-8169-F75B753810D2} = {87201A79-C686-452D-A05C-4B64F31E675C}
-		{418CC6BA-B7CE-4A92-831F-DD70D0753B05} = {A875E6F4-92AE-40F3-9582-4DC402080BDB}
-		{B776CE22-3483-44D2-A971-0FC85A38E118} = {38E913A9-F559-4FB7-8169-F75B753810D2}
-		{AFA921CB-8AD6-4C2F-B5A7-23693D52EBCC} = {418CC6BA-B7CE-4A92-831F-DD70D0753B05}
-		{B30F5737-09C1-4D7B-9CA6-E1FF288F730D} = {47AB9ACE-D3F5-4C4F-B6E2-3128A8DE66DD}
-		{DDDA3305-3988-4A43-9060-2938FF632377} = {780FD3C1-FAB5-4D63-B46F-AF58185FC7CC}
-		{B80D1429-E2E4-493A-A90E-8E6D823B7651} = {D61B7FFF-5F81-45BD-8149-C78DAA11660D}
-		{042EB6E7-C0F8-4541-8AED-CAC3A1B669D5} = {EA3709E6-9D3B-46F7-ACDF-7F4D30FAB4A6}
-		{3EF99208-9B85-4F57-ADD1-ED167B0DA2F1} = {042EB6E7-C0F8-4541-8AED-CAC3A1B669D5}
-		{16FAA828-8002-40DC-9A6B-DD78BF2B3487} = {87201A79-C686-452D-A05C-4B64F31E675C}
-		{69782DC8-74D3-4517-9178-B3F9FE9D101C} = {16FAA828-8002-40DC-9A6B-DD78BF2B3487}
+		{2EE27084-7918-4225-A42E-D5C551C8D1A9} = {EA3709E6-9D3B-46F7-ACDF-7F4D30FAB4A6}
+		{5534C210-0A1B-4E50-A0E4-9831A3CBFEE6} = {47AB9ACE-D3F5-4C4F-B6E2-3128A8DE66DD}
+		{7796D1B2-1073-4AFD-BC2D-84787EC0E9CD} = {8099C34D-1BB2-4A17-B34C-D7B113C18D5B}
+		{6957DD99-C5E3-45AE-B488-9FA6F2C3BA11} = {87201A79-C686-452D-A05C-4B64F31E675C}
+		{1038E8DE-9430-4C2E-83AB-9BDEC25CDC43} = {87201A79-C686-452D-A05C-4B64F31E675C}
+		{AEF3477C-6C79-4EF5-BA5C-EE8179867DCA} = {A875E6F4-92AE-40F3-9582-4DC402080BDB}
+		{CB19D45F-437D-448C-AFAB-2F6A958B9112} = {A875E6F4-92AE-40F3-9582-4DC402080BDB}
+		{C8B91C68-A915-49EE-BF04-9DC82AEFE55C} = {DC063BB7-6E07-4696-A331-7F86CB640E0D}
+		{997D2DF0-FEFC-42F1-9D65-99079326667A} = {EA3709E6-9D3B-46F7-ACDF-7F4D30FAB4A6}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {DAF2A517-18E0-4ED7-9150-EF8972AF213F}

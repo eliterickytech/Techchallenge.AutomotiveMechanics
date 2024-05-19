@@ -10,9 +10,14 @@ namespace TechChallenge.AutomotiveMechanics.Infrastructure.Data
     {
         public readonly IConfiguration _configuration;
 
-        public ApplicationDbContext(IConfiguration configuration)
+        //public ApplicationDbContext(IConfiguration configuration)
+        //{
+        //    _configuration = configuration;
+        //}
+
+        public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options)
         {
-            _configuration = configuration;
+            //_configuration = configuration;
         }
         public DbSet<Car> Car { get; set; }
 
@@ -24,11 +29,11 @@ namespace TechChallenge.AutomotiveMechanics.Infrastructure.Data
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            if (_configuration != null)
-            {
-                optionsBuilder.UseSqlServer(
-                    _configuration.GetConnectionString("AutomotiveMechanics"));
-            }
+            //if (_configuration != null)
+            //{
+            //    optionsBuilder.UseSqlServer(
+            //        _configuration.GetConnectionString("AutomotiveMechanics"));
+            //}
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)

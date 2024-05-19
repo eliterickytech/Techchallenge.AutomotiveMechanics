@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>net7.0</TargetFramework>
@@ -26,7 +26,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\..\1-Presentation\1.1-API\TechChallenge.AutomotiveMechanics.Presentation.API\TechChallenge.AutomotiveMechanics.Presentation.API.csproj" />
+    <ProjectReference Include="..\..\src\1-Presentation\1.1-API\TechChallenge.AutomotiveMechanics.Presentation.API\TechChallenge.AutomotiveMechanics.Presentation.API.csproj" />
+    <ProjectReference Include="..\..\src\2-Services\2.1-Business\TechChallenge.AutomotiveMechanics.Services.Business\TechChallenge.AutomotiveMechanics.Services.Business.csproj" />
   </ItemGroup>
 
 </Project>

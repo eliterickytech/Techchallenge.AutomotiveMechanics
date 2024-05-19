@@ -40,6 +40,10 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "documentation", "documentat
 EndProject
 Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-compose.dcproj", "{33425A8B-1DB6-4623-A0EA-D0501303D2C6}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{BC4FDF02-34B3-45EA-AE9F-8FC797FD91F2}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TechChallenge.AutomotiveMechanics.Tests", "Tests\TechChallenge.AutomotiveMechanics.Tests\TechChallenge.AutomotiveMechanics.Tests.csproj", "{0F7A11E7-9715-418D-8CE3-9D7FC9CAEA92}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -70,6 +74,10 @@ Global
 		{33425A8B-1DB6-4623-A0EA-D0501303D2C6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{33425A8B-1DB6-4623-A0EA-D0501303D2C6}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{33425A8B-1DB6-4623-A0EA-D0501303D2C6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0F7A11E7-9715-418D-8CE3-9D7FC9CAEA92}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0F7A11E7-9715-418D-8CE3-9D7FC9CAEA92}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0F7A11E7-9715-418D-8CE3-9D7FC9CAEA92}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0F7A11E7-9715-418D-8CE3-9D7FC9CAEA92}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -89,6 +97,7 @@ Global
 		{B30F5737-09C1-4D7B-9CA6-E1FF288F730D} = {47AB9ACE-D3F5-4C4F-B6E2-3128A8DE66DD}
 		{DDDA3305-3988-4A43-9060-2938FF632377} = {780FD3C1-FAB5-4D63-B46F-AF58185FC7CC}
 		{B80D1429-E2E4-493A-A90E-8E6D823B7651} = {D61B7FFF-5F81-45BD-8149-C78DAA11660D}
+		{0F7A11E7-9715-418D-8CE3-9D7FC9CAEA92} = {BC4FDF02-34B3-45EA-AE9F-8FC797FD91F2}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {DAF2A517-18E0-4ED7-9150-EF8972AF213F}

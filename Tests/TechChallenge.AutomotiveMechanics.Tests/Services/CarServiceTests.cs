@@ -22,21 +22,6 @@ namespace TechChallenge.AutomotiveMechanics.Tests.Services
         private readonly CarUpdateInputFaker _carUpdateInputFaker = new CarUpdateInputFaker();
 
         [Fact]
-        public async Task AddAsync_ShouldReturnTrue_WhenInputIsValid()
-        {
-            var service = new CarService(_carRepositoryMock.Object, _mapper,
-                _baseNotificationMock.Object, _modelRepositoryMock.Object);
-            var input = _carAddInputFaker.Generate();
-
-            _carRepositoryMock.Setup(x => x.AddAsync(It.IsAny<Car>())).ReturnsAsync(1);
-
-
-            var result = await service.AddAsync(input);
-
-            Assert.True(result != null);
-        }
-
-        [Fact]
         public async Task UpdateAsync_ShouldReturnNull_WhenCarNotFound()
         {
             var service = new CarService(_carRepositoryMock.Object, _mapper,

@@ -3,15 +3,12 @@ using TechChallenge.AutomotiveMechanics.Domain.Entities;
 
 namespace TechChallenge.AutomotiveMechanics.Tests.FakeData
 {
-    public static class ManufacturerFakeData
+    public class ManufacturerFakeData : Faker<Manufacturer>
     {
-        public static List<Manufacturer> GetManufacturers()
+        public ManufacturerFakeData()
         {
-            var faker = new Faker<Manufacturer>()
-                .RuleFor(m => m.Id, f => f.Random.Int(1))
-                .RuleFor(m => m.Name, f => f.Company.CompanyName());
-
-            return faker.Generate(5); // Gera 5 fabricantes falsos
+            RuleFor(c => c.Id, f => f.Random.Int(1, 99999999));
+            RuleFor(c => c.Name, f => f.Random.Word());
         }
     }
 }

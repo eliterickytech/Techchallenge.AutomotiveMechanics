@@ -6,25 +6,22 @@ services:
     build:
       context: .
       dockerfile: src/1-Presentation/1.1-API/TechChallenge.AutomotiveMechanics.Presentation.API/Dockerfile
-  rabbitmq:
-    image: masstransit/rabbitmq
     ports:
-      - 5672:5672
-      - 15672:15672
+      - "5200:80"
   sqlserver:
     image: mcr.microsoft.com/mssql/server:2019-latest
     environment:
-      SA_PASSWORD: "SqlServer2019!"
-      ACCEPT_EULA: "Y"
-      MSSQL_PID: "Developer"
+        SA_PASSWORD: "SqlServer2019!"
+        ACCEPT_EULA: "Y"
+        MSSQL_PID: "Developer"
     ports:
-      - "1433:1433"
+        - "1433:1433"
   mssqltools:
     image: mcr.microsoft.com/mssql-tools
     depends_on:
-      - sqlserver
+        - sqlserver
     volumes:
-      - ./CreateDataBase.sql:/tmp/CreateDataBase.sql
-      - ./init-database.sh:/tmp/init-database.sh
+        - ./CreateDataBase.sql:/tmp/CreateDataBase.sql
+        - ./init-database.sh:/tmp/init-database.sh
     command: /bin/bash ./tmp/init-database.sh
-      - mssqldata
+        - mssqldata

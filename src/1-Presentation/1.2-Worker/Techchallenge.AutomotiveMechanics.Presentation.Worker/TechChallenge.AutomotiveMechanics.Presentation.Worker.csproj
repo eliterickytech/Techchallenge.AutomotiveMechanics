@@ -18,6 +18,5 @@
     <ProjectReference Include="..\..\..\2-Services\2.1-Business\TechChallenge.AutomotiveMechanics.Services.Business\TechChallenge.AutomotiveMechanics.Services.Business.csproj" />
     <ProjectReference Include="..\..\..\4-Infrastructure\4.1-Data\TechChallenge.AutomotiveMechanics.Infrastructure.Data\TechChallenge.AutomotiveMechanics.Infrastructure.Data.csproj" />
     <ProjectReference Include="..\..\..\5-Crosscutting\5.1-IOC\TechChallenge.AutomotiveMechanics.Crosscutting.Ioc\TechChallenge.AutomotiveMechanics.Crosscutting.Ioc.csproj" />
-    <ProjectReference Include="..\..\..\5-Crosscutting\5.2-Shared\Techchallenge.AutomotiveMechanics.Crosscutting.Shared\TechChallenge.AutomotiveMechanics.Crosscutting.Shared.csproj" />
   </ItemGroup>
 </Project>

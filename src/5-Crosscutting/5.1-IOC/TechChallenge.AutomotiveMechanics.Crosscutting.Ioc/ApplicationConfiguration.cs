@@ -27,9 +27,7 @@ namespace TechChallenge.AutomotiveMechanics.Crosscutting.Ioc
                 .AddScoped<IServiceService, ServiceService>()
                 .AddScoped<IModelService, ModelService>()
                 .AddScoped<IManufacturerService, ManufacturerService>()
-                .AddScoped<IUserService, UserService>()
-                .AddScoped<IOrderService, OrderService>()
-                .AddScoped<IEmailService, EmailService>();
+                .AddScoped<IUserService, UserService>();
             return services;
         }
     }

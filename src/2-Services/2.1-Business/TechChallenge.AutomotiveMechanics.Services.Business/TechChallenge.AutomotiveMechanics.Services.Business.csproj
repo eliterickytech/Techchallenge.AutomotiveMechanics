@@ -20,4 +20,8 @@
     <ProjectReference Include="..\..\..\5-Crosscutting\5.2-Shared\Techchallenge.AutomotiveMechanics.Crosscutting.Shared\TechChallenge.AutomotiveMechanics.Crosscutting.Shared.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Contract\Order\" />
+  </ItemGroup>
+
 </Project>

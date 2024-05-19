@@ -21,8 +21,8 @@ IHost host = Host.CreateDefaultBuilder(args)
         services.AddHostedService<NotifyOrderConsumer>();
         services.AddScoped<IOrderService, OrderService>();
         services.AddScoped<IOrderRepository, OrderRepository>();
-        services.AddScoped<IEmailService, EmailService>();
         services.AddScoped<IBaseNotification, BaseNotification>();
+
         AutoMapperConfig.ConfigureMappings(services);
 
         services.AddDbContext<ApplicationDbContext>(options =>

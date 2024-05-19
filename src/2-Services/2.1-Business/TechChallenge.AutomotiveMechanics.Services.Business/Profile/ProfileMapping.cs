@@ -35,11 +35,6 @@ namespace TechChallenge.AutomotiveMechanics.Services.Business.Profile
 
             CreateMap<Order, OrderResult>().ReverseMap();
             CreateMap<OrderInsertInput, Order>().ReverseMap();
-
-            CreateMap<OrderInsertInput, OrderEvents>().ReverseMap();
-
-            CreateMap<OrderEvents, Order>().ReverseMap();
-
         }
     }
 }

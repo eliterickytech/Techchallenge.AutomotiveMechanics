@@ -23,16 +23,6 @@ builder
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-builder.Services.AddMassTransit(x =>
-{
-    x.UsingRabbitMq((context, cfg) =>
-    {
-        cfg.Host("amqp://localhost:5672", h =>
-        {
-            cfg.ConfigureEndpoints(context);
-        });
-    });
-});
 
 builder.Services.AddApplicationConfiguration(builder.Configuration);
 builder.Services.AddInfrastructureConfiguration(builder.Configuration);

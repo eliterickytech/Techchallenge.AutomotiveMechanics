@@ -6,7 +6,6 @@ using System.Text;
 using System.Text.Json;
 using TechChallenge.AutomotiveMechanics.Services.Business.Interfaces.Services;
 using TechChallenge.AutomotiveMechanics.Domain.Entities;
-using MassTransit;
 using TechChallenge.AutomotiveMechanics.Services.Business.Input;
 using TechChallenge.AutomotiveMechanics.Services.Business.Services;
 
@@ -28,6 +27,11 @@ namespace TechChallenge.AutomotiveMechanics.Presentation.API.Controllers
         /// Listar Orders
         /// </summary>
         /// <returns></returns>
+
+        [HttpGet]
+        public async Task<IActionResult> Get()
+        {
+            var result = await _orderService.ListAsync();
 
         [HttpGet]
         public async Task<IActionResult> Get()

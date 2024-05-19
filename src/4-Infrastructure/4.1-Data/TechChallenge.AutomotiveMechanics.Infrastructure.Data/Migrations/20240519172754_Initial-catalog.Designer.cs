@@ -12,8 +12,8 @@ using TechChallenge.AutomotiveMechanics.Infrastructure.Data;
 namespace TechChallenge.AutomotiveMechanics.Infrastructure.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20231023233823_Inicio")]
-    partial class Inicio
+    [Migration("20240519172754_Initial-catalog")]
+    partial class Initialcatalog
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -370,6 +370,43 @@ namespace TechChallenge.AutomotiveMechanics.Infrastructure.Data.Migrations
                             ManufacturerId = 3,
                             Name = "Veloster"
                         });
+                });
+
+            modelBuilder.Entity("TechChallenge.AutomotiveMechanics.Domain.Entities.Order", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<DateTime>("CreatedDate")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("datetime")
+                        .HasDefaultValueSql("(getdate())");
+
+                    b.Property<string>("Email")
+                        .IsRequired()
+                        .HasMaxLength(80)
+                        .HasColumnType("nvarchar(80)");
+
+                    b.Property<bool>("Enabled")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTime?>("LastModifiedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<decimal>("ServicePrice")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<string>("VehicleName")
+                        .IsRequired()
+                        .HasMaxLength(60)
+                        .HasColumnType("nvarchar(60)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Order", (string)null);
                 });
 
             modelBuilder.Entity("TechChallenge.AutomotiveMechanics.Domain.Entities.Service", b =>

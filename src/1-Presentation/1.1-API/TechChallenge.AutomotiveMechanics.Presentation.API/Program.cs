@@ -1,12 +1,7 @@
-using MassTransit;
-using MassTransit.Configuration;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
-using System.Net;
 using System.Text.Json.Serialization;
-using TechChallenge.AutomotiveMechanics.Crosscutting.Shared.Events;
 using TechChallenge.AutomotiveMechanics.Crosscutting.Ioc;
-using TechChallenge.AutomotiveMechanics.Domain.Entities;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -23,22 +18,9 @@ builder
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-builder.Services.AddMassTransit(x =>
-{
-    x.UsingRabbitMq((context, cfg) =>
-    {
-        cfg.Host("amqp://localhost:5672", h =>
-        {
-            cfg.ConfigureEndpoints(context);
-        });
-    });
-});
 
 builder.Services.AddApplicationConfiguration(builder.Configuration);
 builder.Services.AddInfrastructureConfiguration(builder.Configuration);
-
-
-
 
 var app = builder.Build();
 

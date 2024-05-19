@@ -3,16 +3,14 @@
   <PropertyGroup Label="Globals">
     <ProjectVersion>2.1</ProjectVersion>
     <DockerTargetOS>Linux</DockerTargetOS>
-    <ProjectGuid>39f0eea5-9648-44fe-bed8-16ca82885dcc</ProjectGuid>
+    <DockerPublishLocally>False</DockerPublishLocally>
+    <ProjectGuid>33425a8b-1db6-4623-a0ea-d0501303d2c6</ProjectGuid>
     <DockerLaunchAction>LaunchBrowser</DockerLaunchAction>
     <DockerServiceUrl>{Scheme}://localhost:{ServicePort}/swagger</DockerServiceUrl>
     <DockerServiceName>techchallenge.automotivemechanics.presentation.api</DockerServiceName>
   </PropertyGroup>
   <ItemGroup>
     <None Include="CreateDataBase.sql" />
-    <None Include="docker-compose.override.yml">
-      <DependentUpon>docker-compose.yml</DependentUpon>
-    </None>
     <None Include="docker-compose.yml" />
     <None Include=".dockerignore" />
     <None Include="init-database.sh" />

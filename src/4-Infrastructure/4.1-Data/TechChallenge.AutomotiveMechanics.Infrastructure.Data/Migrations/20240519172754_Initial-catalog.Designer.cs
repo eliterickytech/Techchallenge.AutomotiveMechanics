@@ -12,8 +12,8 @@ using TechChallenge.AutomotiveMechanics.Infrastructure.Data;
 namespace TechChallenge.AutomotiveMechanics.Infrastructure.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20240314223254_AddOrder")]
-    partial class AddOrder
+    [Migration("20240519172754_Initial-catalog")]
+    partial class Initialcatalog
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

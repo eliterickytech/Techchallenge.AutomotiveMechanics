@@ -1,12 +1,10 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
-using RabbitMQ.Client;
 using System.Text;
 using System.Text.Json;
 using TechChallenge.AutomotiveMechanics.Services.Business.Interfaces.Services;
 using TechChallenge.AutomotiveMechanics.Domain.Entities;
-using MassTransit;
 using TechChallenge.AutomotiveMechanics.Services.Business.Input;
 using TechChallenge.AutomotiveMechanics.Services.Business.Services;
 

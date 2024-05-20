@@ -29,13 +29,18 @@ namespace TechChallenge.AutomotiveMechanics.Services.Business.Services
         public async Task<UserResult> Login(UserLoginInput input)
         {
             var token =  await _userRepository.Login(input.Email, input.Password);
+
             var result = new UserResult();
             if (token == null)
             {
                 result.Message = "Usuário ou senha inválidos.";
                 return result;
             }
+
+            var user = await _userRepository.GetMany(x => x.Email == input.Email);
+
             result.Token = token;
+            result.Name = user.FirstOrDefault().Name;
             result.Email = input.Email;
             result.Message = "Autenticação realizada com sucesso.";
 

@@ -20,7 +20,7 @@ namespace TechChallenge.AutomotiveMechanics.Infrastructure.Data.Repositories
             var result = await _context.Manufacturers
                 .Include(x => x.Models)
                 .Where(x => x.Enabled == true)
-                .Where(x => x.Models.Any(x => x.Enabled == true))
+                //.Where(x => x.Models.Any(x => x.Enabled == true))
                 .ToListAsync();
 
             return result;

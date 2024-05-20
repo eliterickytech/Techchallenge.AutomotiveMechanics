@@ -1,9 +1,15 @@
+using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
 using System.Text.Json.Serialization;
 using TechChallenge.AutomotiveMechanics.Crosscutting.Ioc;
+using TechChallenge.AutomotiveMechanics.Infrastructure.Data;
 
 var builder = WebApplication.CreateBuilder(args);
+
+builder.Services.AddDbContext<ApplicationDbContext>(options =>
+    options.UseSqlServer(builder.Configuration.GetConnectionString("AutomotiveMechanics")
+    ?? throw new InvalidOperationException("Connection string 'ConnectionString' not found.")));
 
 builder
     .Services.AddControllers() 
@@ -24,10 +30,10 @@ builder.Services.AddInfrastructureConfiguration(builder.Configuration);
 
 var app = builder.Build();
 
-//if (app.Environment.IsDevelopment())
-//{
+if (app.Environment.IsDevelopment())
+{
 
-//}
+}
 app.UseSwagger();
 app.UseSwaggerUI();
 

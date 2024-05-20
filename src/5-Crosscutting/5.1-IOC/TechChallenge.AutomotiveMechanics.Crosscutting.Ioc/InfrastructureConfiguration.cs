@@ -16,7 +16,7 @@ namespace TechChallenge.AutomotiveMechanics.Crosscutting.Ioc
     {
         public static IServiceCollection AddInfrastructureConfiguration(this IServiceCollection services, IConfiguration config)
         {
-            services.AddDbContext<ApplicationDbContext>();
+            //services.AddDbContext<ApplicationDbContext>();
 
             services.AddApiVersioning(options =>
             {

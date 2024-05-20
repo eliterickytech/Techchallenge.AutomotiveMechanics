@@ -19,4 +19,8 @@
     <ProjectReference Include="..\..\..\3-Domain\TechChallenge.AutomotiveMechanics.Domain\TechChallenge.AutomotiveMechanics.Domain.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Contract\Order\" />
+  </ItemGroup>
+
 </Project>

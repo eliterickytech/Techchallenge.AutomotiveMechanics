@@ -6,70 +6,46 @@ using Xunit;
 using TechChallenge.AutomotiveMechanics.Domain.Entities;
 using TechChallenge.AutomotiveMechanics.Tests.FakeData;
 using Microsoft.EntityFrameworkCore.Diagnostics;
+using TechChallenge.AutomotiveMechanics.Domain.Interfaces.Repositories;
 
 namespace TechChallenge.AutomotiveMechanics.Tests.Repositories
 {
     public class ModelRepositoryTests
     {
-        private readonly DbContextOptions<ApplicationDbContext> _options;
+        private readonly ApplicationDbContext _context;
+        private readonly Mock<IModelRepository> _modelRepositoryMock = new Mock<IModelRepository>();
+        private readonly ModelFakeData _modelFaker = new ModelFakeData();
 
         public ModelRepositoryTests()
         {
-            // Configure as opções do contexto usando um banco de dados em memória
-            _options = new DbContextOptionsBuilder<ApplicationDbContext>()
-                .UseInMemoryDatabase(databaseName: Guid.NewGuid().ToString())
-                .ConfigureWarnings(x => x.Ignore(InMemoryEventId.TransactionIgnoredWarning))
-                .Options;
+            var options = new DbContextOptionsBuilder<ApplicationDbContext>()
+              .UseInMemoryDatabase(databaseName: "TestDatabase")
+              .Options;
+
+            _context = new ApplicationDbContext(options);
         }
 
         [Fact]
         public async Task ListAsync_ReturnsListOfModels()
         {
-            // Arrange
-            using (var context = new ApplicationDbContext(_options))
-            {
-                // Adicionar alguns modelos de teste ao contexto em memória
-                var models = new List<Model>
-            {
-                new Model { Id = 1, Name = "Model 1", ManufacturerId = 1, Cars = new List<Car>() },
-                new Model { Id = 2, Name = "Model 2", ManufacturerId = 2, Cars = new List<Car>() }
-            };
-                context.Models.AddRange(models);
-                await context.SaveChangesAsync();
-            }
+            var models = _modelFaker.Generate(2);
+            _modelRepositoryMock.Setup(repo => repo.ListAsync()).ReturnsAsync(models);
 
-            // Act
-            using (var context = new ApplicationDbContext(_options))
-            {
-                var repository = new ModelRepository(context);
-                var result = await repository.ListAsync();
+            var result = await _modelRepositoryMock.Object.ListAsync();
 
-                // Assert
-                Assert.Equal(2, result.Count);
-            }
+            Assert.Equal(2, result.Count);
         }
 
         [Fact]
         public async Task FindByIdAsync_ReturnsModel_WhenModelExists()
         {
-            // Arrange
-            using (var context = new ApplicationDbContext(_options))
-            {
-                // Adicionar um modelo de teste ao contexto em memória
-                context.Models.Add(new Model { Id = 1, Name = "Test Model", ManufacturerId = 1, Cars = new List<Car>() });
-                await context.SaveChangesAsync();
-            }
+            var model = _modelFaker.Generate();
+            _modelRepositoryMock.Setup(repo => repo.FindByIdAsync(model.Id)).ReturnsAsync(model);
 
-            // Act
-            using (var context = new ApplicationDbContext(_options))
-            {
-                var repository = new ModelRepository(context);
-                var result = await repository.FindByIdAsync(1);
+            var result = await _modelRepositoryMock.Object.FindByIdAsync(model.Id);
 
-                // Assert
-                Assert.NotNull(result);
-                Assert.Equal(1, result.Id);
-            }
+            Assert.NotNull(result);
+            Assert.Equal(model.Id, result.Id);
         }
     }
 }

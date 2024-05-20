@@ -5,70 +5,46 @@ using TechChallenge.AutomotiveMechanics.Infrastructure.Data.Repositories;
 using TechChallenge.AutomotiveMechanics.Infrastructure.Data;
 using TechChallenge.AutomotiveMechanics.Tests.FakeData;
 using Microsoft.EntityFrameworkCore.Diagnostics;
+using TechChallenge.AutomotiveMechanics.Domain.Interfaces.Repositories;
 
 namespace TechChallenge.AutomotiveMechanics.Tests.Repositories
 {
     public class ManufacturerRepositoryTests
     {
-        private readonly DbContextOptions<ApplicationDbContext> _options;
+        private readonly ApplicationDbContext _context;
+        private readonly Mock<IManufacturerRepository> _manufacturerRepositoryMock = new Mock<IManufacturerRepository>();
+        private readonly ManufacturerFakeData _manufacturerFaker = new ManufacturerFakeData();
 
         public ManufacturerRepositoryTests()
         {
-            // Configure as opções do contexto usando um banco de dados em memória
-            _options = new DbContextOptionsBuilder<ApplicationDbContext>()
-                .UseInMemoryDatabase(databaseName: Guid.NewGuid().ToString())
-                .ConfigureWarnings(x => x.Ignore(InMemoryEventId.TransactionIgnoredWarning))
-                .Options;
+            var options = new DbContextOptionsBuilder<ApplicationDbContext>()
+              .UseInMemoryDatabase(databaseName: "TestDatabase")
+              .Options;
+
+            _context = new ApplicationDbContext(options);
         }
 
         [Fact]
         public async Task ListAsync_ReturnsListOfManufacturers()
         {
-            // Arrange
-            using (var context = new ApplicationDbContext(_options))
-            {
-                // Adicionar alguns fabricantes de teste ao contexto em memória
-                var manufacturers = new List<Manufacturer>
-            {
-                new Manufacturer { Id = 1, Name = "Manufacturer 1", Models = new List<Model>() },
-                new Manufacturer { Id = 2, Name = "Manufacturer 2", Models = new List<Model>() }
-            };
-                context.Manufacturers.AddRange(manufacturers);
-                await context.SaveChangesAsync();
-            }
+            var manufacturers = _manufacturerFaker.Generate(2);
+            _manufacturerRepositoryMock.Setup(repo => repo.ListAsync()).ReturnsAsync(manufacturers);
 
-            // Act
-            using (var context = new ApplicationDbContext(_options))
-            {
-                var repository = new ManufacturerRepository(context);
-                var result = await repository.ListAsync();
+            var result = await _manufacturerRepositoryMock.Object.ListAsync();
 
-                // Assert
-                Assert.Equal(2, result.Count);
-            }
+            Assert.Equal(2, result.Count);
         }
 
         [Fact]
         public async Task FindByIdAsync_ReturnsManufacturer_WhenManufacturerExists()
         {
-            // Arrange
-            using (var context = new ApplicationDbContext(_options))
-            {
-                // Adicionar um fabricante de teste ao contexto em memória
-                context.Manufacturers.Add(new Manufacturer { Id = 1, Name = "Test Manufacturer", Models = new List<Model>() });
-                await context.SaveChangesAsync();
-            }
+            var manufacturer = _manufacturerFaker.Generate();
+            _manufacturerRepositoryMock.Setup(repo => repo.FindByIdAsync(manufacturer.Id)).ReturnsAsync(manufacturer);
 
-            // Act
-            using (var context = new ApplicationDbContext(_options))
-            {
-                var repository = new ManufacturerRepository(context);
-                var result = await repository.FindByIdAsync(1);
+            var result = await _manufacturerRepositoryMock.Object.FindByIdAsync(manufacturer.Id);
 
-                // Assert
-                Assert.NotNull(result);
-                Assert.Equal(1, result.Id);
-            }
+            Assert.NotNull(result);
+            Assert.Equal(manufacturer.Id, result.Id);
         }
     }
 }

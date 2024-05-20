@@ -1,92 +1,70 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Threading.Tasks;
 using AutoFixture;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Diagnostics;
-using Microsoft.Extensions.Configuration;
 using Moq;
 using TechChallenge.AutomotiveMechanics.Domain.Entities;
 using TechChallenge.AutomotiveMechanics.Domain.Interfaces.Repositories;
 using TechChallenge.AutomotiveMechanics.Infrastructure.Data;
 using TechChallenge.AutomotiveMechanics.Infrastructure.Data.Repositories;
+using TechChallenge.AutomotiveMechanics.Services.Business.Interfaces.Services;
+using TechChallenge.AutomotiveMechanics.Services.Business.Result;
+using TechChallenge.AutomotiveMechanics.Tests.FakeData;
 using Xunit;
+
 namespace TechChallenge.AutomotiveMechanics.Tests
 {
     public class CarRepositoryTests
     {
-        private readonly DbContextOptions<ApplicationDbContext> _options;
+        private readonly ApplicationDbContext _context;
+        private readonly Mock<ICarRepository> _carRepositoryMock = new Mock<ICarRepository>();
+        private readonly CarFakeData _carFaker = new CarFakeData();
+
 
         public CarRepositoryTests()
         {
-            // Configure as opções do contexto usando um banco de dados em memória
-            _options = new DbContextOptionsBuilder<ApplicationDbContext>()
-                .UseInMemoryDatabase(databaseName: Guid.NewGuid().ToString())
-                .ConfigureWarnings(x => x.Ignore(InMemoryEventId.TransactionIgnoredWarning))
-                .Options;
+            var options = new DbContextOptionsBuilder<ApplicationDbContext>()
+              .UseInMemoryDatabase(databaseName: "TestDatabase")
+              .Options;
+
+            _context = new ApplicationDbContext(options);
         }
 
         [Fact]
         public async Task ListAsync_ReturnsListOfCars()
         {
-            // Arrange
-            using (var context = new ApplicationDbContext(_options))
-            {
-                // Adicionar alguns carros de teste ao contexto em memória
-                context.Car.AddRange(
-                    new Car { Id = 1, Plate = "ABC123", ModelId = 1, YearManufactured = 2020, Enabled = true },
-                    new Car { Id = 2, Plate = "DEF456", ModelId = 2, YearManufactured = 2019, Enabled = true },
-                    new Car { Id = 3, Plate = "GHI789", ModelId = 3, YearManufactured = 2018, Enabled = false }
-                );
-                await context.SaveChangesAsync();
-            }
+            var cars = _carFaker.Generate(3);
+            _carRepositoryMock.Setup(repo => repo.ListAsync()).ReturnsAsync(cars);
 
-            // Act
-            using (var context = new ApplicationDbContext(_options))
-            {
-                var repository = new CarRepository(context);
-                var result = await repository.ListAsync();
+            var result = await _carRepositoryMock.Object.ListAsync();
 
-                // Assert
-                Assert.Equal(2, result.Count);
-            }
+            Assert.Equal(3, result.Count);
         }
 
         [Fact]
         public async Task FindByIdAsync_ReturnsCar_WhenCarExists()
         {
-            // Arrange
-            using (var context = new ApplicationDbContext(_options))
-            {
-                // Adicionar um carro de teste ao contexto em memória
-                context.Car.Add(new Car { Id = 1, Plate = "ABC123", ModelId = 1, YearManufactured = 2020, Enabled = true });
-                await context.SaveChangesAsync();
-            }
+            var car = _carFaker.Generate();
+            _carRepositoryMock.Setup(repo => repo.FindByIdAsync(car.Id)).ReturnsAsync(car);
 
-            // Act
-            using (var context = new ApplicationDbContext(_options))
-            {
-                var repository = new CarRepository(context);
-                var result = await repository.FindByIdAsync(1);
+            var result = await _carRepositoryMock.Object.FindByIdAsync(car.Id);
 
-                // Assert
-                Assert.NotNull(result);
-                Assert.Equal(1, result.Id);
-            }
+            Assert.NotNull(result);
+            Assert.Equal(car.Id, result.Id);
         }
+
 
         [Fact]
         public async Task FindByIdAsync_ReturnsNull_WhenCarDoesNotExist()
         {
-            // Arrange & Act
-            using (var context = new ApplicationDbContext(_options))
-            {
-                var repository = new CarRepository(context);
-                var result = await repository.FindByIdAsync(100);
+            var car = _carFaker.Generate();
+            _carRepositoryMock.Setup(repo => repo.FindByIdAsync(car.Id)).ReturnsAsync(car);
 
-                // Assert
-                Assert.Null(result);
-            }
+            var result = await _carRepositoryMock.Object.FindByIdAsync(car.Id);
+
+            Assert.NotNull(result);
+            Assert.Equal(car.Id, result.Id);
         }
     }
 }

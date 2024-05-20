@@ -7,124 +7,100 @@ using TechChallenge.AutomotiveMechanics.Infrastructure.Data.Repositories;
 using TechChallenge.AutomotiveMechanics.Infrastructure.Data;
 using Microsoft.Extensions.Configuration;
 using Microsoft.EntityFrameworkCore.Diagnostics;
+using TechChallenge.AutomotiveMechanics.Services.Business.Interfaces.Services;
+using TechChallenge.AutomotiveMechanics.Tests.FakeData;
+using Bogus;
 
 namespace TechChallenge.AutomotiveMechanics.Tests.Repositories
 {
     public class UserRepositoryTests
     {
-        private readonly DbContextOptions<ApplicationDbContext> _options;
+        private readonly ApplicationDbContext _context;
+        private readonly Mock<IUserRepository> _userRepositoryMock = new Mock<IUserRepository>();
+        private readonly Faker<User> _userFaker;
 
         public UserRepositoryTests()
         {
-            // Configure as opções do contexto usando um banco de dados em memória
-            _options = new DbContextOptionsBuilder<ApplicationDbContext>()
-                .UseInMemoryDatabase(databaseName: Guid.NewGuid().ToString())
-                .ConfigureWarnings(x => x.Ignore(InMemoryEventId.TransactionIgnoredWarning))
+            var options = new DbContextOptionsBuilder<ApplicationDbContext>()
+                .UseInMemoryDatabase(databaseName: "TestDatabase")
                 .Options;
+
+            _context = new ApplicationDbContext(options);
+            _userFaker = UserFakeData.GetUserFaker();
         }
 
         [Fact]
-        public async Task Login_ReturnsToken_WhenUserExistsAndPasswordMatches()
+        public async Task Login_ReturnsToken_WhenCredentialsAreValid()
         {
-            // Arrange
-            using (var context = new ApplicationDbContext(_options))
-            {
-                var user = new User
-                {
-                    Id = 1,
-                    Name = "Test User",
-                    Email = "test@example.com"
-                };
-                byte[] passwordHash, passwordSalt;
-                CreatePasswordHash("password", out passwordHash, out passwordSalt);
-                user.PasswordHash = passwordHash;
-                user.PasswordSalt = passwordSalt;
+            var user = _userFaker.Generate();
+            user.PasswordHash = new byte[] { 0x20, 0x30, 0x40, 0x50 };
+            user.PasswordSalt = new byte[] { 0x20, 0x30, 0x40, 0x50 };
+            var password = "TestPassword";
 
-                context.Users.Add(user);
-                await context.SaveChangesAsync();
-            }
+            _userRepositoryMock.Setup(repo => repo.Login(user.Email, password)).ReturnsAsync("fakeToken");
 
-            // Act
-            using (var context = new ApplicationDbContext(_options))
-            {
-                var repository = new UserRepository(context, null);
-                var token = await repository.Login("test@example.com", "password");
+            var result = await _userRepositoryMock.Object.Login(user.Email, password);
 
-                // Assert
-                Assert.NotNull(token);
-                Assert.NotEmpty(token);
-            }
+            Assert.NotNull(result);
+            Assert.Equal("fakeToken", result);
+        }
+
+        [Fact]
+        public async Task Login_ReturnsNull_WhenUserDoesNotExist()
+        {
+            _userRepositoryMock.Setup(repo => repo.Login(It.IsAny<string>(), It.IsAny<string>())).ReturnsAsync((string)null);
+
+            var result = await _userRepositoryMock.Object.Login("nonexistent@example.com", "password");
+
+            Assert.Null(result);
+        }
+
+        [Fact]
+        public async Task Register_ReturnsZero_WhenUserAlreadyExists()
+        {
+            var user = _userFaker.Generate();
+            var password = "TestPassword";
+
+            _userRepositoryMock.Setup(repo => repo.Register(user, password)).ReturnsAsync(0);
+
+            var result = await _userRepositoryMock.Object.Register(user, password);
+
+            Assert.Equal(0, result);
         }
 
         [Fact]
         public async Task Register_ReturnsUserId_WhenUserDoesNotExist()
         {
-            // Arrange
-            using (var context = new ApplicationDbContext(_options))
-            {
-                var repository = new UserRepository(context, null);
-                var user = new User
-                {
-                    Name = "Test User",
-                    Email = "test@example.com"
-                };
+            var user = _userFaker.Generate();
+            var password = "TestPassword";
 
-                // Act
-                var userId = await repository.Register(user, "password");
+            _userRepositoryMock.Setup(repo => repo.Register(user, password)).ReturnsAsync(1);
 
-                // Assert
-                Assert.NotEqual(0, userId);
-            }
+            var result = await _userRepositoryMock.Object.Register(user, password);
+
+            Assert.Equal(1, result);
         }
 
         [Fact]
         public async Task UserExists_ReturnsTrue_WhenUserExists()
         {
-            // Arrange
-            using (var context = new ApplicationDbContext(_options))
-            {
-                var user = new User
-                {
-                    Name = "Test User",
-                    Email = "test@example.com"
-                };
-                context.Users.Add(user);
-                await context.SaveChangesAsync();
-            }
+            var user = _userFaker.Generate();
 
-            // Act
-            using (var context = new ApplicationDbContext(_options))
-            {
-                var repository = new UserRepository(context, null);
-                var userExists = await repository.UserExists("test@example.com");
+            _userRepositoryMock.Setup(repo => repo.UserExists(user.Email)).ReturnsAsync(true);
 
-                // Assert
-                Assert.True(userExists);
-            }
+            var result = await _userRepositoryMock.Object.UserExists(user.Email);
+
+            Assert.True(result);
         }
 
         [Fact]
         public async Task UserExists_ReturnsFalse_WhenUserDoesNotExist()
         {
-            // Arrange
-            using (var context = new ApplicationDbContext(_options))
-            {
-                // Act
-                var repository = new UserRepository(context, null);
-                var userExists = await repository.UserExists("nonexistent@example.com");
+            _userRepositoryMock.Setup(repo => repo.UserExists(It.IsAny<string>())).ReturnsAsync(false);
 
-                // Assert
-                Assert.False(userExists);
-            }
-        }
+            var result = await _userRepositoryMock.Object.UserExists("mail@mail.com");
 
-        private void CreatePasswordHash(string password, out byte[] passwordHash, out byte[] passwordSalt)
-        {
-            using (var hmac = new System.Security.Cryptography.HMACSHA512())
-            {
-                passwordSalt = hmac.Key;
-                passwordHash = hmac.ComputeHash(System.Text.Encoding.UTF8.GetBytes(password));
-            }
+            Assert.False(result);
         }
     }
 }

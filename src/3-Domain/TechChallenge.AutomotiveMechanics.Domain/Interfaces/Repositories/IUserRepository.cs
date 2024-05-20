@@ -12,5 +12,6 @@ namespace TechChallenge.AutomotiveMechanics.Services.Business.Interfaces.Service
     {
         Task<string> Login(string email, string password); 
         Task<int> Register(User user, string password);
+        Task<bool> UserExists(string email);
     }
 }

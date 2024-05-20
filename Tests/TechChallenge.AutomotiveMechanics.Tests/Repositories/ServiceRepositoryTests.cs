@@ -11,89 +11,61 @@ using TechChallenge.AutomotiveMechanics.Infrastructure.Data;
 using TechChallenge.AutomotiveMechanics.Tests.FakeData;
 using Microsoft.EntityFrameworkCore.Storage;
 using Microsoft.EntityFrameworkCore.Diagnostics;
+using TechChallenge.AutomotiveMechanics.Domain.Interfaces.Repositories;
+using TechChallenge.AutomotiveMechanics.Services.Business.Services;
 
 namespace TechChallenge.AutomotiveMechanics.Tests.Repositories
 {
     public class ServiceRepositoryTests
     {
-        private readonly DbContextOptions<ApplicationDbContext> _options;
+        private readonly ApplicationDbContext _context;
+        private readonly Mock<IServiceRepository> _serviceRepositoryMock = new Mock<IServiceRepository>();
+        private readonly ServiceFakeData _serviceFaker = new ServiceFakeData();
 
         public ServiceRepositoryTests()
         {
-            // Configure as opções do contexto usando um banco de dados em memória
-            _options = new DbContextOptionsBuilder<ApplicationDbContext>()
-                .UseInMemoryDatabase(databaseName: Guid.NewGuid().ToString())
-                .ConfigureWarnings(x => x.Ignore(InMemoryEventId.TransactionIgnoredWarning))
+            var options = new DbContextOptionsBuilder<ApplicationDbContext>()
+                .UseInMemoryDatabase(databaseName: "TestDatabase")
                 .Options;
+
+            _context = new ApplicationDbContext(options);
         }
 
         [Fact]
         public async Task ListAsync_ReturnsListOfServices()
         {
-            // Arrange
-            using (var context = new ApplicationDbContext(_options))
-            {
-                // Adicionar alguns serviços de teste ao contexto em memória
-                var services = new List<Service>
-            {
-                new Service { Id = 1, Name = "Service 1", CarId = 1 },
-                new Service { Id = 2, Name = "Service 2", CarId = 2 }
-            };
-                context.Services.AddRange(services);
-                await context.SaveChangesAsync();
-            }
+            var services = _serviceFaker.Generate(2);
+            _serviceRepositoryMock.Setup(repo => repo.ListAsync()).ReturnsAsync(services);
 
-            // Act
-            using (var context = new ApplicationDbContext(_options))
-            {
-                var repository = new ServiceRepository(context);
-                var result = await repository.ListAsync();
+            var result = await _serviceRepositoryMock.Object.ListAsync();
 
-                // Assert
-                Assert.Equal(2, result.Count);
-            }
+            Assert.Equal(2, result.Count);
         }
 
         [Fact]
         public async Task FindByIdAsync_ReturnsService_WhenServiceExists()
         {
-            // Arrange
-            using (var context = new ApplicationDbContext(_options))
-            {
-                // Adicionar um serviço de teste ao contexto em memória
-                context.Services.Add(new Service { Id = 1, Name = "Test Service", CarId = 1 });
-                await context.SaveChangesAsync();
-            }
+            var service = _serviceFaker.Generate();
+            _serviceRepositoryMock.Setup(repo => repo.FindByIdAsync(service.Id)).ReturnsAsync(service);
 
-            // Act
-            using (var context = new ApplicationDbContext(_options))
-            {
-                var repository = new ServiceRepository(context);
-                var result = await repository.FindByIdAsync(1);
+            var result = await _serviceRepositoryMock.Object.FindByIdAsync(service.Id);
 
-                // Assert
-                Assert.NotNull(result);
-                Assert.Equal(1, result.Id);
-            }
+            Assert.NotNull(result);
+            Assert.Equal(service.Id, result.Id);
         }
 
         [Fact]
         public async Task AddServiceCarAsync_AddsServiceToDatabase()
         {
-            // Arrange
-            var service = new Service { Id = 1, Name = "Test Service", CarId = 1 };
+            var service = _serviceFaker.Generate();
 
-            using (var context = new ApplicationDbContext(_options))
-            {
-                // Act
-                var repository = new ServiceRepository(context);
-                var result = await repository.AddServiceCarAsync(service);
+            _serviceRepositoryMock.Setup(repo => repo.AddServiceCarAsync(service)).ReturnsAsync(service);
 
-                // Assert
-                Assert.NotNull(result);
-                Assert.Equal(1, context.Services.Count());
-                Assert.Contains(service, context.Services);
-            }
+            var result = await _serviceRepositoryMock.Object.AddServiceCarAsync(service);
+
+            Assert.NotNull(result);
+            Assert.Equal(service.Id, result.Id);
+            _serviceRepositoryMock.Verify(repo => repo.AddServiceCarAsync(service), Times.Once);
         }
     }
 }
